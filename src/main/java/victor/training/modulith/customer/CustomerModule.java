@@ -3,12 +3,10 @@ package victor.training.modulith.customer;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.customer.domain.Customer;
 import victor.training.modulith.customer.domain.CustomerRepo;
 import victor.training.modulith.customer.door.out.OrdersForCustomer;
-import victor.training.modulith.order.out.door.OrderConfirmedEvent;
 
 @Slf4j
 @Service
@@ -22,14 +20,17 @@ public class CustomerModule {
     customerRepo.save(new Customer("margareta", "Margareta", "Bucharest", "margareta@example.com"));
   }
 
-  public Customer getCustomerAddress(String customerId) {
-    return customerRepo.findById(customerId).orElseThrow();
+  public String getCustomerAddress(String customerId) {
+    return customerRepo.findById(customerId).orElseThrow().address();
+  }
+  public String getCustomerEmail(String customerId) {
+    return customerRepo.findById(customerId).orElseThrow().email();
   }
 
-  @ApplicationModuleListener
-  void handleOrderConfirmed(OrderConfirmedEvent e) {
-    String customerId = ordersDoor.getCustomerOfOrder(e.orderId());
-    Customer customer = customerRepo.findById(customerId).orElseThrow();
-    log.info("Sending 'Order Confirmed' email to " + customer);
-  }
+//  @ApplicationModuleListener
+//  void handleOrderConfirmed(OrderConfirmedEvent e) {
+//    String customerId = ordersDoor.getCustomerOfOrder(e.orderId());
+//    Customer customer = customerRepo.findById(customerId).orElseThrow();
+//    log.info("Sending 'Order Confirmed' email to " + customer);
+//  }
 }
