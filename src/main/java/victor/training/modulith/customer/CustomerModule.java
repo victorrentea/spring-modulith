@@ -7,7 +7,7 @@ import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.customer.domain.Customer;
 import victor.training.modulith.customer.domain.CustomerRepo;
-import victor.training.modulith.order.in.door.OrdersDoor;
+import victor.training.modulith.customer.door.out.OrdersForCustomer;
 import victor.training.modulith.order.out.door.OrderConfirmedEvent;
 
 @Slf4j
@@ -15,7 +15,7 @@ import victor.training.modulith.order.out.door.OrderConfirmedEvent;
 @RequiredArgsConstructor
 public class CustomerModule {
   private final CustomerRepo customerRepo;
-  private final OrdersDoor ordersDoor;
+  private final OrdersForCustomer ordersDoor;
 
   @PostConstruct
   void insertInitialData() {
