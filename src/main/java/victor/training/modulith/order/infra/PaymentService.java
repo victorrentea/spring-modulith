@@ -1,10 +1,10 @@
-package victor.training.modulith.order.out.infra;
+package victor.training.modulith.order.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import victor.training.modulith.order.domain.Order;
+import org.springframework.web.bind.annotation.RequestParam;
+import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.shared.Adapter;
 
 @Adapter
@@ -19,7 +19,7 @@ public class PaymentService {
   @FeignClient(name = "payment")
   public interface PaymentGatewayApi {
     @GetMapping
-    String generatePaymentLink(String redirectUrl, Double total, String clientApp);
+    String generatePaymentLink(@RequestParam String redirectUrl, @RequestParam Double total, @RequestParam String clientApp);
   }
 
 }

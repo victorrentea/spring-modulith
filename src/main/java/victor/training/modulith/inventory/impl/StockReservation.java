@@ -1,8 +1,6 @@
-package victor.training.modulith.inventory.domain;
+package victor.training.modulith.inventory.impl;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import victor.training.modulith.shared.ProductId;
@@ -20,6 +18,7 @@ public class StockReservation {
   private Long orderId;
 
   @NotNull
+  @AttributeOverride(name = "id", column = @Column(name = "product_id"))
   private ProductId productId;
 
   @NotNull

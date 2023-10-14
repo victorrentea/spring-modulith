@@ -1,8 +1,10 @@
-package victor.training.modulith.order.out.infra;
+package victor.training.modulith.order.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import victor.training.modulith.shared.Adapter;
 
 @Adapter
@@ -16,8 +18,8 @@ public class ShipmentService {
   
   @FeignClient(name = "shipment")
   public interface ShipmentApi {
-    @GetMapping
-    String requestShipment(String pickupAddress, String deliveryAddress);
+    @PostMapping
+    String requestShipment(@RequestParam String pickupAddress, @RequestParam String deliveryAddress);
   }
 
 }

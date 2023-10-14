@@ -1,17 +1,17 @@
-package victor.training.modulith.order.domain;
+package victor.training.modulith.order.impl;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import victor.training.modulith.shared.ProductId;
-import victor.training.modulith.order.out.door.OrderConfirmedEvent;
+import victor.training.modulith.order.OrderConfirmedEvent;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static victor.training.modulith.order.domain.Order.Status.AWAITING_PAYMENT;
-import static victor.training.modulith.order.domain.Order.Status.CONFIRMED;
+import static victor.training.modulith.order.impl.Order.Status.AWAITING_PAYMENT;
+import static victor.training.modulith.order.impl.Order.Status.CONFIRMED;
 
 @Data
 @Entity

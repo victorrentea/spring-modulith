@@ -1,4 +1,4 @@
-package victor.training.modulith.inventory.domain;
+package victor.training.modulith.inventory.impl;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

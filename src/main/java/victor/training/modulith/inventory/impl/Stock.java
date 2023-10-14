@@ -1,23 +1,25 @@
-package victor.training.modulith.inventory.domain;
+package victor.training.modulith.inventory.impl;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import victor.training.modulith.shared.ProductId;
-import victor.training.modulith.inventory.out.door.event.BackInStockEvent;
-import victor.training.modulith.inventory.out.door.event.OutOfStockEvent;
+import victor.training.modulith.inventory.BackInStockEvent;
+import victor.training.modulith.inventory.OutOfStockEvent;
 
 @Data
+@Entity
 public class Stock extends AbstractAggregateRoot<Stock> {
   @Id
   @GeneratedValue
   private Long id;
 
-  @Embedded
+  @NotNull
+  @AttributeOverride(name = "id", column = @Column(name = "product_id"))
   private ProductId productId;
 
+  @NotNull
   private Integer items = 0;
 
   public void add(int n) {

@@ -1,4 +1,4 @@
-package victor.training.modulith.order.out.door;
+package victor.training.modulith.order;
 
 public record OrderConfirmedEvent(long orderId) {
 }

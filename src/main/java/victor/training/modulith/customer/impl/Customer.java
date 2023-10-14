@@ -1,10 +1,7 @@
-package victor.training.modulith.customer.domain;
+package victor.training.modulith.customer.impl;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @ToString
