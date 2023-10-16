@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.order.OrderConfirmedEvent;
+import victor.training.modulith.order.OrderStatusChangedEvent;
+import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shared.ProductId;
 
-import java.util.Map;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +17,10 @@ public class ReserveStockService {
   private StockReservationRepo stockReservationRepo;
 
   @Transactional
-  public void reserveStock(long orderId, Map<ProductId, Integer> items) {
-    for (var entry : items.entrySet()) {
-      ProductId productId = entry.getKey();
-      Integer count = entry.getValue();
-      subtractStock(productId, count);
-      createReservation(orderId, productId, count);
+  public void reserveStock(long orderId, List<LineItem> items) {
+    for (var item : items) {
+      subtractStock(item.productId(), item.count());
+      createReservation(orderId, item.productId(), item.count());
     }
   }
 
@@ -40,7 +39,7 @@ public class ReserveStockService {
   }
 
   @ApplicationModuleListener
-  void onOrderConfirmed(OrderConfirmedEvent event) {
+  void onOrderConfirmed(OrderStatusChangedEvent event) {
     stockReservationRepo.deleteAllByOrderId(event.orderId());
   }
 
