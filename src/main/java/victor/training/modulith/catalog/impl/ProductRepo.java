@@ -1,7 +1,7 @@
 package victor.training.modulith.catalog.impl;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import victor.training.modulith.shared.ProductId;
+import victor.training.modulith.common.ProductId;
 
 import java.util.List;
 

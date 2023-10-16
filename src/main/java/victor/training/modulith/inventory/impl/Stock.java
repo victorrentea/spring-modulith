@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.domain.AbstractAggregateRoot;
-import victor.training.modulith.shared.ProductId;
+import victor.training.modulith.common.ProductId;
 import victor.training.modulith.inventory.BackInStockEvent;
 import victor.training.modulith.inventory.OutOfStockEvent;
 
