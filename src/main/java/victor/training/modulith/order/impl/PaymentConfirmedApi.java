@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.customer.CustomerModule;
+import victor.training.modulith.customer.CustomerModule.CustomerDto;
 import victor.training.modulith.order.infra.ShipmentService;
 
 @Slf4j
@@ -21,10 +22,9 @@ public class PaymentConfirmedApi {
   @Transactional
   public void confirmPayment(@PathVariable long orderId) {
     Order order = orderRepo.findById(orderId).orElseThrow();
-    String address = customerModule.getCustomerAddress(order.customerId());
-    String shipmentId = shipmentService.requestShipment(address);
-    String email = customerModule.getCustomerEmail(order.customerId());
-    log.info("Sending 'Order Confirmed' email to " + email);
+    CustomerDto customer = customerModule.getCustomer(order.customerId());
+    String shipmentId = shipmentService.requestShipment(customer.address());
+    log.info("Sending 'Order Confirmed' email to " + customer.email());
     order.confirm(shipmentId);
     orderRepo.save(order);
   }

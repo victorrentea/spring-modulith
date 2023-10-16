@@ -5,7 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.Catalog;
+import victor.training.modulith.order.CatalogDoor;
+import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.shared.ProductId;
 import victor.training.modulith.order.infra.PaymentService;
 
@@ -17,8 +18,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PlaceOrderApi {
   private final OrderRepo orderRepo;
-  private final Catalog catalogDoor;
+  private final CatalogDoor catalogDoor;
   private final PaymentService paymentService;
+  private final InventoryDoor inventoryDoor;
 
   record PlaceOrderRequest(String customerId, Map<ProductId, Integer> items) {
   }
@@ -35,6 +37,7 @@ public class PlaceOrderApi {
         .customerId(request.customerId)
         .total(total);
     orderRepo.save(order);
+    inventoryDoor.reserveStock(order.id(), request.items);
     return paymentService.generatePaymentUrl(order);
   }
 }

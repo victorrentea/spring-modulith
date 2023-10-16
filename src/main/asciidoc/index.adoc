@@ -16,3 +16,7 @@ include::{moduliths}/module-inventory.adoc[]
 == Orders
 plantuml::{moduliths}/module-order.puml[format=svg,title="Order component overview"]
 include::{moduliths}/module-order.adoc[]
+
+== Catalog
+plantuml::{moduliths}/module-catalog.puml[format=svg,title="Catalog component overview"]
+include::{moduliths}/module-catalog.adoc[]

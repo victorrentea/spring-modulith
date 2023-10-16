@@ -12,7 +12,7 @@ import victor.training.modulith.shared.ProductId;
 
 @Entity
 @Data
-@GenericGenerator(name = "productIdGenerator", type = ProductIdGenerator.class)
+@GenericGenerator(name = "productIdGenerator", type = Product.ProductIdGenerator.class)
 @SequenceGenerator(name="unused",sequenceName = "product_seq")
 public class Product {
   @EmbeddedId
@@ -26,4 +26,14 @@ public class Product {
   private boolean inStock;
 
   private Double price;
+
+  public static class ProductIdGenerator implements IdentifierGenerator {
+
+    @Override
+    public Object generate(SharedSessionContractImplementor session, Object object) {
+      System.out.println("select next value");
+      Long nextId = session.createNativeQuery("select nextval('product_seq')", Long.class).getSingleResult();
+      return new ProductId(nextId);
+    }
+  }
 }

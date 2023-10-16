@@ -5,6 +5,6 @@ import victor.training.modulith.shared.ProductId;
 import java.util.Collection;
 import java.util.Map;
 
-public interface Catalog {
+public interface CatalogDoor {
   Map<ProductId, Double> getManyPrices(Collection<ProductId> ids);
 }

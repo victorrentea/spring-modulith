@@ -6,10 +6,7 @@ import victor.training.modulith.order.impl.OrderRepo;
 
 @Service
 @RequiredArgsConstructor
-public class OrdersDoor  {
+public class OrdersModule {
   private final OrderRepo orderRepo;
 
-  public String getCustomerOfOrder(long orderId) {
-    return orderRepo.findById(orderId).orElseThrow().customerId();
-  }
 }
