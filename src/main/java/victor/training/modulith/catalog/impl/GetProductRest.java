@@ -8,7 +8,7 @@ import victor.training.modulith.common.ProductId;
 
 @RestController
 @RequiredArgsConstructor
-public class GetProductApi {
+public class GetProductRest {
   private final ProductRepo productRepo;
 //  private final StockDoor stockDoor;
 

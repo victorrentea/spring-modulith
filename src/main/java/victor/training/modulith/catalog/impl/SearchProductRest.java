@@ -4,13 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.catalog.impl.ProductRepo;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class SearchProductApi {
+public class SearchProductRest {
   private final ProductRepo productRepo;
 
   record ProductSearchResult(long id, String name) {}
