@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.customer.CustomerModule;
 //import victor.training.modulith.order.NotificationForOrderService;
@@ -16,7 +17,9 @@ import victor.training.modulith.order.OrderStatusChangedEvent;
 public class NotificationModule {
   private final CustomerModule customerModule;
 
-  @EventListener
+//  @EventListener // syncron, iar exceptiile aparute la procesarea evenutlii iti sar inapoi in order module
+  //   este doar un in-mem call
+  @ApplicationModuleListener // procesare async in alta tranzactie, optional persistenta (thanks to Spring-modulith)
   public void onOrderStatusChanged(OrderStatusChangedEvent event) {
     if (event.status() == OrderStatus.SHIPPING_IN_PROGRESS) {
       sendOrderShippedEmail(event.orderId(), event.customerId());
