@@ -2,13 +2,15 @@ package victor.training.modulith.inventory.impl;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
-import victor.training.modulith.common.ProductId;
 import victor.training.modulith.inventory.BackInStockEvent;
 import victor.training.modulith.inventory.OutOfStockEvent;
 
-@Data
+@Getter
+@ToString
 @Entity
 public class Stock extends AbstractAggregateRoot<Stock> {
   @Id
@@ -16,10 +18,11 @@ public class Stock extends AbstractAggregateRoot<Stock> {
   private Long id;
 
   @NotNull
-  @AttributeOverride(name = "id", column = @Column(name = "product_id"))
-  private ProductId productId;
+  @Setter
+  private Long productId;
 
   @NotNull
+  @Setter
   private Integer items = 0;
 
   public void add(int n) {
