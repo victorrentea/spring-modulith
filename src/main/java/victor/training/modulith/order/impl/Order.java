@@ -60,6 +60,7 @@ public class Order extends AbstractAggregateRoot<Order> {
     requireStatus(OrderStatus.AWAITING_PAYMENT);
     status = ok ? OrderStatus.PAYMENT_APPROVED : OrderStatus.PAYMENT_FAILED;
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));
+    // la repo.save(acestei entitati), spring va publica evenimentul adaugate mai su
   }
 
   public void scheduleForShipping(String trackingNumber) {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.common.LineItem;
-import victor.training.modulith.order.NotificationForOrderService;
+//import victor.training.modulith.order.NotificationForOrderService;
 import victor.training.modulith.order.CatalogDoor;
 import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.order.OrderStatus;
@@ -52,11 +52,10 @@ public class PlaceOrderRest {
   public void onShippingResultEvent(ShippingResultEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.shipped(event.ok());
-    if (order.status() == OrderStatus.SHIPPING_COMPLETED) {
-      notificationService.sendOrderCompletedEmail(event.orderId(), order.customerId());
-    }
+//    if (order.status() == OrderStatus.SHIPPING_COMPLETED) {
+//      notificationService.sendOrderCompletedEmail(event.orderId(), order.customerId());
+//    }
   }
 
-
-  private final NotificationForOrderService notificationService;
+//  private final NotificationForOrderService notificationService;
 }

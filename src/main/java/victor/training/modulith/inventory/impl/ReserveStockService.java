@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.common.LineItem;
 
@@ -41,8 +42,10 @@ public class ReserveStockService {
 
   @ApplicationModuleListener
   void onOrderConfirmed(OrderStatusChangedEvent event) {
-    log.info("Stock reservation confirmed: " + event);
-    stockReservationRepo.deleteAllByOrderId(event.orderId());
+    if (event.status() == OrderStatus.PAYMENT_APPROVED) {
+      log.info("Stock reservation confirmed: " + event);
+      stockReservationRepo.deleteAllByOrderId(event.orderId());
+    }
   }
 
 }
