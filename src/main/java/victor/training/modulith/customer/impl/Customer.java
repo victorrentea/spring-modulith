@@ -1,4 +1,4 @@
-package victor.training.modulith.order.impl;
+package victor.training.modulith.customer.impl;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,4 +14,5 @@ public class Customer {
   private String fullName;
   private String address;
   private String email;
+//  private boolean deleted = false; // logical deletion la nevoie
 }

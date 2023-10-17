@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.customer.CustomerModule;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.shipping.ShippingModule;
 
@@ -16,6 +17,7 @@ import victor.training.modulith.shipping.ShippingModule;
 public class PaymentGatewayCallbackRest {
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
+  private final CustomerModule customerModule;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
@@ -24,7 +26,8 @@ public class PaymentGatewayCallbackRest {
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
       String trackingNumber = shippingModule.requestShipment(order.shippingAddress());
       order.scheduleForShipping(trackingNumber);
-      log.info("Sending 📧 'Order {} Shipped' email to {}", order.id(), order.customer().email());
+      String customerEmail = customerModule.getCustomerEmail(order.customerId());
+      log.info("Sending 📧 'Order {} Shipped' email to {}", order.id(), customerEmail);
     }
     return "Payment callback received";
   }

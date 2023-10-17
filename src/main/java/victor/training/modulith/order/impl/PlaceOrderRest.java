@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.common.LineItem;
+import victor.training.modulith.customer.CustomerModule;
+import victor.training.modulith.customer.impl.CustomerRepo;
 import victor.training.modulith.order.CatalogDoor;
 import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.order.OrderStatus;
@@ -27,7 +29,6 @@ public class PlaceOrderRest {
   private final PaymentService paymentService;
   private final InventoryDoor inventoryDoor;
   private final ShippingModule shippingDoor;
-  private final CustomerRepo customerRepo;
 
   public record PlaceOrderRequest(String customerId, List<LineItem> items, String shippingAddress) {
   }
@@ -41,7 +42,7 @@ public class PlaceOrderRest {
     Order order = new Order()
         .items(items)
         .shippingAddress(request.shippingAddress)
-        .customer(customerRepo.findById(request.customerId).orElseThrow())
+        .customerId(request.customerId())
         .total(totalPrice);
     orderRepo.save(order);
     inventoryDoor.reserveStock(order.id(), request.items);
@@ -53,7 +54,9 @@ public class PlaceOrderRest {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.shipped(event.ok());
     if (order.status() == OrderStatus.SHIPPING_COMPLETED) {
-      log.info("Sending 📧 'Order {} Shipped' email to {}", event.orderId(), order.customer().email());
+      String customerEmail = customerModule.getCustomerEmail(order.customerId());
+      log.info("Sending 📧 'Order {} Shipped' email to {}", event.orderId(), customerEmail);
     }
   }
+  private final CustomerModule customerModule;
 }

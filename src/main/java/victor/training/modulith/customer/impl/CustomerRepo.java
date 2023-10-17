@@ -1,4 +1,4 @@
-package victor.training.modulith.order.impl;
+package victor.training.modulith.customer.impl;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
