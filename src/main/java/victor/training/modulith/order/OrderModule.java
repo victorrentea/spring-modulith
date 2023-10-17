@@ -1,17 +1,17 @@
-package victor.training.modulith.customer;
+package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.customer.impl.Customer;
-import victor.training.modulith.customer.impl.CustomerRepo;
+import victor.training.modulith.order.impl.Customer;
+import victor.training.modulith.order.impl.CustomerRepo;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CustomerModule {
+public class OrderModule {
   private final CustomerRepo customerRepo;
 
   public record CustomerDto(String id, String email, String address) {}

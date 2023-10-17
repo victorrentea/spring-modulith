@@ -1,4 +1,4 @@
-package victor.training.modulith.customer.impl;
+package victor.training.modulith.order.impl;
 
 import jakarta.persistence.*;
 import lombok.*;

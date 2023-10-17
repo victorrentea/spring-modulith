@@ -28,7 +28,9 @@ public class Order extends AbstractAggregateRoot<Order> {
   private LocalDate placedOn = LocalDate.now();
   @Setter
   @NotNull
-  private String customerId;
+  @ManyToOne
+  private Customer customer;
+//  private String customerId;
   @Setter
   private String shippingAddress;
   @Setter
@@ -51,20 +53,20 @@ public class Order extends AbstractAggregateRoot<Order> {
   public void paid(boolean ok) {
     requireStatus(OrderStatus.AWAITING_PAYMENT);
     status = ok ? OrderStatus.PAYMENT_APPROVED : OrderStatus.PAYMENT_FAILED;
-    registerEvent(new OrderStatusChangedEvent(id, status, customerId));
+    registerEvent(new OrderStatusChangedEvent(id, status, customer.id()));
   }
 
   public void scheduleForShipping(String trackingNumber) {
     requireStatus(OrderStatus.PAYMENT_APPROVED);
     status = OrderStatus.SHIPPING_IN_PROGRESS;
     shippingTrackingNumber = trackingNumber;
-    registerEvent(new OrderStatusChangedEvent(id, status, customerId));
+    registerEvent(new OrderStatusChangedEvent(id, status, customer.id()));
   }
 
   public void shipped(boolean ok) {
     requireStatus(OrderStatus.SHIPPING_IN_PROGRESS);
     status = ok ? OrderStatus.SHIPPING_COMPLETED : OrderStatus.SHIPPING_FAILED;
-    registerEvent(new OrderStatusChangedEvent(id, status, customerId));
+    registerEvent(new OrderStatusChangedEvent(id, status, customer.id()));
   }
 
 }

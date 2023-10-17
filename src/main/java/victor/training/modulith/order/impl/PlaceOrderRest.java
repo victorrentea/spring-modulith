@@ -26,6 +26,7 @@ public class PlaceOrderRest {
   private final PaymentService paymentService;
   private final InventoryDoor inventoryDoor;
   private final ShippingModule shippingDoor;
+  private final CustomerRepo customerRepo;
 
   public record PlaceOrderRequest(String customerId, List<LineItem> items, String shippingAddress) {
   }
@@ -39,7 +40,7 @@ public class PlaceOrderRest {
     Order order = new Order()
         .items(items)
         .shippingAddress(request.shippingAddress)
-        .customerId(request.customerId)
+        .customer(customerRepo.findById(request.customerId).orElseThrow())
         .total(totalPrice);
     orderRepo.save(order);
     inventoryDoor.reserveStock(order.id(), request.items);
