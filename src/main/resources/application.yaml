@@ -7,3 +7,7 @@ spring.cloud.openfeign.client.config:
     url: http://localhost:9999/shipping
   payment-gateway:
     url: http://localhost:9999/payment
+
+
+#TODO
+#management.endpoint.prometheus.enabled: true
