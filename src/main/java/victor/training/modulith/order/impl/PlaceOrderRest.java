@@ -6,11 +6,9 @@ import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.catalog.impl.ProductRepo;
+import victor.training.modulith.common.LineItem;
 import victor.training.modulith.order.CatalogDoor;
 import victor.training.modulith.order.InventoryDoor;
-import victor.training.modulith.common.LineItem;
-import victor.training.modulith.order.OrderModule;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.shipping.ShippingModule;
 import victor.training.modulith.shipping.ShippingResultEvent;
@@ -31,7 +29,6 @@ public class PlaceOrderRest {
   private final ShippingModule shippingDoor;
   private final CustomerRepo customerRepo;
 
-  private final ProductRepo productRepo;
   public record PlaceOrderRequest(String customerId, List<LineItem> items, String shippingAddress) {
   }
 
