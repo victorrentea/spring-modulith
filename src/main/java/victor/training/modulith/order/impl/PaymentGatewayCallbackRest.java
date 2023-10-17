@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.notification.NotificationService;
+import victor.training.modulith.order.NotificationForOrderService;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.shipping.ShippingModule;
 
@@ -16,7 +16,7 @@ import victor.training.modulith.shipping.ShippingModule;
 public class PaymentGatewayCallbackRest {
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
-  private final NotificationService notificationService;
+  private final NotificationForOrderService notificationService;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {

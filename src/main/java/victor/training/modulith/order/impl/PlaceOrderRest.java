@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.common.LineItem;
-import victor.training.modulith.notification.NotificationService;
+import victor.training.modulith.order.NotificationForOrderService;
 import victor.training.modulith.order.CatalogDoor;
 import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.order.OrderStatus;
@@ -58,5 +58,5 @@ public class PlaceOrderRest {
   }
 
 
-  private final NotificationService notificationService;
+  private final NotificationForOrderService notificationService;
 }
