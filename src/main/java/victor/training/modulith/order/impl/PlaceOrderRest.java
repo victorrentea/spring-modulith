@@ -3,6 +3,7 @@ package victor.training.modulith.order.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,7 @@ public class PlaceOrderRest {
   }
 
   @PostMapping("order")
+  @Transactional
   public String placeOrder(@RequestBody PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
     Map<Long, Double> prices = catalogDoor.getManyPrices(productIds);
@@ -44,6 +46,8 @@ public class PlaceOrderRest {
         .customerId(request.customerId())
         .total(totalPrice);
     orderRepo.save(order);
+    // aici da rollback la place order?? daca arucna exceptie, @ApplicationbModuleListener din notification service nu ruleaza pt ca e
+    // @TransactionalEventListener(AFTER_COMMIT)
     inventoryDoor.reserveStock(order.id(), request.items);
     return paymentService.generatePaymentUrl(order.id(), order.total()) + "&orderId=" + order.id();
   }
