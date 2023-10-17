@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogDoor;
 import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.common.LineItem;
+import victor.training.modulith.order.OrderModule;
+import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.shipping.ShippingModule;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -51,5 +53,8 @@ public class PlaceOrderRest {
   public void onShippingResultEvent(ShippingResultEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.shipped(event.ok());
+    if (order.status() == OrderStatus.SHIPPING_COMPLETED) {
+      log.info("Sending 📧 'Order {} Shipped' email to {}", event.orderId(), order.customer().email());
+    }
   }
 }
