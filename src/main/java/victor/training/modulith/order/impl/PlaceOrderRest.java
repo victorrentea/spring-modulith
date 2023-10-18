@@ -29,6 +29,7 @@ public class PlaceOrderRest {
   private final PaymentModule paymentModule;
   private final InventoryDoor inventoryDoor;
   private final ShippingModule shippingDoor;
+  private final CustomerRepo customerRepo;
 
   public record PlaceOrderRequest(String customerId, List<LineItem> items, String shippingAddress) {
   }
@@ -42,7 +43,7 @@ public class PlaceOrderRest {
     Order order = new Order()
         .items(items)
         .shippingAddress(request.shippingAddress)
-        .customerId(request.customerId)
+        .customer(customerRepo.findById(request.customerId).orElseThrow())
         .total(totalPrice);
     orderRepo.save(order);
     inventoryDoor.reserveStock(order.id(), request.items);
@@ -56,6 +57,7 @@ public class PlaceOrderRest {
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
       String trackingNumber = shippingDoor.requestShipment(order.shippingAddress());
       order.scheduleForShipping(trackingNumber);
+      log.info("Sending 📧 'Order {} Confirmed' email to {}", event.orderId(), order.customer().email());
     }
   }
 
@@ -63,5 +65,8 @@ public class PlaceOrderRest {
   public void onShippingResultEvent(ShippingResultEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.shipped(event.ok());
+    if (order.status() == OrderStatus.SHIPPING_IN_PROGRESS) {
+      log.info("Sending 📧 'Order {} Shipped' email to {}", event.orderId(), order.customer().email());
+    }
   }
 }
