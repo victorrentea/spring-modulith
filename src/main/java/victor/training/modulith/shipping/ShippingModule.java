@@ -11,10 +11,8 @@ import victor.training.modulith.shipping.impl.ShippingProviderClient;
 public class ShippingModule {
   private final ShippingProviderClient shippingProviderClient;
 
-  public String requestShipment(String customerAddress) {
+  public String requestShipment(long orderId, String customerAddress) {
     log.info("Request shipping at " + customerAddress);
-    return shippingProviderClient.requestShipment("our-warehouse", customerAddress);
+    return shippingProviderClient.requestShipment("our-warehouse", customerAddress, orderId);
   }
-  
-
 }

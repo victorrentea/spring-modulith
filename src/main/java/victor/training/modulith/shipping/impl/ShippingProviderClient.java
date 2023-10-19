@@ -7,5 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("shipping-provider")
 public interface ShippingProviderClient {
   @PostMapping("create-shipping")
-  String requestShipment(@RequestParam String pickupAddress, @RequestParam String deliveryAddress);
+  String requestShipment(@RequestParam String pickupAddress,
+                         @RequestParam String deliveryAddress,
+                         @RequestParam long orderId);
 }
