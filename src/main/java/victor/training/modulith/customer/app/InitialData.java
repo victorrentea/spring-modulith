@@ -1,4 +1,4 @@
-package victor.training.modulith.customer.impl;
+package victor.training.modulith.customer.app;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationStartedEvent;

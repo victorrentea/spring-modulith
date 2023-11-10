@@ -32,6 +32,5 @@ classes
 
 prod/
 capture/
-in/
 /data.xml
 /instance.dat
