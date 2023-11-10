@@ -10,7 +10,9 @@ import static org.springframework.modulith.core.ApplicationModules.*;
 
 class ArchitectureTest {
 	public static final ApplicationModules modules = of(ModulithApp.class,
-			resideInAnyPackage("victor.training.modulith.boot", "victor.training.modulith.shared"));
+			resideInAnyPackage(
+					"victor.training.modulith.boot",
+					"victor.training.modulith.shared"));
 
 	@Test
 	void verifyModularity() {
