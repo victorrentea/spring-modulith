@@ -6,9 +6,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.inventory.OutOfStockEvent;
 import victor.training.modulith.order.OrderStatusChangedEvent;
-import victor.training.modulith.common.LineItem;
+import victor.training.modulith.shared.LineItem;
 
 import java.util.List;
 

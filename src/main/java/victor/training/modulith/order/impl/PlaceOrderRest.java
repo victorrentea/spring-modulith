@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.common.LineItem;
+import victor.training.modulith.payment.PaymentModule;
+import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.payment.out.infra.PaymentGatewayClient;
 import victor.training.modulith.shipping.ShippingModule;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -46,12 +47,11 @@ public class PlaceOrderRest {
     return generatePaymentUrl(order.id(), order.total()) + "&orderId=" + order.id();
   }
 
-  private final PaymentGatewayClient paymentGatewayClient;
+  private final PaymentModule paymentModule;
   public String generatePaymentUrl(long orderId, double total) {
     log.info("Request payment url for orderid: " + orderId);
-    return paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, "modulith-app");
+    return paymentModule.generatePaymentUrl(orderId, total);
   }
-
 
   @ApplicationModuleListener
   public void onShippingResultEvent(ShippingResultEvent event) {

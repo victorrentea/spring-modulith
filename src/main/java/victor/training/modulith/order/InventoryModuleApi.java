@@ -1,6 +1,6 @@
 package victor.training.modulith.order;
 
-import victor.training.modulith.common.LineItem;
+import victor.training.modulith.shared.LineItem;
 
 import java.util.List;
 
