@@ -16,13 +16,8 @@ public class SearchProductRest {
   }
 
   @GetMapping("catalog/search")
-  public List<ProductSearchResult> search(@RequestParam String name) { // or @RequestBody SearchCriteria
-    // SELECT * from Product p
-    // JOIN Stock s ON p.id = s.productId
-    // WHERE p.name LIKE ?1 AND s.items > 0
-    // VIEW? - nu e bine sa faci JOIN intre tabele din module diferite
-
-    // TODO 2 return only items in stock
+  public List<ProductSearchResult> search(@RequestParam String name) {
+    // TODO 2 search only items in stock
     return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))

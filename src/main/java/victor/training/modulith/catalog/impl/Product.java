@@ -7,7 +7,7 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 @Entity
-@Data
+@Data // sorry
 public class Product {
   @Id
   @GeneratedValue
@@ -19,6 +19,5 @@ public class Product {
 
   private Double price;
 
-  // kept in sync via events thrown from Inventory
-  private boolean inStock;
+  private Boolean inStock = true; // TODO 2 delete
 }

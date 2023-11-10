@@ -26,7 +26,6 @@ public class PlaceOrderRest {
   private final OrderRepo orderRepo;
   private final CatalogModuleApi catalogModuleApi;
   private final InventoryModuleApi inventoryModuleApi;
-  private final ShippingModule shippingDoor;
 
   public record PlaceOrderRequest(String customerId, List<LineItem> items, String shippingAddress) {
   }

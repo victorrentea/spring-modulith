@@ -1,4 +1,4 @@
-package victor.training.modulith.customer.app;
+package victor.training.modulith.catalog.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -7,15 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class InitialData {
-  private final CustomerRepo customerRepo;
+public class CatalogData {
+  private final ProductRepo productRepo;
 
   @EventListener(ApplicationStartedEvent.class)
   void initialData() {
-    customerRepo.save(new Customer(
-        "margareta",
-        "Margareta",
-        "Bucharest",
-        "margareta@example.com"));
+    productRepo.save(new Product()
+        .name("iPhone")
+        .description("Hipster Phone")
+        .inStock(true) // TODO 2 remove
+        .price(1000d));
   }
+
 }

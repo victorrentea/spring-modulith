@@ -9,4 +9,5 @@ spring.cloud.openfeign.client.config:
     url: http://localhost:9999/payment
 
 
-prop: 2
+order.prop: 2
+payment.app.client-name: modulith-app

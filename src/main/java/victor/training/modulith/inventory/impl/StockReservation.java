@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+import static java.time.LocalDateTime.now;
+
 @Entity
 @Data
 public class StockReservation {
@@ -22,5 +24,5 @@ public class StockReservation {
   @NotNull
   private Integer items;
 
-  private LocalDateTime createdAt = LocalDateTime.now();
+  private LocalDateTime createdAt = now();
 }

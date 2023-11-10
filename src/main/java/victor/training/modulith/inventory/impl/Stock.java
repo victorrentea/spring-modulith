@@ -2,6 +2,7 @@ package victor.training.modulith.inventory.impl;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,15 +19,12 @@ public class Stock extends AbstractAggregateRoot<Stock> {
   private Long id;
 
   @NotNull
-  @Setter // 🙏Pastrati FK intre tabela
-  // STOCK.PRODUCT_ID --FK--> PRODUCT.IK
+  @Setter // + FK to PRODUCT.ID
   private Long productId;
 
-//  @ManyToOne // altfel crapa modularitatea
-//  private Product product;
+//  @ManyToOne private Product product; // TODO uncomment
 
   @NotNull
-//  @Setter(AccessLevel.NONE)
   private Integer items = 0;
 
   public Stock add(int n) {
