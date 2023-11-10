@@ -1,10 +1,9 @@
 package victor.training.modulith.catalog.impl;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import victor.training.modulith.common.ProductId;
 
 import java.util.List;
 
-public interface ProductRepo extends JpaRepository<Product, ProductId> {
+public interface ProductRepo extends JpaRepository<Product, Long> {
   List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart);
 }

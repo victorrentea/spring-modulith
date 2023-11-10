@@ -1,4 +1,4 @@
 package victor.training.modulith.shipping;
 
-public record ShippingResultEvent(Long orderId, boolean ok) {
+public record ShippingResultEvent(long orderId, boolean ok) {
 }
