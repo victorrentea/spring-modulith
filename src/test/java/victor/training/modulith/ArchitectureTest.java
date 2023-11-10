@@ -1,15 +1,18 @@
 package victor.training.modulith;
 
+import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.JavaClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
 
-import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
 
 class ArchitectureTest {
+	public static final DescribedPredicate<JavaClass> IGNORED_MODULES =
+			resideInAnyPackage("victor.training.modulith.boot", "victor.training.modulith.shared");
 	public static final ApplicationModules modules =
-			ApplicationModules.of(ModulithApp.class);
+			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
 	void verifyModularity() {

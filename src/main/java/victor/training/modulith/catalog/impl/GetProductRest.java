@@ -10,12 +10,12 @@ import victor.training.modulith.inventory.InventoryModule;
 @RequiredArgsConstructor
 public class GetProductRest {
   private final ProductRepo productRepo;
-private final InventoryModule inventoryModule;
+  private final InventoryModule inventoryModule;
 
   public record GetProductResponse(long id,
                             String name,
                             String description,
-//                            int stock, // 🤔 FE can fetch it directly from Stock REST API?
+//                            int stock, // TODO 1
                             double price) {}
 
   @GetMapping("catalog/{productId}")

@@ -22,6 +22,7 @@ public class SearchProductRest {
     // WHERE p.name LIKE ?1 AND s.items > 0
     // VIEW? - nu e bine sa faci JOIN intre tabele din module diferite
 
+    // TODO 2 return only items in stock
     return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
