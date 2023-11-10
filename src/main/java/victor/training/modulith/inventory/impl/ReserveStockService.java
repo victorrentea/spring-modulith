@@ -1,21 +1,20 @@
 package victor.training.modulith.inventory.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.common.LineItem;
+import victor.training.modulith.common.ProductId;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReserveStockService {
-  private final StockRepo stockRepo;
-  private final StockReservationRepo stockReservationRepo;
+  private StockRepo stockRepo;
+  private StockReservationRepo stockReservationRepo;
 
   @Transactional
   public void reserveStock(long orderId, List<LineItem> items) {
@@ -25,7 +24,7 @@ public class ReserveStockService {
     }
   }
 
-  private void createReservation(long orderId, long productId, Integer count) {
+  private void createReservation(long orderId, ProductId productId, Integer count) {
     StockReservation reservation = new StockReservation()
         .orderId(orderId)
         .productId(productId)
@@ -33,7 +32,7 @@ public class ReserveStockService {
     stockReservationRepo.save(reservation);
   }
 
-  private void subtractStock(long productId, Integer count) {
+  private void subtractStock(ProductId productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
     stockRepo.save(stock);
@@ -41,7 +40,6 @@ public class ReserveStockService {
 
   @ApplicationModuleListener
   void onOrderConfirmed(OrderStatusChangedEvent event) {
-    log.info("Stock reservation confirmed: " + event);
     stockReservationRepo.deleteAllByOrderId(event.orderId());
   }
 

@@ -12,12 +12,12 @@ import java.util.List;
 public class SearchProductRest {
   private final ProductRepo productRepo;
 
-  public record ProductSearchResult(long id, String name) {}
+  record ProductSearchResult(long id, String name) {}
 
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(@RequestParam String name) { // or @RequestBody SearchCriteria
     return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name).stream()
-        .map(e -> new ProductSearchResult(e.id(), e.name()))
+        .map(e -> new ProductSearchResult(e.id().id(), e.name()))
         .toList();
   }
 }

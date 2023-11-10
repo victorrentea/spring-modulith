@@ -3,6 +3,7 @@ package victor.training.modulith.inventory.impl;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import victor.training.modulith.common.ProductId;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +18,8 @@ public class StockReservation {
   private Long orderId;
 
   @NotNull
-  private Long productId;
+  @AttributeOverride(name = "id", column = @Column(name = "product_id"))
+  private ProductId productId;
 
   @NotNull
   private Integer items;

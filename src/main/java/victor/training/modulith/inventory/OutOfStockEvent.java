@@ -1,4 +1,6 @@
 package victor.training.modulith.inventory;
 
-public record OutOfStockEvent(long productId) {
+import victor.training.modulith.common.ProductId;
+
+public record OutOfStockEvent(ProductId productId) {
 }

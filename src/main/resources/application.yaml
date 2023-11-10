@@ -1,9 +1,0 @@
-logging.level:
-  org.hibernate.SQL: DEBUG
-
-
-spring.cloud.openfeign.client.config:
-  shipping-provider:
-    url: http://localhost:9999/shipping
-  payment-gateway:
-    url: http://localhost:9999/payment

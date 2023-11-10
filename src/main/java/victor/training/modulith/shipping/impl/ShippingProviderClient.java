@@ -4,8 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("shipping-provider")
+@FeignClient(name = "shipping")
 public interface ShippingProviderClient {
-  @PostMapping("create-shipping")
+  @PostMapping
   String requestShipment(@RequestParam String pickupAddress, @RequestParam String deliveryAddress);
 }
