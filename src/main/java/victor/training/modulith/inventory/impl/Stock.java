@@ -19,12 +19,12 @@ public class Stock extends AbstractAggregateRoot<Stock> {
   private Long id;
 
   @NotNull
-  @Setter
+  @Setter // 🙏Pastrati FK intre tabela
+  // STOCK.PRODUCT_ID --FK--> PRODUCT.IK
   private Long productId;
 
-
-  @ManyToOne
-  private Product product;
+//  @ManyToOne // altfel crapa modularitatea
+//  private Product product;
 
   @NotNull
   @Setter
