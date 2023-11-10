@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
+import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.inventory.BackInStockEvent;
 import victor.training.modulith.inventory.OutOfStockEvent;
 
@@ -20,6 +21,10 @@ public class Stock extends AbstractAggregateRoot<Stock> {
   @NotNull
   @Setter
   private Long productId;
+
+
+  @ManyToOne
+  private Product product;
 
   @NotNull
   @Setter

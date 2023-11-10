@@ -17,8 +17,6 @@ public class Product {
 
   private String description;
 
-  private boolean inStock;
-
   private Double price;
 
 }

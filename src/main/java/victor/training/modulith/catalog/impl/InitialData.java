@@ -15,7 +15,7 @@ public class InitialData {
     productRepo.save(new Product()
         .name("iPhone")
         .description("Hipster Phone")
-        .inStock(true)
+//        .inStock(true)
         .price(1000d));
   }
 
