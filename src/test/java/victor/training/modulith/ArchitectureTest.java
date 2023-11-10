@@ -6,11 +6,10 @@ import org.springframework.modulith.docs.Documenter;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
-import static org.springframework.modulith.core.ApplicationModules.*;
 
 class ArchitectureTest {
-	public static final ApplicationModules modules = of(ModulithApp.class,
-			resideInAnyPackage("victor.training.modulith.boot", "victor.training.modulith.shared"));
+	public static final ApplicationModules modules =
+			ApplicationModules.of(ModulithApp.class);
 
 	@Test
 	void verifyModularity() {
