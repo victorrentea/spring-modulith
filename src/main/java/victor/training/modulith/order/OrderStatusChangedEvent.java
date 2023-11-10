@@ -1,4 +1,8 @@
 package victor.training.modulith.order;
 
-public record OrderStatusChangedEvent(long orderId, OrderStatus status, String customerId) {
+public record OrderStatusChangedEvent(
+    long orderId,
+    OrderStatus status
+//    String customerId
+) {
 }

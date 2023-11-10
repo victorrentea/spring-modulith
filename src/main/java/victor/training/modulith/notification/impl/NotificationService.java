@@ -15,15 +15,18 @@ import static victor.training.modulith.customer.CustomerModule.*;
 @RequiredArgsConstructor
 public class NotificationService {
   private final CustomerModule customerModule;
+  private final OrderModule orderModule;
 
   @ApplicationModuleListener
   public void onOrderStatusChanged(OrderStatusChangedEvent event) {
+    long customerId = orderModule.getCustomerForOrder(event.orderId());
     CustomerDto customer = customerModule.getCustomer(event.customerId());
+    String customerEmail = customer.email();
     if (event.status() == OrderStatus.PAYMENT_APPROVED) {
-      log.info("Sending 📧 'Order {} Confirmed' email to {}", event.orderId(), customer.email());
+      log.info("Sending 📧 'Order {} Confirmed' email to {}", event.orderId(), customerEmail);
     }
     if (event.status() == OrderStatus.SHIPPING_IN_PROGRESS) {
-      log.info("Sending 📧 'Order {} Shipped' email to {}", event.orderId(), customer.email());
+      log.info("Sending 📧 'Order {} Shipped' email to {}", event.orderId(), customerEmail);
     }
   }
 }
