@@ -1,17 +1,20 @@
 package victor.training.modulith.boot;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.customer.impl.Customer;
 import victor.training.modulith.customer.impl.CustomerRepo;
 import victor.training.modulith.inventory.impl.Stock;
 import victor.training.modulith.inventory.impl.StockRepo;
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.shared.ProductId;
 
 @Component
 @RequiredArgsConstructor

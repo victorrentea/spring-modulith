@@ -11,8 +11,8 @@ import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.payment.PaymentResultEvent;
 import victor.training.modulith.payment.PaymentModule;
-import victor.training.modulith.common.LineItem;
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.shared.ProductId;
 import victor.training.modulith.shipping.ShippingModule;
 import victor.training.modulith.shipping.ShippingResultEvent;
 

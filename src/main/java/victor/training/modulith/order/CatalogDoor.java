@@ -1,6 +1,6 @@
 package victor.training.modulith.order;
 
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.shared.ProductId;
 
 import java.util.Collection;
 import java.util.Map;

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.customer.CustomerModule;
+import victor.training.modulith.order.OrderModule;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 

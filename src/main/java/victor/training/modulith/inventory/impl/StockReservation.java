@@ -3,7 +3,7 @@ package victor.training.modulith.inventory.impl;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.shared.ProductId;
 
 import java.time.LocalDateTime;
 

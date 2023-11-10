@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.shared.ProductId;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 
 import java.time.LocalDate;

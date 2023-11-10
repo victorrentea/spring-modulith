@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.order.CatalogDoor;
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.shared.ProductId;
 
 import java.util.Collection;
 import java.util.Map;

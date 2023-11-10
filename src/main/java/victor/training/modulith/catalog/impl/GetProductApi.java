@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.common.ProductId;
+import victor.training.modulith.catalog.impl.Product;
+import victor.training.modulith.catalog.impl.ProductRepo;
+import victor.training.modulith.shared.ProductId;
 
 @RestController
 @RequiredArgsConstructor
