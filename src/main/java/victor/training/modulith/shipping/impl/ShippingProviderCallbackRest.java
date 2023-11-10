@@ -8,11 +8,10 @@ import victor.training.modulith.shipping.ShippingResultEvent;
 @RestController
 @RequiredArgsConstructor
 public class ShippingProviderCallbackRest {
-  private final ApplicationEventPublisher eventPublisher;
-
+  private final ApplicationEventPublisher publisher;
   @PutMapping("shipping/{orderId}/status")
   public String shippedStatus(@PathVariable long orderId, @RequestBody boolean ok) {
-    eventPublisher.publishEvent(new ShippingResultEvent(orderId, ok));
+    publisher.publishEvent(new ShippingResultEvent(orderId, ok));
     return "Shipping callback received";
   }
 }

@@ -12,7 +12,7 @@ import victor.training.modulith.payment.impl.PaymentGatewayClient;
 public class PaymentModule {
   private final PaymentGatewayClient paymentGatewayClient;
 
-  public String generatePaymentUrl(long orderId, double total) {
+  public String generatePaymentUrl(Long orderId, @NotNull Double total) {
     log.info("Request payment url for orderid: " + orderId);
     return paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, "modulith-app");
   }

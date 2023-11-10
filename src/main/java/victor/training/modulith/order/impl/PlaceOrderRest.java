@@ -6,8 +6,8 @@ import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.CatalogModuleApi;
-import victor.training.modulith.order.InventoryModuleApi;
+import victor.training.modulith.order.CatalogDoor;
+import victor.training.modulith.order.InventoryDoor;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.payment.PaymentResultEvent;
 import victor.training.modulith.payment.PaymentModule;
@@ -25,9 +25,9 @@ import static java.util.stream.Collectors.toMap;
 @RequiredArgsConstructor
 public class PlaceOrderRest {
   private final OrderRepo orderRepo;
-  private final CatalogModuleApi catalogModuleApi;
+  private final CatalogDoor catalogDoor;
   private final PaymentModule paymentModule;
-  private final InventoryModuleApi inventoryModuleApi;
+  private final InventoryDoor inventoryDoor;
   private final ShippingModule shippingDoor;
 
   public record PlaceOrderRequest(String customerId, List<LineItem> items, String shippingAddress) {
@@ -36,7 +36,7 @@ public class PlaceOrderRest {
   @PostMapping("order")
   public String placeOrder(@RequestBody PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
-    Map<Long, Double> prices = catalogModuleApi.getManyPrices(productIds);
+    Map<Long, Double> prices = catalogDoor.getManyPrices(productIds);
     Map<Long, Integer> items = request.items.stream().collect(toMap(LineItem::productId, LineItem::count));
     double totalPrice = request.items.stream().mapToDouble(e -> e.count() * prices.get(e.productId())).sum();
     Order order = new Order()
@@ -45,7 +45,7 @@ public class PlaceOrderRest {
         .customerId(request.customerId)
         .total(totalPrice);
     orderRepo.save(order);
-    inventoryModuleApi.reserveStock(order.id(), request.items);
+    inventoryDoor.reserveStock(order.id(), request.items);
     return paymentModule.generatePaymentUrl(order.id(), order.total()) + "&orderId=" + order.id();
   }
 
@@ -54,7 +54,7 @@ public class PlaceOrderRest {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.paid(event.ok());
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
-      String trackingNumber = shippingDoor.requestShipment(order.id(), order.shippingAddress());
+      String trackingNumber = shippingDoor.requestShipment(order.shippingAddress());
       order.scheduleForShipping(trackingNumber);
     }
   }
