@@ -4,6 +4,6 @@ import victor.training.modulith.common.LineItem;
 
 import java.util.List;
 
-public interface InventoryDoor {
+public interface InventoryModuleApi {
    void reserveStock(long orderId, List<LineItem> items);
 }
