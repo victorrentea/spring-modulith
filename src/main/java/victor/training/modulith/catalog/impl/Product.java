@@ -19,4 +19,6 @@ public class Product {
 
   private Double price;
 
+  // kept in sync via events thrown from Inventory
+  private boolean inStock;
 }

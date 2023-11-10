@@ -14,6 +14,6 @@ public class InitialData {
   void initialData() {
     stockRepo.save(new Stock()
         .productId(1L)
-        .items(100));
+        .add(100));
   }
 }

@@ -2,9 +2,11 @@ package victor.training.modulith.inventory.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.inventory.OutOfStockEvent;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.common.LineItem;
 
@@ -36,8 +38,11 @@ public class ReserveStockService {
   private void subtractStock(long productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
-    stockRepo.save(stock);
+    stockRepo.save(stock); // Spring publishes events added with #registerEvent in #remove above
+//    eventPublisher.publishEvent(new OutOfStockEvent(productId)));
   }
+
+  private final ApplicationEventPublisher eventPublisher;
 
   @ApplicationModuleListener
   void onOrderConfirmed(OrderStatusChangedEvent event) {
