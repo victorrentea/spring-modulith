@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toMap;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class PlaceOrderRest {
+public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogDoor catalogDoor;
   private final PaymentModule paymentModule;

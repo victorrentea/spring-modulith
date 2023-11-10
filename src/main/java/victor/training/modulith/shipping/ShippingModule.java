@@ -2,15 +2,15 @@ package victor.training.modulith.shipping;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.shipping.impl.ShippingProviderClient;
+import victor.training.modulith.shipping.impl.ShippingProviderApi;
 
 @Service
 @RequiredArgsConstructor
 public class ShippingModule {
-  private final ShippingProviderClient shippingProviderClient;
+  private final ShippingProviderApi shippingProviderApi;
 
   public String requestShipment(String customerAddress) {
-    return shippingProviderClient.requestShipment("our-warehouse", customerAddress);
+    return shippingProviderApi.requestShipment("our-warehouse", customerAddress);
   }
   
 

@@ -9,7 +9,7 @@ import victor.training.modulith.common.ProductId;
 
 @RestController
 @RequiredArgsConstructor
-public class GetStockRest {
+public class GetStockApi {
   private final StockRepo stockRepo;
 
   @GetMapping("stock/{productId}")

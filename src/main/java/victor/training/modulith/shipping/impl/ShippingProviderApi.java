@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "shipping")
-public interface ShippingProviderClient {
+public interface ShippingProviderApi {
   @PostMapping
   String requestShipment(@RequestParam String pickupAddress, @RequestParam String deliveryAddress);
 }
