@@ -2,7 +2,7 @@ package victor.training.modulith.inventory.impl;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
-import victor.training.modulith.shared.ProductId;
+import victor.training.modulith.common.ProductId;
 
 import java.util.Optional;
 

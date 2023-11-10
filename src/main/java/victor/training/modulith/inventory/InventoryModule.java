@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.impl.*;
 import victor.training.modulith.order.InventoryDoor;
-import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.common.LineItem;
 
 import java.util.List;
 

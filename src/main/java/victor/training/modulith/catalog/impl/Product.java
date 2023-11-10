@@ -8,7 +8,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
-import victor.training.modulith.shared.ProductId;
+import victor.training.modulith.common.ProductId;
 
 @Entity
 @Data

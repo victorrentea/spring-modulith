@@ -1,7 +1,6 @@
-package victor.training.modulith.shared;
+package victor.training.modulith.common;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
 
 @Embeddable
 public record ProductId(long id) {

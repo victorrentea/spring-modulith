@@ -1,6 +1,4 @@
-package victor.training.modulith.shared;
-
-import java.util.Objects;
+package victor.training.modulith.common;
 
 import static java.util.Objects.requireNonNull;
 
