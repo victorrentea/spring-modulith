@@ -11,15 +11,12 @@ import victor.training.modulith.payment.PaymentResultEvent;
 @RestController
 @RequiredArgsConstructor
 public class PaymentGatewayCallbackRest {
-//  private final OrderModule orderModule;
   private final ApplicationEventPublisher eventPublisher;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId,
                                @RequestBody boolean ok) {
-//    orderModule.onPaymentProcessed(orderId, ok);
-    // daca nu am nevoie de rezultate si nu tre sa astept sa termine => eventuri
-    eventPublisher.publishEvent(new PaymentResultEvent(orderId, ok));
+    eventPublisher.publishEvent(new PaymentResultEvent(orderId, ok)); // TODO 3 attempt call order module
     return "Payment callback received";
   }
 }

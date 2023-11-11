@@ -22,7 +22,7 @@ public class Stock extends AbstractAggregateRoot<Stock> {
   @Setter // + FK to PRODUCT.ID
   private Long productId;
 
-//  @ManyToOne private Product product; // TODO uncomment
+//  @ManyToOne private Product product; // TODO explore JPA links between @Entity in different module
 
   @NotNull
   private Integer items = 0;

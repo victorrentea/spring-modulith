@@ -15,11 +15,12 @@ import static victor.training.modulith.customer.CustomerModule.*;
 @RequiredArgsConstructor
 public class NotificationService {
   private final CustomerModule customerModule;
-//  private final OrderModule orderModule;
 
   @ApplicationModuleListener
   public void onOrderStatusChanged(OrderStatusChangedEvent event) {
-//    long customerId = orderModule.getCustomerForOrder(event.orderId());
+    // TODO 5 explore events flavors
+    //  1) Notification
+    //  2) Event-Carried State Transfer
     String customerId = event.customerId();
     CustomerDto customer = customerModule.getCustomer(customerId);
     String customerEmail = customer.email();

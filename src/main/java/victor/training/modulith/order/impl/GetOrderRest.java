@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GetOrderRest {
   private final OrderRepo orderRepo;
+
   @GetMapping("order/{orderId}")
   public Order getOrder(@PathVariable long orderId) {
     return orderRepo.findById(orderId).orElseThrow();

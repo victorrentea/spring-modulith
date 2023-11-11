@@ -36,8 +36,10 @@ public class Order extends AbstractAggregateRoot<Order> {
   @Setter
   @NotNull
   private Double total;
+
   private OrderStatus status = OrderStatus.AWAITING_PAYMENT;
   private String shippingTrackingNumber;
+
   @ElementCollection
   @Setter
   @NotNull
@@ -50,19 +52,21 @@ public class Order extends AbstractAggregateRoot<Order> {
     }
   }
 
-  public void paid(boolean ok) {
+  public Order paid(boolean ok) {
     requireStatus(OrderStatus.AWAITING_PAYMENT);
     status = ok ? OrderStatus.PAYMENT_APPROVED : OrderStatus.PAYMENT_FAILED;
     log.info("Order status changed: {}", this);
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));
+    return this;
   }
 
-  public void scheduleForShipping(String trackingNumber) {
+  public Order scheduleForShipping(String trackingNumber) {
     requireStatus(OrderStatus.PAYMENT_APPROVED);
     status = OrderStatus.SHIPPING_IN_PROGRESS;
     shippingTrackingNumber = trackingNumber;
     log.info("Order status changed: {}", this);
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));
+    return this;
   }
 
   public void shipped(boolean ok) {

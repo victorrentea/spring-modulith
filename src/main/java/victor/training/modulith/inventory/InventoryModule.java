@@ -12,7 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InventoryModule implements InventoryModuleApi {
   private final ReserveStockService reserveStockService;
-  private final StockRepo stockRepo;
 
   public void reserveStock(long orderId, List<LineItem> items) {
     reserveStockService.reserveStock(orderId, items);

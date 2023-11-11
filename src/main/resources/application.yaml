@@ -1,5 +1,5 @@
 logging.level:
-  org.hibernate.SQL: DEBUG
+  victor: DEBUG
 
 
 spring.cloud.openfeign.client.config:
@@ -9,5 +9,12 @@ spring.cloud.openfeign.client.config:
     url: http://localhost:9999/payment
 
 
-order.prop: 2
-payment.app.client-name: modulith-app
+payment:
+  client-id: modulith-app
+
+# p6spy JDBC logging
+decorator:
+  datasource:
+    p6spy:
+      multiline: false
+      log-format: "%(executionTime) ms|%(category)|connection %(connectionId)|%(sqlSingleLine)"
