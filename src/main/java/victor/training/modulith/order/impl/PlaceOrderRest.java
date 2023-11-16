@@ -49,12 +49,7 @@ public class PlaceOrderRest {
     return paymentModule.generatePaymentUrl(order.id(), order.total());
   }
 
-  @EventListener
-  public void justLog(Object event) {
-    if (event.getClass().getPackageName().contains("victor")) {
-      log.debug("Event published : " +event);
-    }
-  }
+
 
   @ApplicationModuleListener
   public void onShippingResultEvent(ShippingResultEvent event) {
