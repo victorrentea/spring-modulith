@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogModule;
 import victor.training.modulith.inventory.OutOfStockEvent;
+import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.shared.LineItem;
 
@@ -50,10 +51,6 @@ public class ReserveStockService {
     stockRepo.save(stock); // Spring publishes events added via #registerEvent by #remove above
   }
 
-  @ApplicationModuleListener
-  void onOrderConfirmed(OrderStatusChangedEvent event) {
-    log.info("Stock reservation confirmed: " + event);
-    stockReservationRepo.deleteAllByOrderId(event.orderId());
-  }
+
 
 }

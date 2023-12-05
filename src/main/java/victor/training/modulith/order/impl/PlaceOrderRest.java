@@ -3,6 +3,7 @@ package victor.training.modulith.order.impl;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryModule;
 import victor.training.modulith.order.CatalogModuleApi;
+import victor.training.modulith.order.OrderStatus;
+import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -42,6 +45,7 @@ public class PlaceOrderRest {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryModuleApi.reserveStock(order.id(), request.items);
+    // this line should only execute after stock is reserved w/o exception
     return generatePaymentUrl(order.id(), order.total());
   }
 
@@ -58,6 +62,7 @@ public class PlaceOrderRest {
   public void onShippingResultEvent(ShippingResultEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.shipped(event.ok());
+    inventoryModuleApi.fulfillReservation(event.orderId());
     orderRepo.save(order); // without @Test fails, as events not published
   }
 }
