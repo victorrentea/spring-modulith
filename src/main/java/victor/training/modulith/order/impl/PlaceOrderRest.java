@@ -3,16 +3,13 @@ package victor.training.modulith.order.impl;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryModule;
 import victor.training.modulith.order.CatalogModuleApi;
-import victor.training.modulith.order.InventoryModuleApi;
-import victor.training.modulith.order.OrderStatusChangedEvent;
-import victor.training.modulith.payment.PaymentModule;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -27,8 +24,7 @@ import static java.util.stream.Collectors.toMap;
 public class PlaceOrderRest {
   private final OrderRepo orderRepo;
   private final CatalogModuleApi catalogModuleApi;
-  private final InventoryModuleApi inventoryModuleApi;
-  private final PaymentModule paymentModule;
+  private final InventoryModule inventoryModuleApi;
 
   public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
   }
@@ -46,10 +42,17 @@ public class PlaceOrderRest {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryModuleApi.reserveStock(order.id(), request.items);
-    return paymentModule.generatePaymentUrl(order.id(), order.total());
+    return generatePaymentUrl(order.id(), order.total());
   }
 
 
+  public String generatePaymentUrl(long orderId, double total) {
+    log.info("Request payment url for order id: " + orderId);
+    String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, paymentProperties.clientId());
+    return gatewayUrl + "&orderId=" + orderId;
+  }
+  private final PaymentGatewayClient paymentGatewayClient;
+  private final PaymentProperties paymentProperties;
 
   @ApplicationModuleListener
   public void onShippingResultEvent(ShippingResultEvent event) {

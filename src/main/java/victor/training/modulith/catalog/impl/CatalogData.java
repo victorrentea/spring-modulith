@@ -15,7 +15,6 @@ public class CatalogData {
     productRepo.save(new Product()
         .name("iPhone")
         .description("Hipster Phone")
-        .inStock(true) // TODO 2 remove
         .price(1000d));
   }
 
