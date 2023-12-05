@@ -11,6 +11,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InventoryModule {
   private final ReserveStockService reserveStockService;
+  private final StockRepo stockRepo;
+
+  public int getStockValue(long productId) {
+    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+  }
 
   public void reserveStock(long orderId, List<LineItem> items) {
     reserveStockService.reserveStock(orderId, items);

@@ -17,9 +17,12 @@ public class SearchProductRest {
 
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(@RequestParam String name) {
-    // TODO 2 search only items in stock
+    // TODO 2  CR: search should only display items in stock
+    // 1: SQL/dsl: PRODUCT JOIN STOCK (why do I feel guilty?!) <<<<
+    // 3: filter by a boolean 'inStock' that we keep in sync with inventory.
     return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name)
         .stream()
+//      2:  .filter() // WRONG 1: causes N x SELECT in inventory; 2: how about pagination?
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

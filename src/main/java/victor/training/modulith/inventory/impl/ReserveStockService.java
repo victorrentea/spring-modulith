@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.catalog.CatalogModule;
+import victor.training.modulith.inventory.OutOfStockEvent;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.shared.LineItem;
 
@@ -34,9 +36,17 @@ public class ReserveStockService {
     stockReservationRepo.save(reservation);
   }
 
+  private final ApplicationEventPublisher eventPublisher;
   private void subtractStock(long productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
+    if (stock.items() == 0) {
+      // would create a cycle between catalog <-> inventory
+//      catalogModule.notifyOutOfStockForProduct(productId);
+
+      // fire an event instead to let others know something had happened
+      eventPublisher.publishEvent(new OutOfStockEvent(productId));
+    }
     stockRepo.save(stock); // Spring publishes events added via #registerEvent by #remove above
   }
 
