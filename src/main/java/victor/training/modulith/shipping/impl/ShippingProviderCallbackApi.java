@@ -10,7 +10,7 @@ import victor.training.modulith.shipping.ShippingResultEvent;
 
 @RestController
 @RequiredArgsConstructor
-public class ShippingProviderCallbackRest {
+public class ShippingProviderCallbackApi {
   private final ApplicationEventPublisher eventPublisher;
 
   @PutMapping("shipping/{orderId}/status")

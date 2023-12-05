@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CustomerData {
+public class InitialData {
   private final CustomerRepo customerRepo;
 
   @EventListener(ApplicationStartedEvent.class)

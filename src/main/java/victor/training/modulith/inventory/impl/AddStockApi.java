@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class AddStockRest {
+public class AddStockApi {
   private final StockRepo stockRepo;
 
   @PostMapping("stock/{productId}/add/{items}")

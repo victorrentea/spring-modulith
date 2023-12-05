@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class GetCustomerRest {
+public class GetCustomerApi {
   private final CustomerRepo customerRepo;
 
   public record GetCustomerResponse(

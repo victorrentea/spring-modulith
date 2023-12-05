@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class GetStockRest {
+public class GetStockApi {
   private final StockRepo stockRepo;
 
   @GetMapping("stock/{productId}")

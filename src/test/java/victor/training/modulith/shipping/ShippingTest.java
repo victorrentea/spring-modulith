@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.PublishedEvents;
-import victor.training.modulith.shipping.impl.ShippingProviderCallbackRest;
+import victor.training.modulith.shipping.impl.ShippingProviderCallbackApi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ApplicationModuleTest
 public class ShippingTest {
   @Autowired
-  ShippingProviderCallbackRest sut;
+  ShippingProviderCallbackApi sut;
   @Test
   void callback(PublishedEvents publishedEvents) {
     // alternative: mockMVC

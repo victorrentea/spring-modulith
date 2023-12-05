@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class SearchProductRest {
+public class SearchProductApi {
   private final ProductRepo productRepo;
 
   public record ProductSearchResult(long id, String name) {
@@ -17,9 +17,8 @@ public class SearchProductRest {
 
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(@RequestParam String name) {
-    // TODO 2 search only items in stock
-    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name)
-        .stream()
+    // TODO 2 CR: search should only display items in stock
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name).stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

@@ -1,4 +1,4 @@
-package victor.training.modulith.payment.config;
+package victor.training.modulith.order.impl;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

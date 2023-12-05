@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class GetOrderRest {
+public class GetOrderApi {
   private final OrderRepo orderRepo;
 
   @GetMapping("order/{orderId}")
