@@ -2,6 +2,7 @@ package victor.training.modulith.catalog.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.inventory.out.events.ProductBackInStockEvent;
@@ -12,8 +13,8 @@ import victor.training.modulith.inventory.out.events.ProductOutOfStockEvent;
 @RequiredArgsConstructor
 public class StockEventListener {
   private final ProductRepo productRepo;
-  @EventListener
-  @Transactional
+  @ApplicationModuleListener
+  // async, of an event persisted in between in a table
   public void onOutOfStock(ProductOutOfStockEvent event) {
     Product product = productRepo.findById(event.productId()).orElseThrow();
 //    rest api call   // DANGER. tx starvation
