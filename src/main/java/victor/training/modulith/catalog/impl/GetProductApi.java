@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.app.entity.Stock;
 import victor.training.modulith.inventory.app.repo.StockRepo;
+import victor.training.modulith.inventory.in.door.InventoryModule;
 
 @RestController
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
+  private final InventoryModule inventoryModule;
 
   public record GetProductResponse(long id,
                             String name,
@@ -22,11 +23,11 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    Stock stock = stockRepo.findById(productId).orElseThrow();
+    var stock = inventoryModule.getStock(productId);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
-        stock.items(),
+        stock,
         product.price());
   }
 }
