@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.inventory.out.events.ProductBackInStockEvent;
 import victor.training.modulith.inventory.out.events.ProductOutOfStockEvent;
 
+// goes in "in.event" in a hexagon
 @Component
 @RequiredArgsConstructor
 public class StockEventListener {
