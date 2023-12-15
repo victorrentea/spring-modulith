@@ -16,6 +16,7 @@ public class StockEventListener {
   @Transactional
   public void onOutOfStock(ProductOutOfStockEvent event) {
     Product product = productRepo.findById(event.productId()).orElseThrow();
+//    rest api call   // DANGER. tx starvation
     product.inStock(false);// this is COMMITED with set stock = 0 in stock module.
 
   }

@@ -25,7 +25,7 @@ public class StockService {
     }
     stockRepo.save(stock); // hibernate tells spring to fire an event for each entity that has registered events
     // during the .save() call all the event listeners for ProductBackInStockEvent are notified
-    // in the same thread and sharing the existing tx :18
+    // in the same thread, synchronously and sharing the existing tx :18
   }
   private final ApplicationEventPublisher eventPublisher;
 
