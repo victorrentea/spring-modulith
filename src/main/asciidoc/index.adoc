@@ -22,9 +22,13 @@ include::{moduliths}/module-inventory.adoc[]
 plantuml::{moduliths}/module-order.puml[format=svg,title="Order component overview"]
 include::{moduliths}/module-order.adoc[]
 
+
+////
 == Payment
 plantuml::{moduliths}/module-payment.puml[format=svg,title="Payment component overview"]
 include::{moduliths}/module-payment.adoc[]
+////
+
 
 == Shipping
 plantuml::{moduliths}/module-shipping.puml[format=svg,title="Shipping component overview"]
