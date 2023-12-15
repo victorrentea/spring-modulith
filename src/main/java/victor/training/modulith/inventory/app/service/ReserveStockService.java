@@ -1,11 +1,14 @@
-package victor.training.modulith.inventory.impl;
+package victor.training.modulith.inventory.app.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.inventory.app.entity.Stock;
+import victor.training.modulith.inventory.app.repo.StockRepo;
+import victor.training.modulith.inventory.app.entity.StockReservation;
+import victor.training.modulith.inventory.app.repo.StockReservationRepo;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.shared.LineItem;

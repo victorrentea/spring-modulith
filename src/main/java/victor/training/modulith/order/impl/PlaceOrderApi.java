@@ -26,7 +26,6 @@ public class PlaceOrderApi {
   private final CatalogModuleApi catalogModuleApi;
   private final InventoryModuleApi inventoryModuleApi;
   private final PaymentGatewayClient paymentGatewayClient;
-  private final PaymentProperties paymentProperties;
 
   public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
   }
@@ -50,7 +49,7 @@ public class PlaceOrderApi {
 
   public String generatePaymentUrl(long orderId, double total) { // TODO 3 move to 'payment' module
     log.info("Request payment url for order id: " + orderId);
-    String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, paymentProperties.clientId());
+    String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, "modulith-app");
     return gatewayUrl + "&orderId=" + orderId;
   }
 

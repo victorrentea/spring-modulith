@@ -1,4 +1,4 @@
-package victor.training.modulith.inventory.impl;
+package victor.training.modulith.inventory.app.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

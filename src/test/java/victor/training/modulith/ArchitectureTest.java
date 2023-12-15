@@ -15,6 +15,7 @@ class ArchitectureTest {
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
+	// checks that modules don't use each other's internals and form no cycles
 	void verifyModularity() {
 		modules.verify();
 	}

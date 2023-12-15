@@ -1,9 +1,11 @@
-package victor.training.modulith.inventory.impl;
+package victor.training.modulith.inventory.app;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import victor.training.modulith.inventory.app.entity.Stock;
+import victor.training.modulith.inventory.app.repo.StockRepo;
 
 @Component
 @RequiredArgsConstructor

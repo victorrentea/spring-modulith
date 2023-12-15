@@ -9,12 +9,11 @@ spring.cloud.openfeign.client.config:
     url: http://localhost:9999/payment
 
 
-payment:
-  client-id: modulith-app
-
 # p6spy JDBC logging
 decorator:
   datasource:
     p6spy:
       multiline: false
       log-format: "%(executionTime) ms|%(category)|connection %(connectionId)|%(sqlSingleLine)"
+shipping:
+  shipping-from-address: Our Address 99, 12345, Our City
