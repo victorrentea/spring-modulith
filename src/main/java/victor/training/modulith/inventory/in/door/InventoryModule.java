@@ -1,4 +1,4 @@
-package victor.training.modulith.inventory.in.api;
+package victor.training.modulith.inventory.in.door;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
