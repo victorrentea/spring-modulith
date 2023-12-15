@@ -23,7 +23,9 @@ public class StockService {
 //      catalogModule.f();
 //      eventPublisher.publishEvent(new ProductBackInStockEvent(productId));
     }
-    stockRepo.save(stock); // hibernate tells spring a
+    stockRepo.save(stock); // hibernate tells spring to fire an event for each entity that has registered events
+    // during the .save() call all the event listeners for ProductBackInStockEvent are notified
+    // in the same thread and sharing the existing tx :18
   }
   private final ApplicationEventPublisher eventPublisher;
 

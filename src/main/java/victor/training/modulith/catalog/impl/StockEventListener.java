@@ -15,7 +15,9 @@ public class StockEventListener {
   @EventListener
   @Transactional
   public void onOutOfStock(ProductOutOfStockEvent event) {
-    productRepo.findById(event.productId()).orElseThrow().inStock(false);
+    Product product = productRepo.findById(event.productId()).orElseThrow();
+    product.inStock(false);// this is COMMITED with set stock = 0 in stock module.
+
   }
   @EventListener
   @Transactional
