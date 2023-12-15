@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
+import victor.training.modulith.inventory.out.events.ProductBackInStockEvent;
+import victor.training.modulith.inventory.out.events.ProductOutOfStockEvent;
 
 @Getter
 @ToString
@@ -29,7 +31,7 @@ public class Stock extends AbstractAggregateRoot<Stock> {
       throw new IllegalArgumentException("Negative: " + n);
     }
     if (items == 0) {
-//      registerEvent(new BackInStockEvent(productId));
+      registerEvent(new ProductBackInStockEvent(productId));
     }
     items += n;
     return this;
@@ -44,7 +46,7 @@ public class Stock extends AbstractAggregateRoot<Stock> {
     }
     items -= delta;
     if (items == 0) {
-//      registerEvent(new OutOfStockEvent(productId));
+      registerEvent(new ProductOutOfStockEvent(productId));
     }
   }
 }

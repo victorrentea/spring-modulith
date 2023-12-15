@@ -17,17 +17,20 @@ public class GetProductApi {
   public record GetProductResponse(long id,
                             String name,
                             String description,
-                            int stock, // TODO 1 CR: display stock in UI
+//                            int stock, // TODO 1 CR: display stock in UI
+                           // TODO task for me, (i am fullstack) to fetch stock from UI: provide a <div>
+                           //  webcomponent /ui/stock called <current-stock> taht the catalog UI here is going to use
                             double price) {}
 
+  // email from architect out of the blue: WRONG! Module-in-the-middle design smell
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    var stock = inventoryModule.getStock(productId);
+//    var stock = inventoryModule.getStock(productId);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
-        stock,
+//        stock,
         product.price());
   }
 }
