@@ -14,13 +14,13 @@ import victor.training.modulith.inventory.out.events.ProductBackInStockEvent;
 @RequiredArgsConstructor
 public class StockService {
   private final StockRepo stockRepo;
-  private final CatalogModule catalogModule;
+//  private final CatalogModule catalogModule;// causes a cycle
   @Transactional
   public void addStock(@PathVariable long productId, @PathVariable int items) {
     Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
     stock.add(items);
     if (stock.items() == 0) {
-      catalogModule.f();
+//      catalogModule.f();
 //      eventPublisher.publishEvent(new ProductBackInStockEvent(productId));
     }
     stockRepo.save(stock); // hibernate tells spring a
