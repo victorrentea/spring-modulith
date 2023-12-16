@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
@@ -18,7 +19,8 @@ public class BreakInMavenModules {
     List<String> moduleNames = Arrays.stream(SRC_MODULE_ROOT.listFiles())
         .filter(File::isDirectory)
         .map(File::getName)
-        .toList();
+        .collect(Collectors.toList());
+    moduleNames.add("app");
 
     for (String moduleName : moduleNames) {
       System.out.println("Creating module " + moduleName);
@@ -35,6 +37,7 @@ public class BreakInMavenModules {
           + moduleNames.stream().map(s -> "<module>" + s + "</module>\n").collect(joining())
           + "</modules>");
 
+      new File("src").renameTo(new File("app/src"));
     }
   }
 
