@@ -48,7 +48,7 @@ public class PlaceOrderApi {
   }
 
 
-  public String generatePaymentUrl(long orderId, double total) { // TODO 3 move to 'payment' module
+  public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
     log.info("Request payment url for order id: " + orderId);
     String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, paymentProperties.clientId());
     return gatewayUrl + "&orderId=" + orderId;

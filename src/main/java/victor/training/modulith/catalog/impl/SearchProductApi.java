@@ -17,8 +17,8 @@ public class SearchProductApi {
 
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(@RequestParam String name) {
-    // TODO 2 CR: search should only display items in stock
-    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name).stream()
+    // TODO search should only return items in stock
+    return productRepo.searchByNameLikeIgnoreCase(name).stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

@@ -2,13 +2,10 @@ package victor.training.modulith.inventory.impl;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
-import victor.training.modulith.inventory.BackInStockEvent;
-import victor.training.modulith.inventory.OutOfStockEvent;
 
 @Getter
 @ToString
@@ -31,9 +28,9 @@ public class Stock extends AbstractAggregateRoot<Stock> {
     if (n <= 0) {
       throw new IllegalArgumentException("Negative: " + n);
     }
-    if (items == 0) {
-      registerEvent(new BackInStockEvent(productId));
-    }
+//    if (items == 0) {
+//      registerEvent(new BackInStockEvent(productId));
+//    }
     items += n;
     return this;
   }
@@ -46,8 +43,8 @@ public class Stock extends AbstractAggregateRoot<Stock> {
       throw new IllegalArgumentException("Not enough stock to remove: " + delta);
     }
     items -= delta;
-    if (items == 0) {
-      registerEvent(new OutOfStockEvent(productId));
-    }
+//    if (items == 0) {
+//      registerEvent(new OutOfStockEvent(productId));
+//    }
   }
 }

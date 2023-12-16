@@ -12,10 +12,5 @@ import victor.training.modulith.customer.impl.CustomerRepo;
 public class CustomerModule {
   private final CustomerRepo customerRepo;
 
-  public record CustomerDto(String id, String email) {}
 
-  public CustomerDto getCustomer(String customerId) {
-    Customer customer = customerRepo.findById(customerId).orElseThrow();
-    return new CustomerDto(customer.id(), customer.address());
-  }
 }

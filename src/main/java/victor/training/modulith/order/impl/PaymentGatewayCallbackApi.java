@@ -11,13 +11,12 @@ import victor.training.modulith.shipping.ShippingModule;
 
 @RestController
 @RequiredArgsConstructor
-public class PaymentGatewayCallbackApi {
+public class PaymentGatewayCallbackApi { // TODO move to 'payment' module
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    // TODO 3 move to 'payment' and notify order of confirmation
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.paid(ok);
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {

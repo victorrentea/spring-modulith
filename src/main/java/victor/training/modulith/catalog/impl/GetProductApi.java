@@ -13,7 +13,7 @@ public class GetProductApi {
   public record GetProductResponse(long id,
                             String name,
                             String description,
-//                            int stock, // TODO 1 CR: display stock in UI
+//                            int stock, // TODO display stock in product page UI
                             double price) {}
 
   @GetMapping("catalog/{productId}")

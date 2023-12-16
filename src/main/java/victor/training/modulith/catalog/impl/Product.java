@@ -18,6 +18,4 @@ public class Product {
   private String description;
 
   private Double price;
-
-  private Boolean inStock = true; // TODO 2 delete
 }
