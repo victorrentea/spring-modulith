@@ -38,7 +38,17 @@ public class BreakInMavenModules {
         + moduleNames.stream().map(s -> "<module>" + s + "</module>\n").collect(joining())
         + "</modules>");
 
-    new File("src").renameTo(new File("app/src"));
+    deleteDirectory(new File("app/src"));
+    System.out.println(new File("src").renameTo(new File("app/src")));
+  }
+  static boolean deleteDirectory(File directoryToBeDeleted) {
+    File[] allContents = directoryToBeDeleted.listFiles();
+    if (allContents != null) {
+      for (File file : allContents) {
+        deleteDirectory(file);
+      }
+    }
+    return directoryToBeDeleted.delete();
   }
 
   private static void replaceInPomXml(String what, String withWhat) throws IOException {
