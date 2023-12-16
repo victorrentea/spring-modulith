@@ -32,13 +32,13 @@ public class BreakInMavenModules {
 
       new File(SRC_MODULE_ROOT, moduleName).renameTo(new File(srcFolder, moduleName));
 
-      replaceInPomXml("<packaging>jar</packaging>",
-          "<packaging>pom</packaging>\n<modules>\n"
-          + moduleNames.stream().map(s -> "<module>" + s + "</module>\n").collect(joining())
-          + "</modules>");
-
-      new File("src").renameTo(new File("app/src"));
     }
+    replaceInPomXml("<packaging>jar</packaging>",
+        "<packaging>pom</packaging>\n<modules>\n"
+        + moduleNames.stream().map(s -> "<module>" + s + "</module>\n").collect(joining())
+        + "</modules>");
+
+    new File("src").renameTo(new File("app/src"));
   }
 
   private static void replaceInPomXml(String what, String withWhat) throws IOException {
