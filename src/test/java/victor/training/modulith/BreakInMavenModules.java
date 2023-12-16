@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.stream.Collectors.joining;
+
 public class BreakInMavenModules {
 
   public static final File SRC_MODULE_ROOT = new File("src/main/java/victor/training/modulith");
@@ -25,8 +28,21 @@ public class BreakInMavenModules {
       testFolder.mkdirs();
       createPom(moduleName);
 
-      new File(SRC_MODULE_ROOT, moduleName).renameTo(srcFolder);
+      new File(SRC_MODULE_ROOT, moduleName).renameTo(new File(srcFolder, moduleName));
+
+      replaceInPomXml("<packaging>jar</packaging>",
+          "<packaging>pom</packaging>\n<modules>\n"
+          + moduleNames.stream().map(s -> "<module>" + s + "</module>\n").collect(joining())
+          + "</modules>");
+
     }
+  }
+
+  private static void replaceInPomXml(String what, String withWhat) throws IOException {
+    File parentPomXml = new File("pom.xml");
+    String content = new String(Files.readAllBytes(parentPomXml.toPath()), UTF_8);
+    content = content.replace(what, withWhat);
+    Files.write(parentPomXml.toPath(), content.getBytes(UTF_8));
   }
 
   private static void createPom(String moduleName) throws IOException {
