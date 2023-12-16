@@ -12,11 +12,9 @@ import static java.util.stream.Collectors.joining;
 
 public class BreakInMavenModules {
 
-  public static final File SRC_MODULE_ROOT = new File("src/main/java/victor/training/modulith");
-
   public static void main(String[] args) throws IOException {
 
-    List<String> moduleNames = Arrays.stream(SRC_MODULE_ROOT.listFiles())
+    List<String> moduleNames = Arrays.stream(new File("src/main/java/victor/training/modulith").listFiles())
         .filter(File::isDirectory)
         .map(File::getName)
         .collect(Collectors.toList());
@@ -30,7 +28,8 @@ public class BreakInMavenModules {
       testFolder.mkdirs();
       createPom(moduleName);
 
-      new File(SRC_MODULE_ROOT, moduleName).renameTo(new File(srcFolder, moduleName));
+      new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
+      new File(new File("src/test/java/victor/training/modulith"), moduleName).renameTo(new File(testFolder, moduleName));
 
     }
     replaceInPomXml("<packaging>jar</packaging>",
