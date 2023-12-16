@@ -1,4 +1,5 @@
-# Modular Monolith example with Spring Modulith
+# Modular Monolith Coding Kata
+using Spring Modulith https://spring.io/projects/spring-modulith/
 
 ## Domain Overview
 
