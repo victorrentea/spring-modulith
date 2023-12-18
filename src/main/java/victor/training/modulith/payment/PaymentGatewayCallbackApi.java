@@ -15,11 +15,13 @@ import victor.training.modulith.shipping.ShippingModule;
 @RestController
 @RequiredArgsConstructor
 public class PaymentGatewayCallbackApi { // TODO move to 'payment' module
-  private final OrderModule orderModule;
+//  private final OrderModule orderModule;
+  private final ApplicationEventPublisher eventPublisher;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    orderModule.setOrderPaid(orderId, ok);
+//    orderModule.setOrderPaid(orderId, ok); // i don't a need a result back
+  eventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
     System.out.println("Exit");
     return "Payment callback received";
   }
