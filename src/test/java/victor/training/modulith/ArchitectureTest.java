@@ -14,7 +14,7 @@ class ArchitectureTest {
 	public static final ApplicationModules modules =
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
-	@Test
+	@Test // based on ArchUnit rules (static code analysis failing your test)
 	void verifyModularity() {
 		modules.verify();
 	}
