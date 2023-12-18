@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.payment.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -10,8 +10,10 @@ import victor.training.modulith.order.OrderModule;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.payment.PaymentCompletedEvent;
 import victor.training.modulith.shipping.ShippingModule;
 
+// this is a "webhook" is a callback from a 3rd party system to our system
 @RestController
 @RequiredArgsConstructor
 public class PaymentGatewayCallbackApi { // TODO move to 'payment' module

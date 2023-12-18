@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
-import victor.training.modulith.payment.PaymentGatewayClient;
+import victor.training.modulith.payment.PaymentModule;
+import victor.training.modulith.payment.impl.PaymentGatewayClient;
 import victor.training.modulith.payment.PaymentProperties;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
@@ -27,8 +28,9 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogModuleApi catalogModuleApi;
   private final InventoryModuleApi inventoryModuleApi;
-  private final PaymentGatewayClient paymentGatewayClient;
-  private final PaymentProperties paymentProperties;
+//  private final PaymentGatewayClient paymentGatewayClient;
+//  private final PaymentProperties paymentProperties;
+  private final PaymentModule paymentModule;
 
   public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
   }
@@ -46,15 +48,11 @@ public class PlaceOrderApi {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryModuleApi.reserveStock(order.id(), request.items);
-    return generatePaymentUrl(order.id(), order.total());
+    return paymentModule.generatePaymentUrl(order.id(), order.total());
   }
 
 
-  public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
-    log.info("Request payment url for order id: " + orderId);
-    String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, paymentProperties.clientId());
-    return gatewayUrl + "&orderId=" + orderId;
-  }
+
 
 
   @ApplicationModuleListener
