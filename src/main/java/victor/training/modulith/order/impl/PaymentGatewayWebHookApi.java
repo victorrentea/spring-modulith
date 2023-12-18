@@ -1,7 +1,6 @@
 package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +10,7 @@ import victor.training.modulith.shipping.ShippingModule;
 
 @RestController
 @RequiredArgsConstructor
-public class PaymentGatewayCallbackApi { // TODO move to 'payment' module
+public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
 

@@ -3,6 +3,7 @@ package victor.training.modulith.shipping;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.shipping.impl.ShippingProperties;
 import victor.training.modulith.shipping.impl.ShippingProviderClient;
 
 @Slf4j
@@ -10,9 +11,10 @@ import victor.training.modulith.shipping.impl.ShippingProviderClient;
 @RequiredArgsConstructor
 public class ShippingModule {
   private final ShippingProviderClient shippingProviderClient;
+  private final ShippingProperties shippingProperties;
 
   public String requestShipment(long orderId, String customerAddress) {
     log.info("Request shipping at " + customerAddress);
-    return shippingProviderClient.requestShipment("our-warehouse", customerAddress, orderId);
+    return shippingProviderClient.requestShipment(shippingProperties.shippingFromAddress(), customerAddress, orderId);
   }
 }
