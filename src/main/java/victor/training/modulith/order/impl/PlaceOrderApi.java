@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
 import victor.training.modulith.shared.LineItem;
-import victor.training.modulith.shipping.ShippingResultEvent;
+import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
 import java.util.List;
 import java.util.Map;

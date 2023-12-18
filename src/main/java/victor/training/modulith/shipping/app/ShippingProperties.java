@@ -1,4 +1,4 @@
-package victor.training.modulith.shipping.impl;
+package victor.training.modulith.shipping.app;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

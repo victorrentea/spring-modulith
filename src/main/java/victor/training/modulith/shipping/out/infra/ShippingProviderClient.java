@@ -1,4 +1,4 @@
-package victor.training.modulith.shipping.impl;
+package victor.training.modulith.shipping.out.infra;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

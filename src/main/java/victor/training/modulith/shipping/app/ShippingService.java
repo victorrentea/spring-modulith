@@ -1,15 +1,15 @@
-package victor.training.modulith.shipping;
+package victor.training.modulith.shipping.app;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.shipping.impl.ShippingProperties;
-import victor.training.modulith.shipping.impl.ShippingProviderClient;
+import victor.training.modulith.shipping.out.infra.ShippingProviderClient;
+
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ShippingModule {
+public class ShippingService {
   private final ShippingProviderClient shippingProviderClient;
   private final ShippingProperties shippingProperties;
 

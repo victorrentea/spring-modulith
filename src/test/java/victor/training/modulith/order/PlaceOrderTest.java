@@ -1,32 +1,7 @@
 package victor.training.modulith.order;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.modulith.test.ApplicationModuleTest;
-import org.springframework.modulith.test.PublishedEvents;
-import org.springframework.modulith.test.Scenario;
-import victor.training.modulith.order.impl.Order;
-import victor.training.modulith.order.impl.OrderRepo;
-import victor.training.modulith.order.impl.PlaceOrderApi;
-import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
-import victor.training.modulith.shared.LineItem;
-import victor.training.modulith.shipping.ShippingModule;
-import victor.training.modulith.shipping.ShippingResultEvent;
-
-import java.time.Duration;
-import java.util.List;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static victor.training.modulith.order.OrderStatus.*;
 
 // TODO IMPROVE: write a module test on a module not shifting
 //@Slf4j
