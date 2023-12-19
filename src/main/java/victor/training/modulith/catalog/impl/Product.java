@@ -21,8 +21,6 @@ public class Product {
 
   private Double price;
 
-//  private Long stock; //replicated from inventory
-
   private boolean inStock = true;// data replication
 
   // optimistic locking
