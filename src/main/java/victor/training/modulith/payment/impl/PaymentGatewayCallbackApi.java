@@ -6,7 +6,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.order.OrderModule;
+import victor.training.modulith.order.OrderStatus;
+import victor.training.modulith.order.impl.Order;
+import victor.training.modulith.order.impl.OrderRepo;
 import victor.training.modulith.payment.PaymentCompletedEvent;
+import victor.training.modulith.shipping.ShippingModule;
 
 // this is a "webhook" is a callback from a 3rd party system to our system
 @RestController
