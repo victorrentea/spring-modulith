@@ -7,6 +7,7 @@ import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionalEventListener;
 import victor.training.modulith.inventory.ItemBackInStockEvent;
 import victor.training.modulith.inventory.ItemRanOutOfStockEvent;
 
@@ -31,10 +32,12 @@ public class StockEventListener {
     Product product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(false);
   }
+  // there are only two things hard in programming: cache invalidation and naming things
 
   @EventListener
   @Async // separate thread, separate tx. God help us all.
   @Transactional
+  @TransactionalEventListener
   public void on(ItemBackInStockEvent event) {
     Product product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(true);
