@@ -6,6 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data // sorry
 public class Product {
@@ -20,4 +22,12 @@ public class Product {
   private Double price;
 
   private boolean inStock = true;// data replication
+
+  // optimistic locking
+//  @Version
+////  private Long version;
+//  private LocalDateTime version;
+
+  // audit column
+
 }
