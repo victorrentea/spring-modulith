@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
 import victor.training.modulith.payment.PaymentModule;
-import victor.training.modulith.payment.impl.PaymentGatewayClient;
-import victor.training.modulith.payment.PaymentProperties;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
