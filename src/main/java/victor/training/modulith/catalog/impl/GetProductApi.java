@@ -13,6 +13,9 @@ public class GetProductApi {
   private final ProductRepo productRepo;
   private final InventoryModule inventoryModule;
 
+  // Think> why does my module provide in its REST API data from another module?
+  //a) a BFF/proxy in front
+  //b) include in your product page a dedicated <stock> webcomponent developed by the inventory full-stack team
   public record GetProductResponse(long id,
                                        String name,
                                        String description,
@@ -29,5 +32,7 @@ public class GetProductApi {
         stock,
         product.price());
   }
+  // use a queue with commands to READ DATA - NEVER DO THAT
+  // to read data always use a sync call (method call, REST GET in microservices)
 
 }
