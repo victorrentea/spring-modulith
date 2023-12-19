@@ -18,6 +18,4 @@ public class Product {
   private String description;
 
   private Double price;
-
-  private boolean inStock = true;// data replication
 }
