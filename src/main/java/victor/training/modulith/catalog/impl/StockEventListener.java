@@ -6,7 +6,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.inventory.ItemBackInStockEvent;
-import victor.training.modulith.inventory.ItemRanOutOfStockEvent;
+import victor.training.modulith.inventory.RanOutOfStockEvent;
 
 @Slf4j
 @Service
@@ -16,7 +16,7 @@ public class StockEventListener {
 
   @EventListener
   @Transactional
-  public void on(ItemRanOutOfStockEvent event) {
+  public void on(RanOutOfStockEvent event) {
     Product product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(false);
   }
