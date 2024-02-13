@@ -16,7 +16,7 @@ class ArchitectureTest {
 
 	@Test
 	void verifyModularity() {
-		modules.verify();
+		modules.verify(); // disclaimer: ArchUnit-based
 	}
 
 	@Test

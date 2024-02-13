@@ -19,6 +19,7 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<!-- spring explicit support for modulith -->
 			<groupId>org.springframework.modulith</groupId>
 			<artifactId>spring-modulith-starter-core</artifactId>
 		</dependency>
