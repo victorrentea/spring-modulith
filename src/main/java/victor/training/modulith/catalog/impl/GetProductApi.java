@@ -17,6 +17,10 @@ public class GetProductApi {
                             String description,
                             int stock, // TODO display stock in product page UI
                             double price) {}
+  // imagine the only client of this api is your own frontend.
+  // microfrontents> imagine a <div> loading the stock from inventory
+  // perhaps they decide to make it RED if only 2 items.
+  // or LIE to the user: "Last item in stock" - when they have 5.
 
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
