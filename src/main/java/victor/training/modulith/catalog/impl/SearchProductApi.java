@@ -32,8 +32,8 @@ public class SearchProductApi {
     // EVENTUAL CONSISTENCY ⚠️⚠️⚠️⚠️⚠️ there is a delay between the product being sold and the search engine being updated
 
     // idea4: events to maintain the stock levels in catalog. = STRONGLY CONSISTENT
-    // ProductSoldEvent(productId, items) -> product.stock -= items
-    // StockChangedEvent(productId, newStock) -> product.stock = newStock
+    // ProductSoldEvent(productId, items) -> product.inStock -= items
+    // StockChangedEvent(productId, newStock) -> product.inStock = newStock
     return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name).stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
