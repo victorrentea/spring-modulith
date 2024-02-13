@@ -3,12 +3,12 @@ package victor.training.modulith.order.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.payment.PaymentConfirmedHook;
+import victor.training.modulith.payment.PaymentStatusListener;
 import victor.training.modulith.shipping.in.api.ShippingModule;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentConfirmedHookImpl implements PaymentConfirmedHook {
+public class PaymentStatusListenerImpl implements PaymentStatusListener {
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
 
