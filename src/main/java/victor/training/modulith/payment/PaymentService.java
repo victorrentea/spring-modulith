@@ -3,12 +3,11 @@ package victor.training.modulith.payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.order.PaymentDoor;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentService implements PaymentDoor {
+public class PaymentService {
   private final PaymentGatewayClient paymentGatewayClient;
 
   public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
