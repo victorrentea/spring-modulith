@@ -15,6 +15,7 @@ class ArchitectureTest {
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
+	// arch-unit based
 	void verifyModularity() {
 		modules.verify(); // Spring-modulith support https://spring.io/projects/spring-modulith
 	}

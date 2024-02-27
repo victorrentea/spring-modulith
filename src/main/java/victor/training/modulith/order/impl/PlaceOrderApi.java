@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
+import victor.training.modulith.order.impl.repo.OrderRepo;
+import victor.training.modulith.payment.PaymentService;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
