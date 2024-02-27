@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -13,6 +14,12 @@ import static java.util.stream.Collectors.joining;
 public class BreakInMavenModules {
 
   public static void main(String[] args) throws IOException {
+
+    System.out.println("Did you optimized imports for all classes? (right click src/main/java) [y/n]");
+    if (!new Scanner(System.in).nextLine().equalsIgnoreCase("y")) {
+      System.out.println("Do that first!");
+      return;
+    }
 
     List<String> moduleNames = Arrays.stream(new File("src/main/java/victor/training/modulith").listFiles())
         .filter(File::isDirectory)
