@@ -30,3 +30,16 @@ public class GetProductApi {
         product.price());
   }
 }
+// 1) catalog calls inventory and returns that data to its client.
+// WHEN: to limit the network calls between client and me
+
+// 3) to decouple catalog from inventory, we can introduce an additional intermediate module
+// 'orchestrator'/'saga'/'bff'/'api' which to aggregate data from the 2-3-N modules
+
+// 2) ask the client (UI) to fetch the stock with another call to inventoryRestApi
+// perfectly fine when network traffic is not an issue, and you HAVE a word about your client
+// => JS/TS doing two fetch() calls and all(fetch(), fetch()).then(allResponses => { ... })
+// Or if you are doing micro-frontends, you can include the <div> developed by inventory that fetches the stock
+// => <inventory-stock productId="123"></inventory-stock>
+//Benefit any changes in UI is authored by the inventory "Running out"
+
