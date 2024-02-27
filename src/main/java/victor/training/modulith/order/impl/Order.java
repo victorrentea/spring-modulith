@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AbstractAggregateRoot;
+import victor.training.modulith.customer.impl.Customer;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 
@@ -31,6 +32,28 @@ public class Order extends AbstractAggregateRoot<Order> {
   @Setter
   @NotNull
   private String customerId;
+
+  //#1 BAD BAD BAD
+//  @ManyToOne
+//  private Customer customer; // BAD: coupling to domain model of another module
+
+  // #2 internal API on the fly to customer module to get the phone
+  // no network penalty besides SQL +1 QUERY hit
+  // RISK: performance +1 SELECT
+  // Also: see getPhoneBulk
+  // IMPOSSIBLE TO JOIN WITH CUSTOMER!! ORDER BY PHONE
+
+  // #3 replication: copy some data in: risk: stale data
+  //a)
+//  private String customerPhone;
+  //b)
+//  private CustomerStuff customerStuff; // stored as JSON in CLOB
+  // c)
+//  @ManyToOne // separate @Entity + table in the order
+//  private OrderingCustomer customer;
+
+  /// #4 JOIN CUSTOMER.CUSTOMER = BAD
+
   @Setter
   private String shippingAddress;
   @Setter

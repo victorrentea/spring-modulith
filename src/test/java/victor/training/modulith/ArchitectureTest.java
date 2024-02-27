@@ -16,7 +16,7 @@ class ArchitectureTest {
 
 	@Test
 	void verifyModularity() {
-		modules.verify();
+		modules.verify(); // Spring-modulith support https://spring.io/projects/spring-modulith
 	}
 
 	@Test

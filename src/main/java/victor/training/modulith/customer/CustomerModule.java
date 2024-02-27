@@ -12,5 +12,13 @@ import victor.training.modulith.customer.impl.CustomerRepo;
 public class CustomerModule {
   private final CustomerRepo customerRepo;
 
+//  public String getPhone(Long customerId) {
+//    Customer customer = customerRepo.findById(customerId).orElseThrow();
+//    return customer.getPhone();
+//  }
 
+//  public Map<Long, String> getPhoneBulk(List<Long> customerId) { //
+//    Customer customer = customerRepo.findById(customerId).orElseThrow();
+//    return customer.getPhone();
+//  }
 }
