@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.payment.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -10,6 +10,7 @@ import victor.training.modulith.order.OrderModule;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.repo.OrderRepo;
+import victor.training.modulith.payment.PaymentConfirmedEvent;
 import victor.training.modulith.shipping.in.api.ShippingModule;
 
 @RestController
