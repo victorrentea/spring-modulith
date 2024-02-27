@@ -37,3 +37,5 @@ public class SearchProductApi {
 // VIEW with 3 columns for other modules to JOIN.
 // that view is part of the INVENTORY API contract
 // then the catalog JOINS that view
+
+// 5) Elastic Search / search engine updated via events from inventory and catalog
