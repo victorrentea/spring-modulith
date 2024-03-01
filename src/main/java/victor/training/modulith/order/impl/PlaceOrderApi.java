@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
+import victor.training.modulith.payment.PaymentModule;
+import victor.training.modulith.payment.impl.PaymentService;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
@@ -25,7 +27,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogModuleApi catalogModuleApi;
   private final InventoryModuleApi inventoryModuleApi;
-  private final PaymentService paymentService;
+  private final PaymentModule paymentModule;
 
   public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
   }
@@ -43,7 +45,7 @@ public class PlaceOrderApi {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryModuleApi.reserveStock(order.id(), request.items);
-    return paymentService.generatePaymentUrl(order.id(), order.total());
+    return paymentModule.generatePaymentUrl(order.id(), order.total());
   }
 
   @ApplicationModuleListener
