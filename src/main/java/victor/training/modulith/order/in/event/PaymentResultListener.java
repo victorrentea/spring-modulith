@@ -19,6 +19,7 @@ public class PaymentResultListener {
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
 
+  // @KafkaListener(topics = "paymentResult") // cand scot microsrviciul
   @ApplicationModuleListener
   public void onPaymentProcessed(PaymentResultEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();

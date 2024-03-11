@@ -31,6 +31,10 @@ public class Order extends AbstractAggregateRoot<Order> {
   @Setter
   @NotNull
   private String customerId;
+
+//  @ManyToOne
+//  private Customer customer; // illegal dependency to private implementation details
+//  of customer module (Customer domain model entity class)
   @Setter
   private String shippingAddress;
   @Setter

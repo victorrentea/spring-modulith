@@ -10,7 +10,6 @@ import victor.training.modulith.order.CatalogModuleApi;
 import victor.training.modulith.order.InventoryModuleApi;
 import victor.training.modulith.payment.PaymentModule;
 import victor.training.modulith.shared.LineItem;
-import victor.training.modulith.payment.out.infra.PaymentGatewayClient;
 import victor.training.modulith.shipping.ShippingModule;
 import victor.training.modulith.shipping.ShippingResultEvent;
 

@@ -1,8 +1,6 @@
 package victor.training.modulith.catalog.impl;
 
-import jdk.jfr.TransitionTo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

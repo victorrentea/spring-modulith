@@ -1,10 +1,9 @@
 package victor.training.modulith.catalog.impl;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
 
 @Entity
 @Data

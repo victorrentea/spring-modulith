@@ -8,7 +8,7 @@ import victor.training.modulith.customer.CustomerModule;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 
-import static victor.training.modulith.customer.CustomerModule.*;
+import static victor.training.modulith.customer.CustomerModule.CustomerDto;
 
 @Slf4j
 @Service
