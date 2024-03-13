@@ -38,8 +38,14 @@ public class ReserveStockService {
   private void subtractStock(long productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
+    if (stock.items() == 0) {
+      //catalogModule.setInStock(productId, false);
+      eventPublisher.publishEvent(new StockAvailabilityChangedEvent(productId, false));
+    }
     stockRepo.save(stock); // Spring publishes events added via #registerEvent by #remove above
   }
+//  private final CatalogModule catalogModule;
+  private final ApplicationEventPublisher eventPublisher;
 
   @ApplicationModuleListener
   void onOrderPaid(OrderStatusChangedEvent event) {

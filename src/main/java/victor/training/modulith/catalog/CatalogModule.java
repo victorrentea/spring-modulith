@@ -22,4 +22,10 @@ public class CatalogModule implements CatalogModuleApi {
         .collect(toMap(Product::id, Product::price));
   }
 
+  public void setInStock(long productId, boolean inStock) {
+    Product product = productRepo.findById(productId).orElseThrow();
+    product.inStock(inStock);
+    productRepo.save(product);
+  }
+
 }

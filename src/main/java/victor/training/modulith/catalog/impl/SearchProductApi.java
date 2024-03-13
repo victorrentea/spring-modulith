@@ -18,8 +18,23 @@ public class SearchProductApi {
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(@RequestParam String name) {
     // TODO search should only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase(name).stream()
+    List<ProductSearchResult> all = productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name).stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
+    // a)IN-MEMORY JOIN  memory hit!!!
+//    for (ProductSearchResult result : all) {
+//      int stock = stock.getItems(product.id);
+//      if (stock > 0) {
+//        result.setInStock(true);
+//      }
+//    }
+
+    // b) denormalization: keep in Product the inStock
+    // b1) inventory module updates the inStock field in Product
+    // b2) events from inventory module update the inStock field in Product
+
+    // c) in my search query JPQL I will JOIN StockViewEntity mapped to INVENTORY.STOCK_VIEW view
+    // and filter by stock > 0
+    return all;
   }
 }
