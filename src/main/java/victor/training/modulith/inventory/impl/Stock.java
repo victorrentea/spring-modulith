@@ -30,6 +30,7 @@ public class Stock extends AbstractAggregateRoot<Stock> {
     }
 //    if (items == 0) {
 //      registerEvent(new BackInStockEvent(productId));
+//      // Magic: events published by Spring at repo.save
 //    }
     items += n;
     return this;
@@ -45,6 +46,7 @@ public class Stock extends AbstractAggregateRoot<Stock> {
     items -= delta;
 //    if (items == 0) {
 //      registerEvent(new OutOfStockEvent(productId));
+//      // Magic: events published by Spring at repo.save
 //    }
   }
 }
