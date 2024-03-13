@@ -11,7 +11,19 @@
 	<groupId>victor.training</groupId>
 	<artifactId>spring-modulith</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
+<modules>
+<module>order</module>
+<module>notification</module>
+<module>payment</module>
+<module>catalog</module>
+<module>shared</module>
+<module>shipping</module>
+<module>inventory</module>
+<module>site</module>
+<module>customer</module>
+<module>app</module>
+</modules>
 
 	<properties>
 		<java.version>17</java.version>
