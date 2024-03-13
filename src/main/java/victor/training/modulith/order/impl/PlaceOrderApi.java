@@ -8,8 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.CatalogModuleApi;
-import victor.training.modulith.order.InventoryModuleApi;
+import victor.training.modulith.order.CatalogModuleInterface;
+import victor.training.modulith.order.InventoryModuleInterface;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
@@ -23,8 +23,8 @@ import static java.util.stream.Collectors.toMap;
 @RequiredArgsConstructor
 public class PlaceOrderApi {
   private final OrderRepo orderRepo;
-  private final CatalogModuleApi catalogModuleApi;
-  private final InventoryModuleApi inventoryModuleApi;
+  private final CatalogModuleInterface catalogModule;
+  private final InventoryModuleInterface inventoryModule;
   private final PaymentService paymentService;
 
   public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
@@ -33,7 +33,7 @@ public class PlaceOrderApi {
   @PostMapping("order")
   public String placeOrder(@RequestBody @Validated PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
-    Map<Long, Double> prices = catalogModuleApi.getManyPrices(productIds);
+    Map<Long, Double> prices = catalogModule.getManyPrices(productIds);
     Map<Long, Integer> items = request.items.stream().collect(toMap(LineItem::productId, LineItem::count));
     double totalPrice = request.items.stream().mapToDouble(e -> e.count() * prices.get(e.productId())).sum();
     Order order = new Order()
@@ -42,7 +42,7 @@ public class PlaceOrderApi {
         .customerId(request.customerId)
         .total(totalPrice);
     orderRepo.save(order);
-    inventoryModuleApi.reserveStock(order.id(), request.items);
+    inventoryModule.reserveStock(order.id(), request.items);
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
 
