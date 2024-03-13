@@ -11,12 +11,6 @@
 
       <dependency>
           <groupId>victor.training</groupId>
-          <artifactId>payment</artifactId>
-          <version>1.0</version>
-          <scope>compile</scope>
-      </dependency>
-      <dependency>
-          <groupId>victor.training</groupId>
           <artifactId>shipping</artifactId>
           <version>1.0</version>
           <scope>compile</scope>

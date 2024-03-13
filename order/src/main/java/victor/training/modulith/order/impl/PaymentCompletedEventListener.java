@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.payment.PaymentCompletedEvent;
+import victor.training.modulith.shared.events.payment.PaymentCompletedEvent;
 import victor.training.modulith.shipping.in.api.ShippingModule;
 
 @Component
