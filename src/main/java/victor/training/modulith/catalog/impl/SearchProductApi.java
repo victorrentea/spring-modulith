@@ -17,10 +17,22 @@ public class SearchProductApi {
   }
 
   @GetMapping("catalog/search")
-  public List<ProductSearchResult> search(@RequestParam String name,
-                                          @RequestParam PageRequest pageRequest) {
-    // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase(name, pageRequest)
+  public List<ProductSearchResult> search(
+      @RequestParam String name,
+      @RequestParam PageRequest pageRequest) {
+    // TODO fix BUG: only return items that are in stock
+    // #1 In-memory join:
+    //  find IDs of all products in stock in inventory
+    //  then pass those IDs to a query to the PRODUCT TABLE WHERE ID IN (?,...?)
+    //    potential OutOfMemoryError
+
+    // #2 JOIN in DB CATALOG.PRODUCT
+    // WHERE (EXISTS SELECT * FROM INVENTORY.STOCK_VIEW (a "contract" of the Inventory Module)
+    //    WHERE STOCK.PRODUCT_ID = PRODUCT.ID
+    //    AND  STOCK.ITEMS > 0)
+
+    // #3 replicate the interesting data to my schema via events
+    return productRepo.searchByNameLikeIgnoreCaseAndAvailable(name, pageRequest)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();

@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.inventory.OutOfStockEvent;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 import victor.training.modulith.shared.LineItem;
@@ -34,10 +35,13 @@ public class ReserveStockService {
         .items(count);
     stockReservationRepo.save(reservation);
   }
-
+private final ApplicationEventPublisher eventPublisher;
   private void subtractStock(long productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
+    if (stock.items() == 0) {
+      eventPublisher.publishEvent(new OutOfStockEvent(productId));
+    }
     stockRepo.save(stock);
   }
 

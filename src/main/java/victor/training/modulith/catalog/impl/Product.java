@@ -22,4 +22,6 @@ public class Product {
   // there used to be a STOCK field here,
   // but it moved to Stock @Entity when thy broke out
   // the Inventory Module from the Catalog Module
+
+  private boolean available;
 }

@@ -23,8 +23,19 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
+    //1: illegal access to internals
 //    int stock = stockRepo.findByProductId(productId).map(Stock::items).orElse(0); //bad: breaks encapsulation
+    //2: using their internal API
      int stock = inventoryModule.getAvailableStock(productId);
+
+     // 3: DB view access - BAD here
+     // idea: why can't we JOIN the STOCK_VIEW here?
+
+    // 4: Microfrontends: Why can't the FE hit the Stock API
+    // - WHY is the FE asking CATALOG for the stock (Mind-blowing idea)
+    // - because you have to display it.
+    // - Why can't the FE hit the Stock API directly by importing in my CATALOG screen
+    // a shared component developed by the INVENTORY team?
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
