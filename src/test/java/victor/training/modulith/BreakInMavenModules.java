@@ -40,6 +40,7 @@ public class BreakInMavenModules {
         </dependency>"""::formatted).collect(joining());
     createPom("app",appDependencies);
 
+    moveSourcesToNewFolders("app");
     moduleNames.add("app");
     replaceInPomXml("<packaging>jar</packaging>",
         "<packaging>pom</packaging>\n<modules>\n"
