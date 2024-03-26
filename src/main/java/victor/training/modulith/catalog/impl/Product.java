@@ -18,4 +18,8 @@ public class Product {
   private String description;
 
   private Double price;
+
+  // there used to be a STOCK field here,
+  // but it moved to Stock @Entity when thy broke out
+  // the Inventory Module from the Catalog Module
 }
