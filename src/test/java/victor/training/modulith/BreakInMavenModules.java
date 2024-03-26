@@ -35,6 +35,10 @@ public class BreakInMavenModules {
     moduleNames.add("app");
     boolean b;
     for (String moduleName : moduleNames) {
+      if (new File(moduleName).isDirectory()) {
+        System.out.println("Module " + moduleName + " already exists. Deleting it");
+        deleteDirectory(new File(moduleName));
+      }
       File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
       File testFolder = new File(moduleName + "/src/test/java/victor/training/modulith");
       System.out.println("Creating module " + moduleName + "\nSRC: " + srcFolder + "\nTEST: " + testFolder);
