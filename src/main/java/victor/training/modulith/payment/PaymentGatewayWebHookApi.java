@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP from the Payment Gatway when the payment is completed
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-  private final PaymentInterface paymentInterface;
+  private final PaymentStatusHandler paymentStatusHandler;
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    paymentInterface.processPayment(orderId, ok);
+    paymentStatusHandler.processPayment(orderId, ok);
     System.out.println("Exit");
     return "Payment callback received";
   }
