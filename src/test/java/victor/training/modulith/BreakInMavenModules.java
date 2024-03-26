@@ -38,9 +38,9 @@ public class BreakInMavenModules {
           <artifactId>%s</artifactId>
           <version>1.0</version>
         </dependency>"""::formatted).collect(joining());
+    moveSourcesToNewFolders("app");
     createPom("app",appDependencies);
 
-    moveSourcesToNewFolders("app");
     moduleNames.add("app");
     replaceInPomXml("<packaging>jar</packaging>",
         "<packaging>pom</packaging>\n<modules>\n"
