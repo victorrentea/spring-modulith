@@ -88,7 +88,7 @@ public class BreakInMavenModules {
           </parent>
           <artifactId>%s</artifactId>
           <dependencies>
-            
+            %s
           </dependencies>
         </project>
         """.formatted(moduleName, dependencies));
