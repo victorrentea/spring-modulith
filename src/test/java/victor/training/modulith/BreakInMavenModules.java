@@ -31,7 +31,7 @@ public class BreakInMavenModules {
               <artifactId>%s</artifactId>
               <version>1.0</version>
             </dependency>"""::formatted).collect(joining());
-
+    moduleNames.add("app");
     for (String moduleName : moduleNames) {
       System.out.println("Creating module " + moduleName);
       File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
