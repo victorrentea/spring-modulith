@@ -15,6 +15,8 @@ class ArchitectureTest {
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
+	// - modules only use each other's PUBLIC API (not internals)
+	// - there are no cycles in between modules
 	void verifyModularity() {
 		modules.verify();
 	}
