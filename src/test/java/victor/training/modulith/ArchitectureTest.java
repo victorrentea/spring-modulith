@@ -14,6 +14,9 @@ class ArchitectureTest {
 	public static final ApplicationModules modules =
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
+	// - modules only use each other's PUBLIC API (not internals)
+	// - there are no cyclic dependencies between modules
+	// Note: this test still runs after break down in Maven modules
 	@Test
 	void verifyModularity() {
 		modules.verify();

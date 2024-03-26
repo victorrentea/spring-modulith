@@ -25,19 +25,32 @@ public class BreakInMavenModules {
         .filter(File::isDirectory)
         .map(File::getName)
         .collect(Collectors.toList());
+
+    String appDependencies = moduleNames.stream().map("""
+            <dependency>
+              <groupId>victor.training</groupId>
+              <artifactId>%s</artifactId>
+              <version>1.0</version>
+            </dependency>"""::formatted).collect(joining());
     moduleNames.add("app");
-
+    boolean b;
     for (String moduleName : moduleNames) {
-      System.out.println("Creating module " + moduleName);
+      if (new File(moduleName).isDirectory()) {
+        System.out.println("Module " + moduleName + " already exists. Deleting it");
+        deleteDirectory(new File(moduleName));
+      }
       File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
-      srcFolder.mkdirs();
       File testFolder = new File(moduleName + "/src/test/java/victor/training/modulith");
-      testFolder.mkdirs();
-      createPom(moduleName);
+      System.out.println("Creating module " + moduleName + "\nSRC: " + srcFolder + "\nTEST: " + testFolder);
+      System.out.println("mkdir src:" + srcFolder.mkdirs());
+      System.out.println("mkdir test:" + testFolder.mkdirs());
 
-      new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
+      b = new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
+      System.out.println("Moved src/main: " + b);
       new File(new File("src/test/java/victor/training/modulith"), moduleName).renameTo(new File(testFolder, moduleName));
+      System.out.println("Moved src/test: " + b);
 
+      createPom(moduleName, moduleName.equals("app")?appDependencies : "");
     }
     replaceInPomXml("<packaging>jar</packaging>",
         "<packaging>pom</packaging>\n<modules>\n"
@@ -64,7 +77,7 @@ public class BreakInMavenModules {
     Files.write(parentPomXml.toPath(), content.getBytes(UTF_8));
   }
 
-  private static void createPom(String moduleName) throws IOException {
+  private static void createPom(String moduleName, String dependencies) throws IOException {
     Files.writeString(new File(moduleName + "/pom.xml").toPath(), """
         <?xml version="1.0" encoding="UTF-8"?>
         <project>
@@ -76,9 +89,9 @@ public class BreakInMavenModules {
           </parent>
           <artifactId>%s</artifactId>
           <dependencies>
-            
+            %s
           </dependencies>
         </project>
-        """.formatted(moduleName));
+        """.formatted(moduleName, dependencies));
   }
 }
