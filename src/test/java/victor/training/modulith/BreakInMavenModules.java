@@ -25,20 +25,22 @@ public class BreakInMavenModules {
         .filter(File::isDirectory)
         .map(File::getName)
         .collect(Collectors.toList());
-    moduleNames.add("app");
 
     for (String moduleName : moduleNames) {
       System.out.println("Creating module " + moduleName);
-      File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
-      srcFolder.mkdirs();
-      File testFolder = new File(moduleName + "/src/test/java/victor/training/modulith");
-      testFolder.mkdirs();
-      createPom(moduleName);
+      moveSourcesToNewFolders(moduleName);
 
-      new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
-      new File(new File("src/test/java/victor/training/modulith"), moduleName).renameTo(new File(testFolder, moduleName));
-
+      createPom(moduleName,"");
     }
+    String appDependencies = moduleNames.stream().map("""
+        <dependency>
+          <groupId>victor.training</groupId>
+          <artifactId>%s</artifactId>
+          <version>1.0</version>
+        </dependency>"""::formatted).collect(joining());
+    createPom("app",appDependencies);
+
+    moduleNames.add("app");
     replaceInPomXml("<packaging>jar</packaging>",
         "<packaging>pom</packaging>\n<modules>\n"
         + moduleNames.stream().map(s -> "<module>" + s + "</module>\n").collect(joining())
@@ -47,6 +49,16 @@ public class BreakInMavenModules {
     deleteDirectory(new File("app/src"));
     System.out.println(new File("src").renameTo(new File("app/src")));
   }
+
+  private static void moveSourcesToNewFolders(String moduleName) {
+    File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
+    srcFolder.mkdirs();
+    new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
+    File testFolder = new File(moduleName + "/src/test/java/victor/training/modulith");
+    testFolder.mkdirs();
+    new File(new File("src/test/java/victor/training/modulith"), moduleName).renameTo(new File(testFolder, moduleName));
+  }
+
   static boolean deleteDirectory(File directoryToBeDeleted) {
     File[] allContents = directoryToBeDeleted.listFiles();
     if (allContents != null) {
@@ -64,7 +76,7 @@ public class BreakInMavenModules {
     Files.write(parentPomXml.toPath(), content.getBytes(UTF_8));
   }
 
-  private static void createPom(String moduleName) throws IOException {
+  private static void createPom(String moduleName, String dependencies) throws IOException {
     Files.writeString(new File(moduleName + "/pom.xml").toPath(), """
         <?xml version="1.0" encoding="UTF-8"?>
         <project>
@@ -79,6 +91,6 @@ public class BreakInMavenModules {
             
           </dependencies>
         </project>
-        """.formatted(moduleName));
+        """.formatted(moduleName, dependencies));
   }
 }
