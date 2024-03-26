@@ -1,11 +1,13 @@
-package victor.training.modulith.order;
+package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.payment.PaymentCompletedEvent;
 import victor.training.modulith.shipping.in.api.ShippingModule;
 
 @RequiredArgsConstructor
@@ -15,9 +17,10 @@ public class PaymentStatusHandler {
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
 
-  public void processPayment(long orderId, boolean ok) {
-    Order order = orderRepo.findById(orderId).orElseThrow();
-    order.paid(ok);
+  @EventListener
+  public void processPayment(PaymentCompletedEvent event) {
+    Order order = orderRepo.findById(event.orderId()).orElseThrow();
+    order.paid(event.ok());
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
       String trackingNumber = shippingModule.requestShipment(order.id(), order.shippingAddress());
       order.scheduleForShipping(trackingNumber);
