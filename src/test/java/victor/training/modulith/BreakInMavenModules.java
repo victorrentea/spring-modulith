@@ -35,10 +35,10 @@ public class BreakInMavenModules {
     moduleNames.add("app");
     boolean b;
     for (String moduleName : moduleNames) {
-      System.out.println("Creating module " + moduleName);
       File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
-      System.out.println("mkdir src:" + srcFolder.mkdirs());
       File testFolder = new File(moduleName + "/src/test/java/victor/training/modulith");
+      System.out.println("Creating module " + moduleName + "\nSRC: " + srcFolder + "\nTEST: " + testFolder);
+      System.out.println("mkdir src:" + srcFolder.mkdirs());
       System.out.println("mkdir test:" + testFolder.mkdirs());
 
       b = new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
