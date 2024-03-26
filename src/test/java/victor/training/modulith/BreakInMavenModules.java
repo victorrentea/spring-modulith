@@ -25,6 +25,7 @@ public class BreakInMavenModules {
         .filter(File::isDirectory)
         .map(File::getName)
         .collect(Collectors.toList());
+
     String appDependencies = moduleNames.stream().map("""
             <dependency>
               <groupId>victor.training</groupId>
@@ -32,17 +33,20 @@ public class BreakInMavenModules {
               <version>1.0</version>
             </dependency>"""::formatted).collect(joining());
     moduleNames.add("app");
+    boolean b;
     for (String moduleName : moduleNames) {
       System.out.println("Creating module " + moduleName);
       File srcFolder = new File(moduleName + "/src/main/java/victor/training/modulith");
-      srcFolder.mkdirs();
+      System.out.println("mkdir src:" + srcFolder.mkdirs());
       File testFolder = new File(moduleName + "/src/test/java/victor/training/modulith");
-      testFolder.mkdirs();
-      createPom(moduleName, moduleName.equals("app")?appDependencies : "");
+      System.out.println("mkdir test:" + testFolder.mkdirs());
 
-      new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
+      b = new File(new File("src/main/java/victor/training/modulith"), moduleName).renameTo(new File(srcFolder, moduleName));
+      System.out.println("Moved src/main: " + b);
       new File(new File("src/test/java/victor/training/modulith"), moduleName).renameTo(new File(testFolder, moduleName));
+      System.out.println("Moved src/test: " + b);
 
+      createPom(moduleName, moduleName.equals("app")?appDependencies : "");
     }
     replaceInPomXml("<packaging>jar</packaging>",
         "<packaging>pom</packaging>\n<modules>\n"
