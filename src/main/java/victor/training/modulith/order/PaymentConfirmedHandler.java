@@ -8,9 +8,10 @@ import victor.training.modulith.shipping.in.api.ShippingModule;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentConfirmedHandler {
+public class PaymentConfirmedHandler implements victor.training.modulith.payment.IPaymentConfirmedHandler {
   private final OrderRepo orderRepo;
   private final ShippingModule shippingModule;
+  @Override
   public void confirmPayment(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.paid(ok);
