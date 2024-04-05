@@ -26,5 +26,14 @@ public class SearchProductApi {
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
+    // IMAGINE  SELECT * FROM CATALOG.PRODUCT
+    // JOIN INVENTORY.STOCK_OUT_VIEW {3 columns} carefully
+    // designed with love💖 by the INVETORY TEAM
+
+    // Create or replace view INVENTORY.STOCK_OUT_VIEW as
+    // SELECT PRODUCT_ID, ITEMS
+    // FROM INVENTORY.STOCK
   }
+
+
 }

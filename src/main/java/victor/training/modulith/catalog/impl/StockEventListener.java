@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.inventory.BackInStockEvent;
 import victor.training.modulith.inventory.OutOfStockEvent;
 
 @Slf4j
@@ -13,15 +14,15 @@ public class StockEventListener {
   private final ProductRepo productRepo;
 
   @EventListener
-  public void onStockEvent(OutOfStockEvent event) {
+  public void onOutOfStockEvent(OutOfStockEvent event) {
     var product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(false);
     productRepo.save(product);
   }
   @EventListener
-  public void onOutOfStock(OutOfStockEvent event) {
+  public void onBackInStockEvent(BackInStockEvent event) {
     var product = productRepo.findById(event.productId()).orElseThrow();
-    product.inStock(false);
+    product.inStock(true);
     productRepo.save(product);
   }
 
