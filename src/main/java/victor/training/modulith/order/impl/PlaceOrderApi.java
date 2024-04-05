@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.order.CatalogModuleInterface;
 import victor.training.modulith.order.InventoryModuleInterface;
 import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.shared.PaymentServiceInternalApi;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogModuleInterface catalogModule;
   private final InventoryModuleInterface inventoryModule;
-  private final PaymentService paymentService;
+  private final PaymentServiceInternalApi paymentService;
 
   public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
   }
