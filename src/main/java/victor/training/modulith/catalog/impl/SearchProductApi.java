@@ -22,12 +22,8 @@ public class SearchProductApi {
   public List<ProductSearchResult> search(
       @RequestParam String name,
       @RequestParam PageRequest pageRequest) {
-    // in memory join
-    List<Long> productIdsInStock = inventoryModule.getProductIdsInStock(); //10M items
-    return productRepo.searchByNameLikeIgnoreCase(name)
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue(name,   pageRequest)
         .stream()
-        .filter(p -> productIdsInStock.contains(p.id()))
-        // todo page & sort in mem
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
