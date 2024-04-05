@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toMap;
 
 @Service
 @RequiredArgsConstructor
-public class CatalogModule implements CatalogModuleInterface, victor.training.modulith.inventory.CatalogForInventory {
+public class CatalogModule implements CatalogModuleInterface {
   private final ProductRepo productRepo;
 
   @Override
@@ -22,10 +22,4 @@ public class CatalogModule implements CatalogModuleInterface, victor.training.mo
         .collect(toMap(Product::id, Product::price));
   }
 
-  @Override
-  public void setUnavailable(long productId) {
-    var product = productRepo.findById(productId).orElseThrow();
-    product.inStock(false);
-    productRepo.save(product);
-  }
 }
