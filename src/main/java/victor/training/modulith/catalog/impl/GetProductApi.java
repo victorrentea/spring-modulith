@@ -17,7 +17,7 @@ public class GetProductApi {
                             double price) {}
 
   @GetMapping("catalog/{productId}")
-  public GetProductResponse getProduct(@PathVariable long productId) {
+  public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
     return new GetProductResponse(product.id(),
         product.name(),

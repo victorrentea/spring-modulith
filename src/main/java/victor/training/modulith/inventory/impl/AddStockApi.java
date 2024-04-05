@@ -13,7 +13,7 @@ public class AddStockApi {
 
   @PostMapping("stock/{productId}/add/{items}")
   @Transactional
-  public void addStock(@PathVariable long productId, @PathVariable int items) {
+  public void execute(@PathVariable long productId, @PathVariable int items) {
     Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
     stock.add(items);
     stockRepo.save(stock);

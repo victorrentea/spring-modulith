@@ -17,8 +17,8 @@ public class SearchProductApi {
   }
 
   @GetMapping("catalog/search")
-  public List<ProductSearchResult> search(@RequestParam String name,
-                                          @RequestParam PageRequest pageRequest) {
+  public List<ProductSearchResult> execute(@RequestParam String name,
+                                           @RequestParam PageRequest pageRequest) {
     // TODO only return items in stock
     return productRepo.searchByNameLikeIgnoreCase(name, pageRequest)
         .stream()

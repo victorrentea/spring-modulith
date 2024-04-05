@@ -13,7 +13,7 @@ public class GetStockApi {
 
   @GetMapping("stock/{productId}")
   @Transactional
-  public Integer addStock(@PathVariable long productId) {
+  public Integer execute(@PathVariable long productId) {
     return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
   }
 }
