@@ -22,10 +22,12 @@ public class SearchProductApi {
   public List<ProductSearchResult> search(
       @RequestParam String name,
       @RequestParam PageRequest pageRequest) {
-    // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase(name, pageRequest)
+    // in memory join
+    List<Long> productIdsInStock = inventoryModule.getProductIdsInStock(); //10M items
+    return productRepo.searchByNameLikeIgnoreCase(name)
         .stream()
-       .filter(p -> inventoryModule.getStockByProduct(p.id()) > 0)
+        .filter(p -> productIdsInStock.contains(p.id()))
+        // todo page & sort in mem
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
