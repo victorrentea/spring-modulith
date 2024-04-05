@@ -29,4 +29,8 @@ public class GetProductApi {
         stock,
         product.price());
   }
+  // WHY do I (the catalog) have to return the data coming from INVENTORY?
+  // a) include in your UI a webcomponent developed by Inventory team
+  // b) create a "site" module that acts like a BFF/ApiGateway aggeregating data from different modules
+  // just like a Facade, to allow the modules NOT to depend on each otehr
 }
