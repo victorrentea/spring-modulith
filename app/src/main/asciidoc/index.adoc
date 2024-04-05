@@ -1,6 +1,6 @@
 = Developer documentation
 
-:moduliths: ../../../target/spring-modulith-docs
+:moduliths: ../../../../target/spring-modulith-docs
 
 == Overview
 plantuml::{moduliths}/components.puml[format=svg,title="Overall component overview"]

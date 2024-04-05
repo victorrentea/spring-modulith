@@ -20,6 +20,7 @@ public class StockEventListener {
     productRepo.save(product);
   }
   @EventListener
+  //@KafkaListener
   public void onBackInStockEvent(BackInStockEvent event) {
     var product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(true);
