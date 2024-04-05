@@ -12,9 +12,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InventoryModule implements InventoryModuleInterface {
   private final ReserveStockService reserveStockService;
+  private final StockRepo stockRepo;
 
   public void reserveStock(long orderId, List<LineItem> items) {
     reserveStockService.reserveStock(orderId, items);
+  }
+
+  public int getStockByProduct(long productId) {
+    Integer stock = stockRepo.findByProductId(productId).orElseThrow().items();
+    return stock;
   }
 
 }
