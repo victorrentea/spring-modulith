@@ -1,7 +1,7 @@
-package victor.training.modulith.inventory.impl;
+package victor.training.modulith.inventory.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.inventory.model.StockReservation;
 
 public interface StockReservationRepo extends JpaRepository<StockReservation, Long> {
   void deleteAllByOrderId(long orderId);

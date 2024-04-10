@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.repo.StockRepo;
 
 @RestController
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
-
+private final StockRepo stockRepo;
   public record GetProductResponse(long id,
                             String name,
                             String description,
