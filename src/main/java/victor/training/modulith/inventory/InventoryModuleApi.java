@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryModule implements InventoryModuleInterface {
+public class InventoryModuleApi implements InventoryModuleInterface {
   private final ReserveStockService reserveStockService;
 
   public void reserveStock(long orderId, List<LineItem> items) {

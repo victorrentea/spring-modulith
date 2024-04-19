@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toMap;
 
 @Service
 @RequiredArgsConstructor
-public class CatalogModule implements CatalogModuleInterface {
+public class CatalogModuleApi implements CatalogModuleInterface {
   private final ProductRepo productRepo;
 
   @Override
