@@ -8,10 +8,11 @@ import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 
 @Service
 @RequiredArgsConstructor
-public class OrderModuleApi {
+public class OrderModuleApi implements victor.training.modulith.payment.OrderModuleForPayment {
   private final OrderRepo orderRepo;
   private final ShippingModuleApi shippingModule;
 
+  @Override
   public void onPaymentDone(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.paid(ok);
