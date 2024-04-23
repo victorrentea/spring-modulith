@@ -3,7 +3,7 @@ package victor.training.modulith.payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.payment.impl.PaymentGatewayClient;
+import victor.training.modulith.payment.out.rest.PaymentGatewayClient;
 
 @Slf4j
 @Service
