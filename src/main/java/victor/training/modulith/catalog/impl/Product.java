@@ -18,4 +18,7 @@ public class Product {
   private String description;
 
   private Double price;
+
+  private boolean inStock; // why is this here !? is this product related?
+
 }
