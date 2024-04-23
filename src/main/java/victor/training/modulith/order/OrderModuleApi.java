@@ -4,11 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.payment.impl.OrderModuleForPayment;
 import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 
 @Service
 @RequiredArgsConstructor
-public class OrderModuleApi implements victor.training.modulith.payment.OrderModuleForPayment {
+public class OrderModuleApi implements OrderModuleForPayment {
   private final OrderRepo orderRepo;
   private final ShippingModuleApi shippingModule;
 
