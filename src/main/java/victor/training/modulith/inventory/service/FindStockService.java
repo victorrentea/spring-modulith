@@ -7,7 +7,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 
 @Service
 @RequiredArgsConstructor
-public class StockFinderService {
+public class FindStockService {
   private final StockRepo stockRepo;
 
   public int findStock(long productId) {
