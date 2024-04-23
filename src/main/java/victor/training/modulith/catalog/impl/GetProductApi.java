@@ -29,4 +29,10 @@ public class GetProductApi {
         stock,
         product.price());
   }
+
+  // micro-frontends
+  //also: you could say: why do I have to return data of another module?!!
+  // how about an <inventory:stock producId="{productId}"/>
+  // custom tag made with 💖 by inventory team
+  // included in my product page?
 }
