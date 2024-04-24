@@ -41,15 +41,15 @@ A diagram overviewing the module interactions is generated at each test run. See
 
 ## Exercises
 Taking small baby-steps, try to implement the following changes in code:
-1. Pull payment logic out of `order` module into a separate `payment` module.
+1Return the number of items in stock in product page (see `GetProductApi`)
+    - Respect the encapsulation of `inventory` module (`ArchitectureTest` should pass)
+   - <details><summary>Hint</summary>Retrieve the stock item number via a call to a new method in `InventoryModule`</details>
+2. Pull payment logic out of `order` module into a separate `payment` module.
     - Check there are no illegal internal calls or cycles with `ArchitectureTest`
     - <details><summary>Hint</summary>Have an event thrown from payment back into order</details>
     - <details><summary>Hint2</summary>That event can be named PaymentCompletedEvent and should be placed in the payment module</details>
     - Encapsulate the new 'payment' module: hide its internals exposing the least amount of public stuff
     - <details><summary>Hint</summary>Use an 'impl' package for simplicity</details>
-2. Return the number of items in stock in product page (see `GetProductApi`)
-    - Respect the encapsulation of `inventory` module (`ArchitectureTest` should pass)
-   - <details><summary>Hint</summary>Retrieve the stock item number via a call to a new method in `InventoryModule`</details>
 3. Search should only return products in stock (see `SearchProductApi`)
     - What options can you identify. Tradeoffs of each?
     1. <details><summary>Option</summary>Find all products and join in-memory with all stock. Or vice-versa.</details>
