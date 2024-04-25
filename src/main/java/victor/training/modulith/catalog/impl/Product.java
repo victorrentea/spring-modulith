@@ -2,9 +2,9 @@ package victor.training.modulith.catalog.impl;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data // sorry
@@ -18,4 +18,9 @@ public class Product {
   private String description;
 
   private Double price;
+
+  private Double stars;
+
+  @OneToMany(mappedBy = "product")
+  private List<ProductReview> reviews = new ArrayList<>();
 }

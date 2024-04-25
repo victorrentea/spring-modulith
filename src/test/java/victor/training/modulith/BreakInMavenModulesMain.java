@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
 
-public class BreakInMavenModules {
+public class BreakInMavenModulesMain {
 
   public static void main(String[] args) throws IOException {
 

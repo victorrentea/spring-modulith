@@ -10,16 +10,16 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 
 class ArchitectureTest {
 	public static final DescribedPredicate<JavaClass> IGNORED_MODULES =
-			resideInAnyPackage("victor.training.modulith.boot", "victor.training.modulith.shared");
+			resideInAnyPackage( "victor.training.modulith.shared");
 	public static final ApplicationModules modules =
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
-	// - modules only use each other's PUBLIC API (not internals)
-	// - there are no cyclic dependencies between modules
-	// Note: this test still runs after break down in Maven modules
 	@Test
 	void verifyModularity() {
-		modules.verify();
+		// Checks modules only use each other's PUBLIC API (not internals)
+		// + no cycles
+		// Note: this test still runs after break down in Maven modules
+		modules.verify(); // provided by org.springframework.modulith:spring-modulith-starter-core
 	}
 
 	@Test
@@ -31,10 +31,7 @@ class ArchitectureTest {
 
 	@Test
 	void renderAsciidoc() throws Exception {
-		var canvasOptions = Documenter.CanvasOptions.defaults()
-				// --> Optionally enable linking of JavaDoc
-//				 .withApiBase("https://foobar.something")
-				;
+		var canvasOptions = Documenter.CanvasOptions.defaults();
 
 		var docOptions = Documenter.DiagramOptions.defaults()
 				.withStyle(Documenter.DiagramOptions.DiagramStyle.UML);

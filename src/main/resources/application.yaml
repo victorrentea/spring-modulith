@@ -1,6 +1,5 @@
 logging.level:
   victor: DEBUG
-
 # p6spy JDBC logging
 decorator:
   datasource:
