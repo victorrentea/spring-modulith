@@ -23,6 +23,7 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
 //    orderModuleApi.onPaymentCompleted(orderId, ok);
     eventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
+    // all listeners run here.
     System.out.println("Exit");
     return "Payment callback received";
   }
