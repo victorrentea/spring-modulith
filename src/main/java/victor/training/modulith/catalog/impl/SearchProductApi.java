@@ -17,10 +17,11 @@ public class SearchProductApi {
   }
 
   @GetMapping("catalog/search")
-  public List<ProductSearchResult> execute(@RequestParam String name,
-                                           @RequestParam PageRequest pageRequest) {
+  public List<ProductSearchResult> execute(
+      @RequestParam String name,
+      @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase(name, pageRequest)
+    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();

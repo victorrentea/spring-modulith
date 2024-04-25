@@ -74,4 +74,6 @@ Taking small baby-steps, try to implement the following changes in code:
       }
      ```
    </details>
+5. Move Reviews out of Catalog
+   - E2E Test should still pass
 
