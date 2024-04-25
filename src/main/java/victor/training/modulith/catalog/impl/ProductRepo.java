@@ -9,16 +9,24 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Long> {
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 
-  // #1 migrate data
-  //  List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart, PageRequest pageRequest);
-
-  // #2
 //  @Query("""
 //      SELECT p FROM Product p
-//      JOIN TODO
+//      JOIN Stock s on p.id = s.productId
 //      WHERE UPPER(p.name) LIKE UPPER(?1)
-//      AND stock.stock > 0""")
+//      AND s.items > 0""")
 //  List<Product> searchInStockByName(String namePart, PageRequest pageRequest);
+
+
+  // #1 migrate data.
+//    List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart, PageRequest pageRequest);
+
+  // #2
+  @Query("""
+      SELECT p FROM Product p
+      JOIN StockView stock on p.id = stock.productId
+      WHERE UPPER(p.name) LIKE UPPER(?1)
+      AND stock.stock > 0""")
+  List<Product> searchInStockByName(String namePart, PageRequest pageRequest);
 }
 
 

@@ -23,4 +23,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  private boolean inStock;// keep this in sync with the changes in the invotry
+  // propagated here via an event
 }
