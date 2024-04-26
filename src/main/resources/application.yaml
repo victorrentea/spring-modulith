@@ -15,8 +15,3 @@ spring.cloud.openfeign.client.config:
 
 shipping:
   shipping-from-address: Our Address 99, 12345, Our City
-
-# execute schema.sql ...
-spring.sql.init.mode: always
-# ... after hibernate creates schema
-spring.jpa.defer-datasource-initialization: true
