@@ -31,7 +31,7 @@ public class SearchProductsInStockE2ETest {
   StockRepo stockRepo;
 
   @Test
-  @Disabled // TODO make pass
+//  @Disabled // TODO make pass
   void experiment() throws Exception {
     Long inStockId = productRepo.save(new Product().name("a1")).id();
     Long outOfStockId = productRepo.save(new Product().name("a2")).id();
