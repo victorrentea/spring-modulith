@@ -10,7 +10,7 @@ public class LogEventsForDebug {
   @EventListener
   public void justLog(Object event) {
     if (event.getClass().getPackageName().contains("victor")) {
-      log.debug("Application event published: " +event);
+      log.info("Application event published: " +event);
     }
   }
 }
