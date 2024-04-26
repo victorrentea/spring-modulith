@@ -30,7 +30,7 @@ public class GetProductReturnsStockE2ETest {
   StockRepo stockRepo;
 
   @Test
-  @Disabled // TODO make pass
+//  @Disabled // TODO make pass
   void experiment() throws Exception {
     Long productId = productRepo.save(new Product()).id();
     stockRepo.save(new Stock().productId(productId).add(5));
