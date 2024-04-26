@@ -8,6 +8,7 @@ import org.springframework.modulith.docs.Documenter;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
 
+// provided by org.springframework.modulith:spring-modulith-starter-core
 class ArchitectureTest {
 	public static final DescribedPredicate<JavaClass> IGNORED_MODULES =
 			resideInAnyPackage( "victor.training.modulith.shared");
@@ -16,14 +17,14 @@ class ArchitectureTest {
 
 	@Test
 	void verifyModularity() {
-		// Checks modules only use each other's PUBLIC API (not internals)
-		// + no cycles
+		// 1. modules respect their encapsulation
+		// 2. no cycles
 		// Note: this test still runs after break down in Maven modules
-		modules.verify(); // provided by org.springframework.modulith:spring-modulith-starter-core
+		modules.verify();
 	}
 
 	@Test
-	void writeDocumentationSnippets() {
+	void generateDocumentation() {
 		new Documenter(modules)
 				.writeModulesAsPlantUml()
 				.writeIndividualModulesAsPlantUml();

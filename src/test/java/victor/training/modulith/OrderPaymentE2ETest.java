@@ -44,8 +44,7 @@ public class OrderPaymentE2ETest {
   @Autowired
   OrderRepo orderRepo;
 
-  @Test
-    // TODO keep passing
+  @Test // TODO keep passing
   void placeOrderReturnsPaymentUrlFromGateway() {
     when(catalogModuleApi.getManyPrices(any())).thenReturn(Map.of());
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
@@ -56,15 +55,14 @@ public class OrderPaymentE2ETest {
     assertThat(url).startsWith("http://payment.com");
   }
 
-  @Test
-    // TODO keep passing
+  @Test // TODO keep passing
   void gatewayCallbackUpdatesTheOrder() {
     Long orderId = orderRepo.save(new Order()).id();
 
     paymentGatewayWebHookApi.confirmPayment(orderId, true);
 
     verify(shippingModuleApi).requestShipment(eq(orderId), any());
-    Order order = orderRepo.findById(orderId).get();
+    Order order = orderRepo.findById(orderId).orElseThrow();
     assertThat(order.status()).isEqualTo(OrderStatus.SHIPPING_IN_PROGRESS);
   }
 

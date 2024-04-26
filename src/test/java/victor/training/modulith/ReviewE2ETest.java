@@ -26,11 +26,11 @@ public class ReviewE2ETest {
   ProductRepo productRepo;
 
   @Test
-  void experiment() throws Exception {
+  void test() throws Exception {
     Long productId = productRepo.save(new Product()).id();
 
-    addReview(productId, 3d);
-    addReview(productId, 5d);
+    addReview(productId, 3);
+    addReview(productId, 5);
     addReview(productId, null);
 
     mockMvc.perform(get("/catalog/{productId}", productId))
@@ -38,10 +38,10 @@ public class ReviewE2ETest {
         .andExpect(jsonPath("$.stars", CoreMatchers.is(4.0)));
   }
 
-  private void addReview(Long productId, Double stars) throws Exception {
+  private void addReview(Long productId, Integer stars) throws Exception {
     mockMvc.perform(post("/catalog/{productId}/reviews", productId)
             .content("""
-                { "stars": %f }
+                { "stars": %d }
                 """.formatted(stars))
             .contentType(APPLICATION_JSON))
         .andExpect(status().is2xxSuccessful());
