@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
+  // example of Vertical Slice Architecture (VSA) - one class / API
 
   public record GetProductResponse(
       long id,
