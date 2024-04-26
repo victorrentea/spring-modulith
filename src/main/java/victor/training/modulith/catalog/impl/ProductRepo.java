@@ -9,10 +9,10 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Long> {
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 
-  // #1 migrate data
+  // #1 migrate data to Product:inStock:boolean
   //  List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart, PageRequest pageRequest);
 
-  // #2
+  // #2 join an Entity from inventory
 //  @Query("""
 //      SELECT p FROM Product p
 //      JOIN TODO
@@ -20,10 +20,3 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 //      AND stock.stock > 0""")
 //  List<Product> searchInStockByName(String namePart, PageRequest pageRequest);
 }
-
-
-//"""
-//      SELECT p FROM Product p
-//      JOIN StockView s on p.id = s.productId
-//      WHERE UPPER(p.name) LIKE UPPER(?1)
-//      AND s.stock > 0"""
