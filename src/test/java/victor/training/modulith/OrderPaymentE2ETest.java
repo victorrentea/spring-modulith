@@ -7,15 +7,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.catalog.CatalogModuleApi;
-import victor.training.modulith.inventory.InventoryModuleApi;
+import victor.training.modulith.catalog.impl.CatalogModule;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.order.OrderStatus;
+import victor.training.modulith.shared.api.inventory.InventoryModuleApi;
+import victor.training.modulith.shared.api.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.payment.impl.PaymentGatewayClient;
 import victor.training.modulith.payment.impl.PaymentGatewayWebHookApi;
-import victor.training.modulith.shipping.in.api.ShippingModuleApi;
+import victor.training.modulith.shared.api.shipping.ShippingModuleApi;
 
 import java.util.List;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class OrderPaymentE2ETest {
   @Autowired
   StockRepo stockRepo;
   @MockBean
-  CatalogModuleApi catalogModuleApi;
+  CatalogModule catalogModule;
   @MockBean
   InventoryModuleApi inventoryModuleApi;
   @MockBean
@@ -49,7 +49,7 @@ public class OrderPaymentE2ETest {
   @Test
     // TODO keep passing
   void placeOrderReturnsPaymentUrlFromGateway() {
-    when(catalogModuleApi.getManyPrices(any())).thenReturn(Map.of());
+    when(catalogModule.getManyPrices(any())).thenReturn(Map.of());
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
     when(paymentGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 

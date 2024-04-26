@@ -8,9 +8,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.CatalogModuleInterface;
-import victor.training.modulith.order.InventoryModuleInterface;
+import victor.training.modulith.shared.api.catalog.CatalogModuleApi;
 import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.shared.api.inventory.InventoryModuleApi;
 import victor.training.modulith.shared.api.payment.PaymentModuleApi;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
@@ -24,8 +24,8 @@ import static java.util.stream.Collectors.toMap;
 @RequiredArgsConstructor
 public class PlaceOrderApi {
   private final OrderRepo orderRepo;
-  private final CatalogModuleInterface catalogModule;
-  private final InventoryModuleInterface inventoryModule;
+  private final CatalogModuleApi catalogModule;
+  private final InventoryModuleApi inventoryModule;
   private final PaymentModuleApi paymentModuleApi;
 
   public record PlaceOrderRequest(

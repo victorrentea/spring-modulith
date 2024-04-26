@@ -1,10 +1,8 @@
-package victor.training.modulith.catalog;
+package victor.training.modulith.catalog.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.catalog.impl.Product;
-import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.order.CatalogModuleInterface;
+import victor.training.modulith.shared.api.catalog.CatalogModuleApi;
 
 import java.util.Collection;
 import java.util.Map;
@@ -13,7 +11,7 @@ import static java.util.stream.Collectors.toMap;
 
 @Service
 @RequiredArgsConstructor
-public class CatalogModuleApi implements CatalogModuleInterface {
+public class CatalogModule implements CatalogModuleApi {
   private final ProductRepo productRepo;
 
   @Override
