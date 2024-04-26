@@ -3,11 +3,13 @@ package victor.training.modulith.payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.shared.api.order.PaymentUrlProvider;
+import victor.training.modulith.shared.api.payment.PaymentModuleApi;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentModuleApi implements victor.training.modulith.order.PaymentUrlProvider {
+public class PaymentModule implements PaymentUrlProvider, PaymentModuleApi {
   private final PaymentGatewayClient paymentGatewayClient;
 
   @Override
