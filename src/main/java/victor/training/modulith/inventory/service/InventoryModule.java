@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.shared.api.inventory.InventoryModuleApi;
 import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.shared.api.inventory.InventoryModuleApi;
 
 import java.util.List;
 
