@@ -44,9 +44,5 @@ public class Stock extends AbstractAggregateRoot<Stock> {
       throw new IllegalArgumentException("Not enough stock to remove: " + delta);
     }
     items -= delta;
-//    if (items == 0) {
-//      registerEvent(new OutOfStockEvent(productId));
-//      // Magic: events published by Spring at repo.save
-//    }
   }
 }

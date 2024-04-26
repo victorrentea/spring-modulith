@@ -5,8 +5,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.service.InventoryModule;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,10 +23,12 @@ public class SearchProductApi {
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+
+//    oneMil inventoryModule.getAllInStock() -> 1M id produce
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
-        .map(e -> new ProductSearchResult(e.id(), e.name()))
+//        .filter(p -> inventoryModule.isInStock(p.id())) // 20 items / page -> 17 items
+        .map(p -> new ProductSearchResult(p.id(), p.name()))
         .toList();
   }
 }
