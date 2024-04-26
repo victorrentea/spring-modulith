@@ -13,9 +13,7 @@ import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.OrderStatusChangedEvent;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -46,33 +44,25 @@ public class Order extends AbstractAggregateRoot<Order> {
   @NotEmpty
   private Map<Long, Integer> items = new HashMap<>();
 
-  private void requireStatus(OrderStatus... allowed) {
-    if (!List.of(allowed).contains(status)) {
-      throw new IllegalArgumentException("Illegal state: " + status + ". Expected one of: " + Arrays.toString(allowed));
-    }
-  }
-
   public Order paid(boolean ok) {
-    requireStatus(OrderStatus.AWAITING_PAYMENT);
+    status.requireOneOf(OrderStatus.AWAITING_PAYMENT);
     status = ok ? OrderStatus.PAYMENT_APPROVED : OrderStatus.PAYMENT_FAILED;
-    log.info("Order status changed: {}", this);
+    // Magic: all events registered are published by Spring at repo.save(this)
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));
     return this;
   }
 
   public Order scheduleForShipping(String trackingNumber) {
-    requireStatus(OrderStatus.PAYMENT_APPROVED);
+    status.requireOneOf(OrderStatus.PAYMENT_APPROVED);
     status = OrderStatus.SHIPPING_IN_PROGRESS;
     shippingTrackingNumber = trackingNumber;
-    log.info("Order status changed: {}", this);
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));
     return this;
   }
 
   public void shipped(boolean ok) {
-    requireStatus(OrderStatus.SHIPPING_IN_PROGRESS);
+    status.requireOneOf(OrderStatus.SHIPPING_IN_PROGRESS);
     status = ok ? OrderStatus.SHIPPING_COMPLETED : OrderStatus.SHIPPING_FAILED;
-    log.info("Order status changed: {}", this);
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));
   }
 

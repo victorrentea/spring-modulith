@@ -6,14 +6,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
+import victor.training.modulith.catalog.impl.SearchProductApi;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,20 +36,24 @@ public class SearchProductsInStockE2ETest {
   ProductRepo productRepo;
   @Autowired
   StockRepo stockRepo;
+  @Autowired
+  SearchProductApi searchProductApi;
+
 
   @Test
   @Disabled // TODO make pass
   void test() throws Exception {
     Long inStockId = productRepo.save(new Product().name("a1")).id();
     Long outOfStockId = productRepo.save(new Product().name("a2")).id();
-
     mockMvc.perform(post("/stock/{productId}/add/{items}", inStockId, 3));
+    PageRequest pageRequest = PageRequest.of(0, 1, DESC, "name");
 
-    mockMvc.perform(get("/catalog/search?name={namePart}", "a"))
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(jsonPath("$.length()", is(1))) // 1 result
-        .andExpect(jsonPath("$[0].id", is(inStockId.intValue()))) // result[0].id
-    ;
+    var results = searchProductApi.execute("a", pageRequest);
+
+    assertThat(results).describedAs("If this failed, you probably .filter()ed after query-pagination")
+        .hasSize(1);
+    assertThat(results.get(0).id()).describedAs("If this failed, the item out of stock was returned")
+        .isEqualTo(inStockId);
   }
 
 }

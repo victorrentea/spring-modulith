@@ -10,7 +10,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 @Getter
 @ToString
 @Entity
-public class Stock extends AbstractAggregateRoot<Stock> {
+public class Stock {
   @Id
   @GeneratedValue
   private Long id;
@@ -24,29 +24,21 @@ public class Stock extends AbstractAggregateRoot<Stock> {
   @NotNull
   private Integer items = 0;
 
-  public Stock add(int n) {
-    if (n <= 0) {
-      throw new IllegalArgumentException("Negative: " + n);
+  public Stock add(int itemsAdded) {
+    if (itemsAdded <= 0) {
+      throw new IllegalArgumentException("Negative: " + itemsAdded);
     }
-//    if (items == 0) {
-//      registerEvent(new BackInStockEvent(productId));
-//      // Magic: events published by Spring at repo.save
-//    }
-    items += n;
+    items += itemsAdded;
     return this;
   }
 
-  public void remove(Integer delta) {
-    if (delta <= 0) {
-      throw new IllegalArgumentException("Negative: " + delta);
+  public void remove(Integer itemsRemoved) {
+    if (itemsRemoved <= 0) {
+      throw new IllegalArgumentException("Negative: " + itemsRemoved);
     }
-    if (delta > items) {
-      throw new IllegalArgumentException("Not enough stock to remove: " + delta);
+    if (itemsRemoved > items) {
+      throw new IllegalArgumentException("Not enough stock to remove: " + itemsRemoved);
     }
-    items -= delta;
-//    if (items == 0) {
-//      registerEvent(new OutOfStockEvent(productId));
-//      // Magic: events published by Spring at repo.save
-//    }
+    items -= itemsRemoved;
   }
 }
