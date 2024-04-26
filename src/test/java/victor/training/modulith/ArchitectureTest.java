@@ -40,4 +40,6 @@ class ArchitectureTest {
 		new Documenter(modules) //
 				.writeDocumentation(docOptions, canvasOptions);
 	}
+
+
 }
