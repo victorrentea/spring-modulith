@@ -27,7 +27,10 @@ public class PlaceOrderApi {
   private final InventoryModuleInterface inventoryModule;
   private final PaymentService paymentService;
 
-  public record PlaceOrderRequest(@NotEmpty String customerId, @NotEmpty List<LineItem> items, @NotEmpty String shippingAddress) {
+  public record PlaceOrderRequest(
+      @NotEmpty String customerId,
+      @NotEmpty List<LineItem> items,
+      @NotEmpty String shippingAddress) {
   }
 
   @PostMapping("order")
