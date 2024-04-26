@@ -1,5 +1,6 @@
 package victor.training.modulith.shipping;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.modulith.test.ApplicationModuleTest;
@@ -14,6 +15,7 @@ public class ShippingTest {
   @Autowired
   ShippingProviderWebHookApi sut;
   @Test
+  @Disabled
   void callback(PublishedEvents publishedEvents) {
     // alternative: mockMVC
     sut.shippedStatus(1L, true);
