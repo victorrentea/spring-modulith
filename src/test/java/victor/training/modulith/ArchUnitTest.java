@@ -22,8 +22,8 @@ class ArchUnitTest {
 
     // Stage 1. Progressive decoupling phase: lower this number every sprint
     List<String> violations = sliceRule.evaluate(classes).getFailureReport().getDetails();
-    assertThat(violations).hasSizeLessThanOrEqualTo(123); // starting point after moving classes around
-    assertThat(violations).hasSizeLessThanOrEqualTo(0); // 6 months from now
+    assertThat(violations).hasSizeLessThan(123); // starting point after moving classes around
+    assertThat(violations).hasSize(0); // 6 months from now
 
     // Stage 2. Maintenance phase: fail test at any violation
     sliceRule.check(classes);
