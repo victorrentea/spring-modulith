@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
-import static victor.training.modulith.order.impl.OrderRestApi.*;
+import static victor.training.modulith.order.impl.OrderRestApi.PlaceOrderRequest;
 
 @Slf4j
 @Service
