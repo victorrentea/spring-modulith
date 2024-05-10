@@ -17,7 +17,7 @@ class ArchitectureTest {
 
 	@Test
 	void verifyModularity() {
-		// 1. modules respect their encapsulation
+		// 1. modules encapsulation, except explicitly allowed packages
 		// 2. no cycles
 		// Note: this test still runs after break down in Maven modules
 		modules.verify();
