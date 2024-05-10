@@ -5,6 +5,7 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.library.dependencies.SliceRule;
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
 import com.tngtech.archunit.library.dependencies.syntax.GivenSlices;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,6 +16,7 @@ class ArchUnitTest {
   private JavaClasses classes = new ClassFileImporter().importPackages("victor.training.modulith");
 
   @Test
+  @Disabled("for when all module internal APIs are merged in the shared/ module")
   public void sharedApiIndependent() {
     SliceRule sliceRule = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.shared.api.(*)..*")

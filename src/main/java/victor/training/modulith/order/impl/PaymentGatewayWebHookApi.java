@@ -12,19 +12,13 @@ import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-  private final OrderRepo orderRepo;
-  private final ShippingModuleApi shippingModule;
+  private final OrderService orderService;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    Order order = orderRepo.findById(orderId).orElseThrow();
-    order.paid(ok);
-    if (order.status() == OrderStatus.PAYMENT_APPROVED) {
-      String trackingNumber = shippingModule.requestShipment(order.id(), order.shippingAddress());
-      order.scheduleForShipping(trackingNumber);
-    }
-    orderRepo.save(order);
-    System.out.println("Exit");
+    orderService.onOrderPaid(orderId, ok);
     return "Payment callback received";
   }
+
+
 }

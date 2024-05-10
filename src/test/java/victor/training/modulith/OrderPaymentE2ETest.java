@@ -12,7 +12,6 @@ import victor.training.modulith.inventory.InventoryModuleApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
-import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class OrderPaymentE2ETest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
-  PlaceOrderApi placeOrderApi;
+  OrderRestApi orderRestApi;
   @Autowired
   StockRepo stockRepo;
   @MockBean
@@ -47,10 +46,10 @@ public class OrderPaymentE2ETest {
   @Test // TODO keep passing
   void placeOrderReturnsPaymentUrlFromGateway() {
     when(catalogModuleApi.getManyPrices(any())).thenReturn(Map.of());
-    PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
+    OrderRestApi.PlaceOrderRequest placeOrderRequest = new OrderRestApi.PlaceOrderRequest("customer-id", List.of(), "shipping-address");
     when(paymentGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 
-    String url = placeOrderApi.placeOrder(placeOrderRequest);
+    String url = orderRestApi.placeOrder(placeOrderRequest);
 
     assertThat(url).startsWith("http://payment.com");
   }
