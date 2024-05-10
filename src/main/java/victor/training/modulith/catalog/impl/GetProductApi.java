@@ -17,7 +17,7 @@ public class GetProductApi {
       long id,
       String name,
       String description,
-       int stock, // TODO display stock in product page UI
+//       int stock, // TODO display stock in product page UI
       Double price,
       Double stars
       ) {
@@ -26,11 +26,11 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock= inventoryModuleApi.getStock(productId);
+    //int stock= TODO
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
-         stock,
+//         stock,
         product.price(),
         product.stars()
     );
