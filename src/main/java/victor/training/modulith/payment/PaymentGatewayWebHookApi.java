@@ -11,16 +11,16 @@ import victor.training.modulith.order.impl.OrderService;
 @RestController
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
-public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
+public class PaymentGatewayWebHookApi {
+  private final OrderService orderService; // TODO move to 'payment' module
 //  private final OrderService orderService;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-//    orderService.onOrderPaid(orderId, ok);
-    eventPublisher.publishEvent(new OrderPaidEvent(orderId, ok));
+    orderService.onOrderPaid(orderId, ok);
+//    eventPublisher.publishEvent(new OrderPaidEvent(orderId, ok));
     return "Payment callback received";
   }
-  private final ApplicationEventPublisher eventPublisher;
 
 
 }
