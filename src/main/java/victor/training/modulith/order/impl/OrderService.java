@@ -21,7 +21,7 @@ import static victor.training.modulith.order.impl.OrderRestApi.*;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderService implements victor.training.modulith.shipping.IOrderService {
   private final OrderRepo orderRepo;
   private final CatalogModuleInterface catalogModule;
   private final InventoryModuleInterface inventoryModule;
@@ -47,6 +47,7 @@ public class OrderService {
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
 
+  @Override
   public void onOrderPaid(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.paid(ok);
