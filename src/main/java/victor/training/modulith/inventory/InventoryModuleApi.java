@@ -20,5 +20,9 @@ public class InventoryModuleApi implements InventoryModuleInterface {
     reserveStockService.reserveStock(orderId, items);
   }
 
+  public int getStock(long productId) {
+    Stock stock = stockRepo.findByProductId(productId).orElseThrow();
+    return stock.items();
+  }
 
 }
