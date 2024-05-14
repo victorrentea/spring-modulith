@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.payment.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
