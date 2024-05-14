@@ -8,10 +8,9 @@ import victor.training.modulith.inventory.InventoryModuleApi;
 
 @RestController
 @RequiredArgsConstructor
+  // example of Vertical Slice Architecture (VSA) - one class / API
 public class GetProductApi {
   private final ProductRepo productRepo;
-  private final InventoryModuleApi inventoryModuleApi;
-  // example of Vertical Slice Architecture (VSA) - one class / API
 
   public record GetProductResponse(
       long id,
