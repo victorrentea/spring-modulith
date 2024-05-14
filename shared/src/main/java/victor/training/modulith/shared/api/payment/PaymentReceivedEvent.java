@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.shared.api.payment;
 
 public record PaymentReceivedEvent(
     long orderId,

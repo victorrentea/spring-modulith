@@ -3,6 +3,7 @@ package victor.training.modulith.inventory.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,9 @@ public class Stock {
   @NotNull
   @Setter // + FK to PRODUCT.ID
   private Long productId;
+
+//  @ManyToOne
+//  private Product product;
 
 //  @ManyToOne private Product product; // TODO explore JPA links between @Entity in different module
 

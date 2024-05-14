@@ -26,4 +26,6 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+  private boolean inStock;// updated by @EventListener on StockUpdatedEvent fired by invetnory - homework
 }
