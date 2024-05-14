@@ -1,12 +1,11 @@
-package victor.training.modulith.order.impl;
+package victor.training.modulith.payment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.shipping.in.api.ShippingModuleApi;
+import victor.training.modulith.order.impl.OrderService;
 
 @RestController
 @RequiredArgsConstructor

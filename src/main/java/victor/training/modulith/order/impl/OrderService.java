@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.order.CatalogModuleInterface;
 import victor.training.modulith.order.InventoryModuleInterface;
 import victor.training.modulith.order.OrderStatus;
+import victor.training.modulith.order.PaymentUrlGenerator;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
@@ -24,7 +25,7 @@ public class OrderService {
   private final OrderRepo orderRepo;
   private final CatalogModuleInterface catalogModule;
   private final InventoryModuleInterface inventoryModule;
-  private final PaymentService paymentService;
+  private final PaymentUrlGenerator paymentService;
   private final ShippingModuleApi shippingModule;
 
   public Order getOrder(long orderId) {
