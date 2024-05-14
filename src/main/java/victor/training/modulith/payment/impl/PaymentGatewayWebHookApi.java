@@ -16,12 +16,13 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
 //  private final OrderModuleApi orderModuleApi;
 
   private final ApplicationEventPublisher eventPublisher;
-  // in-memory events ( also via Guice/Guava, Quarkus,..)
+  // in-memory events bus ( also via Guice/Guava, Quarkus,..)
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
     //orderModuleApi.onPaymentConfirmed(orderId, ok);
     var event = new PaymentReceivedEvent(orderId, ok);
-    eventPublisher.publishEvent(event);
+    eventPublisher.publishEvent(event); // all the @EventListener methods will be called
+    // in my thread and in any @Transactional i might be in
     return "Payment callback received";
   }
 

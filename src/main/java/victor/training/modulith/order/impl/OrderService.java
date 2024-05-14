@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 import victor.training.modulith.order.internalapi.CatalogModuleInterface;
 import victor.training.modulith.order.internalapi.InventoryModuleInterface;
 import victor.training.modulith.order.internalapi.OrderStatus;
@@ -48,8 +51,13 @@ public class OrderService {
     inventoryModule.reserveStock(order.id(), request.items());
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
+//  @org.springframework.core.annotation.Order// dont
 
-  @EventListener
+  @EventListener // (A) sync, in same tx
+//  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT) // (B) sync, in new tx after the first commits
+//  @EventListener @Async //  (C) async, in new tx. keeps event in a mem queue (FRAGILE vs CRASH) until a worker thread is available;
+//  @ApplicationModuleListener // (D) async+persisted in DB  by spring-modulith
+//  @KafkaListener // (E) async+persisted in Kafka (spring-kafka) with an external Kafka broker
   public void onPaymentReceived(PaymentReceivedEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.paid(event.ok());
