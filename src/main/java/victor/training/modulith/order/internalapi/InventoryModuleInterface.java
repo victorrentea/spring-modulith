@@ -1,4 +1,4 @@
-package victor.training.modulith.order;
+package victor.training.modulith.order.internalapi;
 
 import victor.training.modulith.shared.LineItem;
 

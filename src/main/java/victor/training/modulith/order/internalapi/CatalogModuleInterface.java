@@ -1,4 +1,4 @@
-package victor.training.modulith.order;
+package victor.training.modulith.order.internalapi;
 
 import java.util.Collection;
 import java.util.Map;

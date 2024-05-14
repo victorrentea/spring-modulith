@@ -3,11 +3,12 @@ package victor.training.modulith.payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.order.internalapi.PaymentUrlGenerator;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentService implements victor.training.modulith.order.PaymentUrlGenerator {
+public class PaymentService implements PaymentUrlGenerator {
   private final PaymentGatewayClient paymentGatewayClient;
 
   @Override
