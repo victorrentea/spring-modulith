@@ -29,7 +29,7 @@ public class GetProductReturnsStockE2ETest {
   @Autowired
   StockRepo stockRepo;
 
-  @Test
+  @Test  // pass this test & keep the ArchitectureTest green
 //  @Disabled // TODO make pass
   void test() throws Exception {
     Long productId = productRepo.save(new Product()).id();
