@@ -11,8 +11,4 @@ import victor.training.modulith.order.impl.OrderService;
 public class OrderModuleApi {
   private final OrderService orderService;
 
-  public void onPaymentConfirmed(long orderId, boolean ok) {
-    log.info("Payment confirmed for order {}", orderId);
-    orderService.onOrderPaid(orderId, ok);
-  }
 }
