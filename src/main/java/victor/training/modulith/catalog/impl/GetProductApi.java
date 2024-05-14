@@ -24,12 +24,12 @@ public class GetProductApi {
       ) {
   }
 
-  private final StockRepo stockRepo;
+  private final InventoryModuleApi inventoryModuleApi;
 
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+    int stock = inventoryModuleApi.getStockForProduct(productId);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
