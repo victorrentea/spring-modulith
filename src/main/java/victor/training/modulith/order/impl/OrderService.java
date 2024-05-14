@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 import victor.training.modulith.order.internalapi.CatalogModuleInterface;
 import victor.training.modulith.order.internalapi.InventoryModuleInterface;
 import victor.training.modulith.order.internalapi.OrderStatus;
@@ -21,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
-import static victor.training.modulith.order.impl.OrderRestApi.*;
+import static victor.training.modulith.order.impl.OrderRestApi.PlaceOrderRequest;
 
 @Slf4j
 @Service
