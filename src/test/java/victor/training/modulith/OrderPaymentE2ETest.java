@@ -38,9 +38,9 @@ public class OrderPaymentE2ETest {
   @MockBean
   ShippingModuleApi shippingModuleApi;
   @MockBean
-  PaymentGatewayClient paymentGatewayClient;
+  PayPalGatewayClient payPalGatewayClient;
   @Autowired
-  PaymentGatewayWebHookApi paymentGatewayWebHookApi;
+  PayPalGatewayWebHookApi paymentGatewayWebHookApi;
   @Autowired
   OrderRepo orderRepo;
 
@@ -48,7 +48,7 @@ public class OrderPaymentE2ETest {
   void placeOrderReturnsPaymentUrlFromGateway() {
     when(catalogModuleApi.getManyPrices(any())).thenReturn(Map.of());
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
-    when(paymentGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
+    when(payPalGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 
     String url = placeOrderApi.placeOrder(placeOrderRequest);
 

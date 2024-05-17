@@ -25,7 +25,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogModuleInterface catalogModule;
   private final InventoryModuleInterface inventoryModule;
-  private final PaymentService paymentService;
+  private final PayPalService payPalService;
 
   public record PlaceOrderRequest(
       @NotEmpty String customerId,
@@ -46,7 +46,7 @@ public class PlaceOrderApi {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryModule.reserveStock(order.id(), request.items);
-    return paymentService.generatePaymentUrl(order.id(), order.total());
+    return payPalService.generatePaymentUrl(order.id(), order.total());
   }
 
   @ApplicationModuleListener

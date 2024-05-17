@@ -11,7 +11,7 @@ import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 @RestController
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
-public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
+public class PayPalGatewayWebHookApi { // TODO move to 'payment' module
   private final OrderRepo orderRepo;
   private final ShippingModuleApi shippingModule;
 

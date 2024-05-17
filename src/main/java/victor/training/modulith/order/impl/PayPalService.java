@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentService {
-  private final PaymentGatewayClient paymentGatewayClient;
+public class PayPalService {
+  private final PayPalGatewayClient payPalGatewayClient;
 
   public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
     // payment gateway implementation details
     log.info("Request payment url for order id: " + orderId);
-    String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, "modulith-app");
+    String gatewayUrl = payPalGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, "modulith-app");
     return gatewayUrl + "&orderId=" + orderId;
   }
 }
