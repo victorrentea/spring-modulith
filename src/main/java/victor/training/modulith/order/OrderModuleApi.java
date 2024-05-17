@@ -9,9 +9,9 @@ import victor.training.modulith.order.impl.OrderService;
 @Service
 @RequiredArgsConstructor
 public class OrderModuleApi {
-  private final OrderService service;
-
-  public void onOrderPaid(long orderId, boolean ok) {
-    service.onOrderPaid(orderId, ok);
-  }
+//  private final OrderService service;
+//
+//  public void onOrderPaid(long orderId, boolean ok) {
+//    service.onOrderPaid(orderId, ok);
+//  }
 }
