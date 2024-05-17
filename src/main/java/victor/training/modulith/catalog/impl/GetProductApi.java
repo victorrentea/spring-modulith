@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryModuleApi;
 
 @RestController
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
+  private final InventoryModuleApi inventoryModuleApi;
   // example of Vertical Slice Architecture (VSA) - one class / API
 
   public record GetProductResponse(
