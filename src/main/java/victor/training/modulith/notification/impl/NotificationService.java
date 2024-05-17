@@ -3,7 +3,7 @@ package victor.training.modulith.notification.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.order.in.internal.OrderStatusChangedEvent;
+import victor.training.modulith.order.OrderStatusChangedEvent;
 
 @Slf4j
 @Service
