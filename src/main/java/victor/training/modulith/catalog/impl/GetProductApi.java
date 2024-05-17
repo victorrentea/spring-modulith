@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.catalog.StockProvider;
 import victor.training.modulith.customer.impl.CustomerRepo;
 import victor.training.modulith.inventory.InventoryModuleApi;
 import victor.training.modulith.inventory.repo.StockRepo;
@@ -24,12 +25,12 @@ public class GetProductApi {
       ) {
   }
 
-private final InventoryModuleApi inventoryModuleApi;
+  private final StockProvider stockProvider;
 
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock= inventoryModuleApi.getStock(productId).stock();
+    int stock= stockProvider.getStock(productId).stock();
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
