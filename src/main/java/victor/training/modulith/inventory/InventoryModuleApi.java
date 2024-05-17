@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.service.ReserveStockService;
-import victor.training.modulith.shared.api.order.InventoryModuleInterface;
 import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.shared.api.order.InventoryModuleInterface;
 
 import java.util.List;
 
