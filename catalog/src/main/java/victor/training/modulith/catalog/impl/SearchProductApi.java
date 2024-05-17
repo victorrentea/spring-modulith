@@ -16,13 +16,20 @@ public class SearchProductApi {
   public record ProductSearchResult(long id, String name) {
   }
 
+
+
   @GetMapping("catalog/search")
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchInStockByName("%" + name + "%", pageRequest)
+        //select a View
+
         .stream()
+          //        .filter(p -> inventoryModule.getStock(p.id).stock() > 0)
+          //   BAD performance = N+1 query & the page is no loger 20, but 7 items
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
