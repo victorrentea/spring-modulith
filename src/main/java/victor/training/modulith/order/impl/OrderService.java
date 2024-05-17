@@ -21,6 +21,7 @@ public class OrderService {
 
   // start this journey if Payment has to be extracted as a separate deployment (microservice)
   @EventListener // [by default] dispatched in thread ±transaction of publisher - we are pretending (just like Dep Inversion)
+    //  @Order(1)// couples all listeners
 //  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT) // same thread, second tx (after the first one is committed)
 //  @EventListener @Async // all Help God you! = second thread, ofc 2nd tx
 //  @ApplicationModuleListener // spring-modulith persists events transactionally in DB while waiting

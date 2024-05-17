@@ -13,8 +13,8 @@ import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
-import victor.training.modulith.payment.PayPalGatewayClient;
-import victor.training.modulith.payment.PayPalGatewayWebHookApi;
+import victor.training.modulith.payment.impl.PayPalGatewayClient;
+import victor.training.modulith.payment.impl.PayPalGatewayWebHookApi;
 import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 
 import java.util.List;

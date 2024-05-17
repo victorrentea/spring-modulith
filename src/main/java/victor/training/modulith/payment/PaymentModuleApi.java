@@ -3,11 +3,12 @@ package victor.training.modulith.payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.payment.impl.PayPalGatewayClient;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PayPalService {
+public class PaymentModuleApi {
   private final PayPalGatewayClient payPalGatewayClient;
 
   public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
