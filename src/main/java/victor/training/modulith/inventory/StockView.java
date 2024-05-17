@@ -1,6 +1,5 @@
 package victor.training.modulith.inventory;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -13,10 +12,11 @@ import org.hibernate.annotations.View;
     from STOCK
     """)
 @Getter
-@Immutable
-public class StockView {
+@Immutable // is never INSERT/UPDATE/DELETE
+public class StockView { // part of the PUBLIC API of Inventory Module
   @Id
   private long productId;
 
+  // these fields contract of Inventory Modules
   private Integer stock;
 }
