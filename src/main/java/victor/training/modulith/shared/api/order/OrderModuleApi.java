@@ -1,4 +1,4 @@
-package victor.training.modulith.order;
+package victor.training.modulith.shared.api.order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

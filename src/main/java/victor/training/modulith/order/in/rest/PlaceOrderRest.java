@@ -8,11 +8,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.CatalogModuleInterface;
-import victor.training.modulith.order.InventoryModuleInterface;
+import victor.training.modulith.shared.api.order.CatalogModuleInterface;
+import victor.training.modulith.shared.api.order.InventoryModuleInterface;
 import victor.training.modulith.order.app.Order;
 import victor.training.modulith.order.app.OrderRepo;
-import victor.training.modulith.payment.PaymentModuleApi;
+import victor.training.modulith.shared.api.payment.PaymentModuleApi;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
