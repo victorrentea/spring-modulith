@@ -1,4 +1,4 @@
-package victor.training.modulith.order.impl;
+package victor.training.modulith.order.app;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -9,8 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AbstractAggregateRoot;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.order.OrderStatusChangedEvent;
+import victor.training.modulith.order.in.internal.OrderStatus;
+import victor.training.modulith.order.in.internal.OrderStatusChangedEvent;
 
 import java.time.LocalDate;
 import java.util.HashMap;

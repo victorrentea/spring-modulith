@@ -1,4 +1,4 @@
-package victor.training.modulith.order;
+package victor.training.modulith.order.in.internal;
 
 public record OrderStatusChangedEvent(
     Long orderId,

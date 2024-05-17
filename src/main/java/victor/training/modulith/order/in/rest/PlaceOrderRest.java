@@ -1,4 +1,4 @@
-package victor.training.modulith.order.impl;
+package victor.training.modulith.order.in.rest;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.order.CatalogModuleInterface;
-import victor.training.modulith.order.InventoryModuleInterface;
+import victor.training.modulith.order.in.internal.CatalogModuleInterface;
+import victor.training.modulith.order.in.internal.InventoryModuleInterface;
+import victor.training.modulith.order.app.Order;
+import victor.training.modulith.order.app.OrderRepo;
 import victor.training.modulith.payment.PaymentModuleApi;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
@@ -22,7 +24,7 @@ import static java.util.stream.Collectors.toMap;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class PlaceOrderApi {
+public class PlaceOrderRest {
   private final OrderRepo orderRepo;
   private final CatalogModuleInterface catalogModule;
   private final InventoryModuleInterface inventoryModule;

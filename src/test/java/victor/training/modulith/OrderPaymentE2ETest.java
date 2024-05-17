@@ -10,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogModuleApi;
 import victor.training.modulith.inventory.InventoryModuleApi;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.order.impl.*;
-import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
+import victor.training.modulith.order.in.internal.OrderStatus;
+import victor.training.modulith.order.app.Order;
+import victor.training.modulith.order.app.OrderRepo;
+import victor.training.modulith.order.in.rest.PlaceOrderRest;
+import victor.training.modulith.order.in.rest.PlaceOrderRest.PlaceOrderRequest;
 import victor.training.modulith.payment.impl.PayPalGatewayClient;
 import victor.training.modulith.payment.impl.PayPalGatewayWebHookApi;
 import victor.training.modulith.shipping.in.api.ShippingModuleApi;
@@ -30,7 +32,7 @@ public class OrderPaymentE2ETest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
-  PlaceOrderApi placeOrderApi;
+  PlaceOrderRest placeOrderRest;
   @Autowired
   StockRepo stockRepo;
   @MockBean
@@ -52,7 +54,7 @@ public class OrderPaymentE2ETest {
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
     when(payPalGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 
-    String url = placeOrderApi.placeOrder(placeOrderRequest);
+    String url = placeOrderRest.placeOrder(placeOrderRequest);
 
     assertThat(url).startsWith("http://payment.com");
   }
