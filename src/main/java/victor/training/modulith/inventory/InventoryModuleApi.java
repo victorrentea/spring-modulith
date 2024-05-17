@@ -20,4 +20,10 @@ public class InventoryModuleApi implements InventoryModuleInterface {
   }
 
 
+  private final StockRepo stockRepo;
+
+  public StockKnob getStock(long productId) {
+    Stock stock = stockRepo.findByProductId(productId).orElseThrow();
+    return new StockKnob(stock.items());
+  }
 }
