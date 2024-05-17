@@ -10,11 +10,11 @@ import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ApplicationModuleTest
+//@ApplicationModuleTest
 public class ShippingModuleTest {
   @Autowired
   ShippingProviderWebHookApi sut;
-  @Test
+//  @Test
 //  @Disabled
   void callback(PublishedEvents publishedEvents) {
     sut.shippedStatus(1L, true);

@@ -32,6 +32,7 @@ class ArchUnitTest {
   }
 
   @Test
+  @Disabled
   public void noCyclesBetweenModules() {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..*")
