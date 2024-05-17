@@ -22,4 +22,5 @@ public class CatalogModuleApi implements CatalogModuleInterface {
         .collect(toMap(Product::id, Product::price));
   }
 
+
 }
