@@ -2,7 +2,6 @@ package victor.training.modulith.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.service.ReserveStockService;
 import victor.training.modulith.order.InventoryModuleInterface;
