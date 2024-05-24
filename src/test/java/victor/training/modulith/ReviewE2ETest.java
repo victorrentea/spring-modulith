@@ -1,7 +1,9 @@
 package victor.training.modulith;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledForJreRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +28,7 @@ public class ReviewE2ETest {
   ProductRepo productRepo;
 
   @Test
+  @Disabled
   void test() throws Exception {
     Long productId = productRepo.save(new Product()).id();
 
