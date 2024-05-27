@@ -3,16 +3,10 @@ package victor.training.modulith.order.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
-import org.springframework.modulith.ApplicationModuleListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.payment.OrderPaidEvent;
 import victor.training.modulith.shipping.in.api.ShippingModuleApi;
-
-import static org.springframework.transaction.event.TransactionPhase.AFTER_COMMIT;
 
 @Slf4j
 @Service
