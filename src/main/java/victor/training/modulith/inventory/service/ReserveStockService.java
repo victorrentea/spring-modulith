@@ -9,9 +9,9 @@ import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
+import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shared.api.order.OrderStatus;
 import victor.training.modulith.shared.api.order.OrderStatusChangedEvent;
-import victor.training.modulith.shared.LineItem;
 
 import java.util.List;
 
