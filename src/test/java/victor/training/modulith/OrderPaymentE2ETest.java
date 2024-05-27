@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogModuleApi;
 import victor.training.modulith.inventory.InventoryModuleApi;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.order.OrderStatus;
+import victor.training.modulith.orderapi.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.payment.impl.PaymentGatewayClient;

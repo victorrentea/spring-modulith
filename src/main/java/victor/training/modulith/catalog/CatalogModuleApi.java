@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.order.CatalogModuleInterface;
+import victor.training.modulith.orderapi.CatalogModuleInterface;
 
 import java.util.Collection;
 import java.util.Map;

@@ -9,8 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AbstractAggregateRoot;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.order.OrderStatusChangedEvent;
+import victor.training.modulith.orderapi.OrderStatus;
+import victor.training.modulith.orderapi.OrderStatusChangedEvent;
 
 import java.time.LocalDate;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.paymentapi;
 
 // daca platesc si altceva decat orderuri,
 // voi vorbi de PaymentStatusUpdatedEvent(paymentId, ok)
