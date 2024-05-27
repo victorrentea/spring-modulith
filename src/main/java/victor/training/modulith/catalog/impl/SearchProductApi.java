@@ -24,11 +24,14 @@ public class SearchProductApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
 //    List<Long> iNStockIds1M = inventoryModuleApi.findAllIdsInStock(); // OOME prost
-//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", iNStockIds, pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCaseAndInStock("%" + name + "%", iNStockIds, pageRequest)
 
     //A) JOIN pe modular monolith cu o instanta de DB unica
 
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    //B) daca vrei sa-l ejectezi ca microserviciu,
+    // tre sa replici informatia la tine printr-un event de la ei eg StockUpdatedEvent sau OutOfStockEvent
+
+    return productRepo.searchByNameLikeIgnoreCaseAndInStock("%" + name + "%", pageRequest)
         .stream()
 //        .filter(p->inventoryModuleApi.inStock(p.id())) // groaznic pt ca: 1. e lent (20+1 query), 2. ai rupt pagina
         .map(e -> new ProductSearchResult(e.id(), e.name()))

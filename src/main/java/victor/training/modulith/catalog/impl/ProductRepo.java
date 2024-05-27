@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
-  List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
+  List<Product> searchByNameLikeIgnoreCaseAndInStock(String namePart, PageRequest pageRequest);
 
   // prima idee: join cu @Entity lor cel drag si sfant
   /*MARLANIE: 1) nu e documentat ce inseamna .items, 2) daca-si remodeleaza @Entity imi strica queryul*/

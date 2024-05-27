@@ -23,4 +23,6 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+  private Boolean inStock; // TEMA
 }
