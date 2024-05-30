@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryModuleApi;
+import victor.training.modulith.inventory.model.Stock;
+import victor.training.modulith.inventory.repo.StockRepo;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,20 +18,21 @@ public class GetProductApi {
       long id,
       String name,
       String description,
-//       int stock, // TODO display stock in product page UI
+       int stock, // TODO display stock in product page UI
       Double price,
       Double stars
       ) {
   }
+  private final InventoryModuleApi inventoryModuleApi;
 
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    //int stock= TODO
+    int stock =  inventoryModuleApi.getStock(productId);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
-//         stock,
+         stock,
         product.price(),
         product.stars()
     );
