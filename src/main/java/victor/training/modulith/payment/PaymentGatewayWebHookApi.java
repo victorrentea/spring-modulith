@@ -1,6 +1,7 @@
 package victor.training.modulith.payment;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,15 +16,18 @@ import victor.training.modulith.shipping.in.api.ShippingModuleApi;
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-private final OrderModuleApi orderModuleApi;
+  private final ApplicationEventPublisher eventPublisher;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    orderModuleApi.onOrderPaid(orderId, ok);
+    eventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
     System.out.println("Exit");
     return "Payment callback received";
   }
 
   // 1 un modul 'api' care agrega datele din multe module
   // 2 dep inversion, un pic asimetric!! + confuzeaza codu + nu e microservice-ready
+        // interface IPaymentService
+  // 3 eventuri
+  // 4 mut APIurile tuturor modulelor in shared/
 }
