@@ -24,7 +24,6 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
       order.scheduleForShipping(trackingNumber);
     }
     orderRepo.save(order);
-    System.out.println("Exit");
     return "Payment callback received";
   }
 }
