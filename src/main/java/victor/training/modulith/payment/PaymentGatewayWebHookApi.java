@@ -25,5 +25,5 @@ private final OrderModuleApi orderModuleApi;
   }
 
   // 1 un modul 'api' care agrega datele din multe module
-
+  // 2 dep inversion, un pic asimetric!! + confuzeaza codu + nu e microservice-ready
 }
