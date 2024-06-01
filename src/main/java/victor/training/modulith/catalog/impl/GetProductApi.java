@@ -35,3 +35,9 @@ public class GetProductApi {
     );
   }
 }
+// Hints:
+// 1. stock is in inventory/impl/Stock#items
+// 2. ▶️ GetProductApiTest ✅
+// 3. ▶️ ArchitectureTest ✅ (uses spring-modulith)
+//    by default a module is only allowed to depend on classes
+//    in the top-level package of another module

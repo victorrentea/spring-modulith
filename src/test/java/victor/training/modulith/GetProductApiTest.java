@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class GetProductReturnsStockE2ETest {
+public class GetProductApiTest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
@@ -31,7 +31,7 @@ public class GetProductReturnsStockE2ETest {
 
   @Test
   @Disabled // TODO make pass
-  void test() throws Exception {
+  void returnsStockLevel() throws Exception {
     Long productId = productRepo.save(new Product()).id();
     stockRepo.save(new Stock().productId(productId).add(5));
 
