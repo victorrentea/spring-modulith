@@ -1,22 +1,17 @@
 package victor.training.modulith;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.catalog.impl.SearchProductApi;
-import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -24,12 +19,11 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class SearchProductsInStockE2ETest {
+public class SearchProductsApiTest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
@@ -42,7 +36,7 @@ public class SearchProductsInStockE2ETest {
 
   @Test
   @Disabled // TODO make pass
-  void test() throws Exception {
+  void showsOnlyItemsInStock() throws Exception {
     Long inStockId = productRepo.save(new Product().name("a1")).id();
     Long outOfStockId = productRepo.save(new Product().name("a2")).id();
     mockMvc.perform(post("/stock/{productId}/add/{items}", inStockId, 3));

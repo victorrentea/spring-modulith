@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class OrderPaymentE2ETest {
+public class OrderPaymentTest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
