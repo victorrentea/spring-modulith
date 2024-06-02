@@ -8,12 +8,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogInternalApi;
-import victor.training.modulith.inventory.InventoryModuleApi;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
-import victor.training.modulith.shipping.in.api.ShippingModuleApi;
+import victor.training.modulith.shipping.in.api.ShippingInternalApi;
 
 import java.util.List;
 import java.util.Map;
@@ -34,9 +34,9 @@ public class OrderPaymentTest {
   @MockBean
   CatalogInternalApi catalog;
   @MockBean
-  InventoryModuleApi inventoryModuleApi;
+  InventoryInternalApi inventoryModuleApi;
   @MockBean
-  ShippingModuleApi shippingModuleApi;
+  ShippingInternalApi shippingInternalApi;
   @MockBean
   PaymentGatewayClient paymentGatewayClient;
   @Autowired
@@ -61,7 +61,7 @@ public class OrderPaymentTest {
 
     paymentGatewayWebHookApi.confirmPayment(orderId, true);
 
-    verify(shippingModuleApi).requestShipment(eq(orderId), any());
+    verify(shippingInternalApi).requestShipment(eq(orderId), any());
     Order order = orderRepo.findById(orderId).orElseThrow();
     assertThat(order.status()).isEqualTo(OrderStatus.SHIPPING_IN_PROGRESS);
   }

@@ -24,14 +24,14 @@ class ArchitectureTest {
 	}
 
 	@Test
-	void generateDocumentation() {
+	void generateDiagrams() {
 		new Documenter(modules)
 				.writeModulesAsPlantUml()
 				.writeIndividualModulesAsPlantUml();
 	}
 
 	@Test
-	void renderAsciidoc() throws Exception {
+	void generateAsciidoc() {
 		var canvasOptions = Documenter.CanvasOptions.defaults();
 
 		var docOptions = Documenter.DiagramOptions.defaults()
@@ -40,6 +40,5 @@ class ArchitectureTest {
 		new Documenter(modules) //
 				.writeDocumentation(docOptions, canvasOptions);
 	}
-
 
 }

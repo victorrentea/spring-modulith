@@ -8,7 +8,7 @@ import victor.training.modulith.customer.impl.CustomerRepo;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CustomerModuleApi {
+public class CustomerInternalApi {
   private final CustomerRepo customerRepo;
 
 

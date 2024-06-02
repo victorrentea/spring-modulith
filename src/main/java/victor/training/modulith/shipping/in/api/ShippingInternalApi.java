@@ -8,7 +8,7 @@ import victor.training.modulith.shipping.app.ShippingService;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ShippingModuleApi {
+public class ShippingInternalApi {
   private final ShippingService shippingService;
 
   public String requestShipment(long orderId, String customerAddress) {

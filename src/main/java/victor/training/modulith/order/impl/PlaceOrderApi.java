@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.catalog.CatalogInternalApi;
-import victor.training.modulith.order.InventoryModuleInterface;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.out.event.ShippingResultEvent;
 
@@ -23,8 +23,8 @@ import static java.util.stream.Collectors.toMap;
 @RequiredArgsConstructor
 public class PlaceOrderApi {
   private final OrderRepo orderRepo;
-  private final CatalogInternalApi catalogModule;
-  private final InventoryModuleInterface inventoryModule;
+  private final CatalogInternalApi catalogInternalApi;
+  private final InventoryInternalApi inventoryInternalApi;
   private final PaymentService paymentService;
 
   public record PlaceOrderRequest(
@@ -36,7 +36,7 @@ public class PlaceOrderApi {
   @PostMapping("order")
   public String placeOrder(@RequestBody @Validated PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
-    Map<Long, Double> prices = catalogModule.getManyPrices(productIds);
+    Map<Long, Double> prices = catalogInternalApi.getManyPrices(productIds);
     Map<Long, Integer> items = request.items.stream().collect(toMap(LineItem::productId, LineItem::count));
     double totalPrice = request.items.stream().mapToDouble(e -> e.count() * prices.get(e.productId())).sum();
     Order order = new Order()
@@ -45,7 +45,7 @@ public class PlaceOrderApi {
         .customerId(request.customerId)
         .total(totalPrice);
     orderRepo.save(order);
-    inventoryModule.reserveStock(order.id(), request.items);
+    inventoryInternalApi.reserveStock(order.id(), request.items);
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
 
