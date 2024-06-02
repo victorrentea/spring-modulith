@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.catalog.CatalogModuleApi;
+import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryModuleApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.order.OrderStatus;
@@ -32,7 +32,7 @@ public class OrderPaymentTest {
   @Autowired
   StockRepo stockRepo;
   @MockBean
-  CatalogModuleApi catalogModuleApi;
+  CatalogInternalApi catalog;
   @MockBean
   InventoryModuleApi inventoryModuleApi;
   @MockBean
@@ -46,7 +46,7 @@ public class OrderPaymentTest {
 
   @Test // TODO keep passing
   void placeOrderReturnsPaymentUrlFromGateway() {
-    when(catalogModuleApi.getManyPrices(any())).thenReturn(Map.of());
+    when(catalog.getManyPrices(any())).thenReturn(Map.of());
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
     when(paymentGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 

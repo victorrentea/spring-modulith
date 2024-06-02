@@ -16,11 +16,11 @@ class ArchitectureTest {
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
-	void verifyModularity() {
-		// 1. modules encapsulation, except explicitly allowed packages
+	void encapsulated_and_withoutCycles() {
+		// 1. modules respect encapsulation, except explicitly allowed packages
 		// 2. no cycles
-		// Note: this test still runs after break down in Maven modules
 		modules.verify();
+		// Note: this test runs even after split in Maven modules
 	}
 
 	@Test
