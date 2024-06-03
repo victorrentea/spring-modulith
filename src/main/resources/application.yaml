@@ -24,9 +24,9 @@ spring:
           create-database-schemas: true #create schemas
 
 # uncomment below if using a standalone H2 DB
-    generate-ddl: true
-  datasource: # standalone H2 DB
-    url: jdbc:h2:tcp://localhost:9092/~/test
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+#    generate-ddl: true
+#  datasource: # standalone H2 DB
+#    url: jdbc:h2:tcp://localhost:9092/~/test
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
