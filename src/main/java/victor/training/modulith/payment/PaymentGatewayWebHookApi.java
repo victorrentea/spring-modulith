@@ -1,6 +1,7 @@
 package victor.training.modulith.payment;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +17,15 @@ import victor.training.modulith.shipping.in.api.ShippingInternalApi;
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-  private final OrderInternalApi orderInternalApi;
+  private final ApplicationEventPublisher eventPublisher;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    orderInternalApi.onOrderPaid(orderId, ok);
+    eventPublisher.publishEvent(new PaymentProcessedEvent(orderId, ok));
+    //wmq.send("order-processed", new PaymentProcessedEvent(orderId, ok));
+    //amq.send
+    //rabbit.send
+    //kafka.send
     return "Payment callback received";
   }
-
-
 }
