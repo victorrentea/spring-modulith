@@ -1,5 +1,6 @@
 logging.level:
   victor: DEBUG
+
 # p6spy JDBC logging
 decorator:
   datasource:
@@ -15,3 +16,17 @@ spring.cloud.openfeign.client.config:
 
 shipping:
   shipping-from-address: Our Address 99, 12345, Our City
+spring:
+  jpa:
+    properties:
+      jakarta:
+        persistence:
+          create-database-schemas: true #create schemas
+
+# uncomment below if using a standalone H2 DB
+    generate-ddl: true
+  datasource: # standalone H2 DB
+    url: jdbc:h2:tcp://localhost:9092/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:

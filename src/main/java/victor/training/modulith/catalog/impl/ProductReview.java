@@ -9,9 +9,10 @@ import java.util.Optional;
 
 @Entity
 @Data // sorry
+@SequenceGenerator(name = "review_seq", schema = "catalog")
 public class ProductReview {
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "review_seq")
   private Long id;
   @ManyToOne
   @ToString.Exclude
