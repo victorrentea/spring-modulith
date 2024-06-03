@@ -4,9 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.View;
 
 @Entity
+//@Subselect // older version
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
     from STOCK
