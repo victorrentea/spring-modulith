@@ -10,9 +10,11 @@ import static java.time.LocalDateTime.now;
 
 @Entity
 @Data
+@Table(schema = "inventory")
+@SequenceGenerator(name = "stock_reservation_seq", schema = "inventory")
 public class StockReservation {
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "stock_reservation_seq")
   private Long id;
 
   @NotNull

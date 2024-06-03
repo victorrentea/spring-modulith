@@ -10,9 +10,11 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 @Getter
 @ToString
 @Entity
+@Table(schema = "inventory")
+@SequenceGenerator(name = "stock_seq", schema = "inventory")
 public class Stock {
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "stock_seq")
   private Long id;
 
   @NotNull

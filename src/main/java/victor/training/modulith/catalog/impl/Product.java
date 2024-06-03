@@ -6,11 +6,15 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Data // sorry
+@Table(schema = "catalog")
+@SequenceGenerator(name = "product_seq", schema = "catalog")
 public class Product {
   @Id
-  @GeneratedValue
+  @GeneratedValue(generator = "product_seq")
   private Long id;
 
   private String name;
