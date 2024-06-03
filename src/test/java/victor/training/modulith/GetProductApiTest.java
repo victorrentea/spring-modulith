@@ -30,8 +30,8 @@ public class GetProductApiTest {
   StockRepo stockRepo;
 
   @Test
-  @Disabled // TODO make pass
-  void returnsStockLevel() throws Exception {
+  @Disabled // TODO fix
+  void returnsStock() throws Exception {
     Long productId = productRepo.save(new Product()).id();
     stockRepo.save(new Stock().productId(productId).add(5));
 
