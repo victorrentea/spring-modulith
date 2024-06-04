@@ -20,11 +20,10 @@ import java.util.Map;
 @Getter(onMethod = @__(@JsonProperty))
 @ToString
 @Entity
-@Table(name = "ORDERS", catalog = "orders")
-@SequenceGenerator(name = "order_seq", catalog = "orders")
+@Table(name = "ORDERS")
 public class Order extends AbstractAggregateRoot<Order> {
   @Id
-  @GeneratedValue(generator = "order_seq")
+  @GeneratedValue
   private Long id;
   private LocalDate placedOn = LocalDate.now();
   @Setter
@@ -40,7 +39,6 @@ public class Order extends AbstractAggregateRoot<Order> {
   private String shippingTrackingNumber;
 
   @ElementCollection
-  @CollectionTable(schema = "orders")
   @Setter
   @NotNull
   @NotEmpty
