@@ -23,4 +23,12 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+  // colona in tabela CATALOG.PRODUCTS
+  private Boolean hasStock;
+  // cand inventory vinde ultimul produs din stock arunca un
+  // OutOfStockEvent la care catalogul pune campul pe false
+
+  /// si invers pt BackInStockEvent
+
 }

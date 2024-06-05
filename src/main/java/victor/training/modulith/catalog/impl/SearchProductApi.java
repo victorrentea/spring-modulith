@@ -37,5 +37,8 @@ public class SearchProductApi {
         // 2) strici pagina din baza. Nu mai arati 20/pag ci cate raman
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
+    //daca astea ar fi microservicii, ai 2 solutii:
+    // a) ElasticSearch
+    // b)
   }
 }
