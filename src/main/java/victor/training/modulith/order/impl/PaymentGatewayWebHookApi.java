@@ -20,11 +20,11 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
-    order.paid(ok);
+    order.pay(ok);
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
       inventoryInternalApi.confirmReservation(order.id());
       String trackingNumber = shippingInternalApi.requestShipment(order.id(), order.shippingAddress());
-      order.scheduleForShipping(trackingNumber);
+      order.wasScheduleForShipping(trackingNumber);
     }
     orderRepo.save(order);
     return "Payment callback received";

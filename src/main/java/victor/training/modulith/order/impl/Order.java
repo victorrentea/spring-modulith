@@ -46,7 +46,7 @@ public class Order extends AbstractAggregateRoot<Order> {
   @NotEmpty
   private Map<Long, Integer> items = new HashMap<>();
 
-  public Order paid(boolean ok) {
+  public Order pay(boolean ok) {
     status.requireOneOf(OrderStatus.AWAITING_PAYMENT);
     status = ok ? OrderStatus.PAYMENT_APPROVED : OrderStatus.PAYMENT_FAILED;
     // Magic: all events registered are published by Spring at repo.save(this)
@@ -54,7 +54,7 @@ public class Order extends AbstractAggregateRoot<Order> {
     return this;
   }
 
-  public Order scheduleForShipping(String trackingNumber) {
+  public Order wasScheduleForShipping(String trackingNumber) {
     status.requireOneOf(OrderStatus.PAYMENT_APPROVED);
     status = OrderStatus.SHIPPING_IN_PROGRESS;
     shippingTrackingNumber = trackingNumber;
@@ -62,7 +62,7 @@ public class Order extends AbstractAggregateRoot<Order> {
     return this;
   }
 
-  public void shipped(boolean ok) {
+  public void wasShipped(boolean ok) {
     status.requireOneOf(OrderStatus.SHIPPING_IN_PROGRESS);
     status = ok ? OrderStatus.SHIPPING_COMPLETED : OrderStatus.SHIPPING_FAILED;
     registerEvent(new OrderStatusChangedEvent(id, status, customerId));

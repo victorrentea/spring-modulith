@@ -52,7 +52,7 @@ public class PlaceOrderApi {
   @ApplicationModuleListener
   public void onShippingResultEvent(ShippingResultEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
-    order.shipped(event.ok());
+    order.wasShipped(event.ok());
     orderRepo.save(order); // without @Test fails, as events not published
   }
 }

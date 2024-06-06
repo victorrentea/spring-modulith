@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ReserveStockService {
+public class StockService {
   private final StockRepo stockRepo;
   private final StockReservationRepo stockReservationRepo;
 
