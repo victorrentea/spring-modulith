@@ -13,7 +13,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
-import victor.training.modulith.shipping.in.api.ShippingInternalApi;
+import victor.training.modulith.shipping.ShippingInternalApi;
 
 import java.util.List;
 import java.util.Map;

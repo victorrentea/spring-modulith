@@ -17,8 +17,8 @@ class ArchitectureTest {
 
 	@Test
 	void encapsulated_and_withoutCycles() {
-		// 1. modules respect encapsulation, except explicitly allowed packages
-		// 2. no cycles
+		// 1. modules only access each others' root package (or explicitly allowed packages)
+		// 2. no cycles between modules
 		modules.verify();
 		// Note: this test runs even after split in Maven modules
 	}

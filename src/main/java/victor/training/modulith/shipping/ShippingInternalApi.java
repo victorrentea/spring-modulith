@@ -1,4 +1,4 @@
-package victor.training.modulith.shipping.in.api;
+package victor.training.modulith.shipping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

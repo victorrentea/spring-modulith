@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.shipping.in.api.ShippingInternalApi;
+import victor.training.modulith.shipping.ShippingInternalApi;
 
 @RestController
 @RequiredArgsConstructor
