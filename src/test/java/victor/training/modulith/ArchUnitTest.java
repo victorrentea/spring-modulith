@@ -32,10 +32,9 @@ class ArchUnitTest {
   }
 
   @Test
-  @Disabled
   public void noCyclesBetweenModules() {
     SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*)..*")
+        .matching("victor.training.modulith.(*)")
         .should().beFreeOfCycles()
         .check(classes);
   }
