@@ -27,7 +27,7 @@ Taking small baby-steps, implement the changes below.
 Expand the hints if needed, and keep running `ArchitectureTest`:
 1. Return the number of items currently in stock from `GetProductApi`
 - `catalog` should not access any internal class of `inventory` module (run tests).
-- `GetProductReturnsStockE2ETest` should pass.
+- `GetProductApiTest` should pass.
 - <details><summary>Hint</summary>Retrieve the stock item number via a call to a new method in `InventoryModule`</details>
 
 2. Pull payment-related classes out of `order` module into a separate `payment` module.
@@ -39,6 +39,7 @@ Expand the hints if needed, and keep running `ArchitectureTest`:
     - <details><summary>Hint</summary>Move classes in a subpackage, like 'impl'</details>
 3. `SearchProductApi` should only return products in stock
     - What options you see? Tradeoffs of each?
+    - Test `SearchProductsApiTest` should pass.
 
     1. <details><summary>Option</summary>Find all products and join in-memory with all stock. Or vice-versa.</details>
     1. <details><summary>Option</summary>JOIN Stock via SQL/JPQL😐</details>
