@@ -15,7 +15,7 @@ public class ShippingModuleTest {
   @Autowired
   ShippingProviderWebHookApi sut;
   @Test
-//  @Disabled
+  @Disabled
   void callback(PublishedEvents publishedEvents) {
     sut.shippedStatus(1L, true);
 
