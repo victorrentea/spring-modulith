@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
+//@Transactional
 public class OrderPaymentTest {
   @Autowired
   MockMvc mockMvc;
@@ -58,10 +58,12 @@ public class OrderPaymentTest {
   }
 
   @Test // TODO keep passing
-  void gatewayCallbackUpdatesTheOrder() {
+  void gatewayCallbackUpdatesTheOrder() throws InterruptedException {
     Long orderId = orderRepo.save(new Order()).id();
 
     paymentGatewayWebHookApi.confirmPayment(orderId, true);
+
+    Thread.sleep(1000);
 
     verify(shippingInternalApi).requestShipment(eq(orderId), any());
     Order order = orderRepo.findById(orderId).orElseThrow();
