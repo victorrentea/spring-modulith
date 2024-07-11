@@ -3,6 +3,7 @@ package victor.training.modulith.order.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderStatus;
@@ -18,6 +19,8 @@ public class PaymentCompletedEventListener {
   private final ShippingInternalApi shippingInternalApi;
 //    registry.register(PaymentCompletedEvent, this::onPaymentConfirmed)
 
+  // preparing to eject a module as a microservice.
+  @Async // I had a problem and I wanted to use multithreading. Two problems have I now. but it;s closer to distributed system
   @EventListener // in memory event bus // observer pattern
   public void onPaymentConfirmed(PaymentCompletedEvent event) {
     log.info("Received PaymentCompletedEvent: " + event);

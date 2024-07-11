@@ -3,6 +3,7 @@ package victor.training.modulith.payment.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,11 +16,13 @@ import victor.training.modulith.payment.PaymentCompletedEvent;
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   private final ApplicationEventPublisher eventPublisher;
-//@Tran
+//  @Transactional
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
+//    repo.save(something);
     eventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
     log.info("After publishing");
+    // restApi.call;
     return "Payment callback received";
   }
 
