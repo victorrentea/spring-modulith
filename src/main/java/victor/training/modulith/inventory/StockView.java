@@ -10,6 +10,9 @@ import org.hibernate.annotations.View;
 // ALWAYS PREFER CALLS THROUGH INTERNAL APIs.
 // (exports/search) > massive access to daya
 @Entity  // part of the published internal API of the Inventory Module
+
+// a ADR justifying explaining WHY do I really need this view (with all of its columns)
+// explained without chatGPT! maniually!
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
     from STOCK
