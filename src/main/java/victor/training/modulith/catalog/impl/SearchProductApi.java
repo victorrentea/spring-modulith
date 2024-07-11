@@ -28,7 +28,7 @@ private final StockRepo stockRepo;
 
     // 💡 [Best for Modulith] JOIN with inventory.Stock - couples me to Inventory's internal
 
-    // 💡 [Best for Microservices] Caching :
+    // 💡 #2 [Best for Microservices] Caching :
     // - a copy of the IN_STOCK{productId,bool} in the catalog
     // - a boolean in the PRODUCT table
 
