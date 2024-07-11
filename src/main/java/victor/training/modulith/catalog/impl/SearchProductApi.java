@@ -26,14 +26,15 @@ private final StockRepo stockRepo;
     // List<Long> huge = stockRepo.findIdInStock(); // but fits in memory: 1M items
     // return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest, huge) // Bad news max 1000 x ? in SQL
 
-    // 💡 [Best for Modulith] JOIN with inventory.Stock - couples me to Inventory's internal
+    // 💡 #1 [Best for Modulith] JOIN with inventory.Stock - couples me to Inventory's internal
 
     // 💡 #2 [Best for Microservices] Caching :
     // - a copy of the IN_STOCK{productId,bool} in the catalog
     // - a boolean in the PRODUCT table
 
 //    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
-    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
+    return productRepo.searchInStockByName("%" + name + "%", pageRequest)
         .stream()
         // #1) N+1 queries = bad performance
         // #2) I retrieve eg a page of 20(=max), I filter and leave eg 7

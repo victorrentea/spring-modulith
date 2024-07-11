@@ -6,7 +6,10 @@ import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.View;
 
-@Entity
+// WARNING! THIS SHOULD be the last resort.
+// ALWAYS PREFER CALLS THROUGH INTERNAL APIs.
+// (exports/search) > massive access to daya
+@Entity  // part of the published internal API of the Inventory Module
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
     from STOCK
