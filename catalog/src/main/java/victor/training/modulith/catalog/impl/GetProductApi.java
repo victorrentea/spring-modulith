@@ -17,6 +17,8 @@ public class GetProductApi {
       String name,
       String description,
        int stock, // TODO display stock in product page UI
+      // question: can't FE call GetStockApi from catalog instead
+      // of asking me to fetch it for them? => 3 y layer=microfrontends
       Double price,
       Double stars
       ) {
