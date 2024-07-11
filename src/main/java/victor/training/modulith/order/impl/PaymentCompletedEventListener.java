@@ -23,9 +23,9 @@ public class PaymentCompletedEventListener {
 //    registry.register(PaymentCompletedEvent, this::onPaymentConfirmed)
 
   // preparing to eject a module as a microservice.
-  @Async // I had a problem and I wanted to use multithreading. Two problems have I now. but it;s closer to distributed system
-//  @EventListener // in memory event bus // observer pattern
-  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT) // in memory event bus // observer pattern
+//  @Async // I had a problem and I wanted to use multithreading. Two problems have I now. but it;s closer to distributed system
+  @EventListener // in memory event bus // observer pattern
+//  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT) // in memory event bus // observer pattern
   public void onPaymentConfirmed(PaymentCompletedEvent event) {
     log.info("Received PaymentCompletedEvent: " + event);
     Order order = orderRepo.findById(event.orderId()).orElseThrow();

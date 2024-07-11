@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
-  List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
+  List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart, PageRequest pageRequest);
 
   // #1 migrate data to Product:inStock:boolean
   //  List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart, PageRequest pageRequest);

@@ -16,12 +16,12 @@ import victor.training.modulith.payment.PaymentCompletedEvent;
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   private final ApplicationEventPublisher eventPublisher;
-  @Transactional
+//  @Transactional
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) throws InterruptedException {
 //    repo.save(something);
     eventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
-    Thread.sleep(10);
+//    Thread.sleep(10);
     log.info("After publishing");
     // restApi.call;
     return "Payment callback received";
