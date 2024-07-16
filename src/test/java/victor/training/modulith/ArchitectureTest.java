@@ -12,20 +12,20 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 class ArchitectureTest {
 	public static final DescribedPredicate<JavaClass> IGNORED_MODULES =
 			resideInAnyPackage( "victor.training.modulith.shared");
-	public static final ApplicationModules modules =
+	public static final ApplicationModules springModulith =
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
 	void encapsulated_and_withoutCycles() {
 		// 1. modules only access each others' root package (or explicitly allowed packages)
 		// 2. no cycles between modules
-		modules.verify();
+		springModulith.verify();
 		// Note: this test runs even after split in Maven modules
 	}
 
 	@Test
 	void generateDiagrams() {
-		new Documenter(modules)
+		new Documenter(springModulith)
 				.writeModulesAsPlantUml()
 				.writeIndividualModulesAsPlantUml();
 	}
@@ -37,7 +37,7 @@ class ArchitectureTest {
 		var docOptions = Documenter.DiagramOptions.defaults()
 				.withStyle(Documenter.DiagramOptions.DiagramStyle.UML);
 
-		new Documenter(modules) //
+		new Documenter(springModulith) //
 				.writeDocumentation(docOptions, canvasOptions);
 	}
 
