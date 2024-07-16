@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.View;
 
-@Entity
+@Entity // very last resort. WHEN YOU REALLY REALLY HAVE TO JOIN IT TO YOUR QUERY
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
     from STOCK
