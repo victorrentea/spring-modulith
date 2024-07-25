@@ -22,6 +22,7 @@ public class OrderPaymentHandler {
   // preparing the ground for using Kafka or RabbitMQ
   @EventListener
   public void onPaymentCompleted(PaymentCompletedEvent event) {
+    log.info("Listener start in the same thread and transaction as te publisher");
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.success());
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
@@ -30,5 +31,7 @@ public class OrderPaymentHandler {
       order.wasScheduleForShipping(trackingNumber);
     }
     orderRepo.save(order);
+    log.info("Listener finished");
+    throw new RuntimeException("Simulating a crash");
   }
 }
