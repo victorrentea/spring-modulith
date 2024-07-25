@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.inventory.controller.GetStockApi;
-import victor.training.modulith.inventory.repo.StockRepo;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock=  inventoryInternalApi.getAmountForProduct(productId);
+    int stock=  inventoryInternalApi.getStockForProduct(productId);
 //    int stock=  stockRepo.findByProductId(productId).orElseThrow().items();
     return new GetProductResponse(product.id(),
         product.name(),
