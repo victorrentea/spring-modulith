@@ -16,7 +16,7 @@ public class SearchProductApi {
 
   public record ProductSearchResult(long id, String name) {
   }
-  private final InventoryInternalApi inventoryInternalApi;
+//  private final InventoryInternalApi inventoryInternalApi;
   // CustomerDoor=CustomerInternalApi
   // CustomerKnob=CustomerInternalDto
 
@@ -24,13 +24,10 @@ public class SearchProductApi {
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // prefetch the data from inventory
-    List<Long> allProductIdsInStock = inventoryInternalApi.getAllProductIdsInStock();
-    return productRepo.searchByNameLikeIgnoreCase(
-        "%" + name + "%", pageRequest, allProductIdsInStock) // can't pass 1M ? into a queryt
+    // REAL SOLUTION #1) REPLICATION = microservice way
+
+    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest) // can't pass 1M ? into a queryt
         .stream()
-        .filter(p -> allProductIdsInStock.contains(p.id()))
-        // 3) you screwed up the page size
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

@@ -19,6 +19,13 @@ public class Product {
 
   private String name;
 
+  private boolean inStock;// replicaation of data. FOR MICROSERVICES
+  //how to update this?
+  // a) periodically cron every 5 min
+  // b) event based: when stock changes, publish an event; less delay
+  // both, especially a) allow a window of inconsistency
+  // c) NEVER. AI💩: syncronously: when stock changes, update all services that need it
+
   private String description;
 
   private Double price;
