@@ -24,10 +24,11 @@ public class SearchProductApi {
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items in stock
+    // prefetch the data from inventory
+    List<Long> allProductIdsInStock = inventoryInternalApi.getAllProductIdsInStock();
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
-        .filter(p -> inventoryInternalApi.getStockForProduct(p.id()) > 0) //2) N+1 query problem . in a loop
+        .filter(p -> allProductIdsInStock.contains(p.id()))
         // 3) you screwed up the page size
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
