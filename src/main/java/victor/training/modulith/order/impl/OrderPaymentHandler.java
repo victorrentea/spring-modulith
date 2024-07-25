@@ -1,21 +1,21 @@
-package victor.training.modulith.order;
+package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.order.impl.Order;
-import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class OrderPaymentHandler {
+public class OrderPaymentHandler implements victor.training.modulith.order.IOrderPaymentHandler {
   private final OrderRepo orderRepo;
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
+  @Override
   public void onPaymentCompleted(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.pay(ok);
