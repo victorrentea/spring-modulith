@@ -20,7 +20,10 @@ public class Stock {
   @NotNull
   @Setter // + FK to PRODUCT.ID
   private Long productId;
+  // yesterday I could do stock.getProduct().getName() but now I can't
+  // today: catalogInternalApi.getProductName(stock.getProductId()) +1 SELECT
 
+  // coupling inventory's most  sacred class to the internals of the catalog module
 //  @ManyToOne private Product product; // TODO explore JPA links between @Entity in different module
 
   @NotNull

@@ -20,6 +20,8 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
     log.info("publishing");
     eventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
+//    kafkaTemplate.send(..)
+//    rabbitTemplate.send(..)
     log.info("IShouldSeeThis if no exception, after all listeners finish");
     return "Payment callback received";
   }
