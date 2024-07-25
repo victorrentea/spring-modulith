@@ -26,7 +26,8 @@ public class SearchProductApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // prefetch the data from inventory
     List<Long> allProductIdsInStock = inventoryInternalApi.getAllProductIdsInStock();
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchByNameLikeIgnoreCase(
+        "%" + name + "%", pageRequest, allProductIdsInStock) // can't pass 1M ? into a queryt
         .stream()
         .filter(p -> allProductIdsInStock.contains(p.id()))
         // 3) you screwed up the page size
