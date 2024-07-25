@@ -1,6 +1,7 @@
 package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
