@@ -18,6 +18,8 @@ public class OrderService {
   private final ShippingInternalApi shippingInternalApi;
 
   @EventListener
+//  @KafkaListener(topics = "paymentConfirmed")
+//  @RabbitListener(queues = "paymentConfirmed")
   public void onPaymentConfirmed(PaymentConfirmedEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.ok());
