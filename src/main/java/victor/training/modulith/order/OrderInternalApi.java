@@ -10,7 +10,7 @@ import victor.training.modulith.order.impl.OrderService;
 public class OrderInternalApi {
   private final OrderService orderService;
 
-  public void confirmPayment(long orderId, boolean ok) {
-    orderService.confirmPayment(orderId, ok);
-  }
+//  public void confirmPayment(long orderId, boolean ok) {
+//    orderService.confirmPayment(orderId, ok);
+//  }
 }
