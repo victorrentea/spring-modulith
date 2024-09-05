@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.domain.AbstractAggregateRoot;
 
 @Getter
 @ToString
@@ -25,6 +24,10 @@ public class Stock {
 
   @NotNull
   private Integer items = 0;
+
+  public boolean isEmpty() {
+    return items() == 0;
+  }
 
   public Stock add(int itemsAdded) {
     if (itemsAdded <= 0) {

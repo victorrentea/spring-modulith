@@ -18,23 +18,20 @@ public class SearchProductApi {
 
   public record ProductSearchResult(long id, String name) {
   }
-  private final StockRepo stockRepo;
+//  private final StockRepo stockRepo;
   @GetMapping("catalog/search")
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%",
-            pageRequest)// LIMIT OFFSET
+//    List<Long> eheeee1M = stockRepo.findByInStockTrue();  greu de dat milionu queryului de mai jos
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%",pageRequest)// LIMIT OFFSET ID IN (?,?,?....1M....)
+    return productRepo.searchByNameLikeIgnoreCaseAndHasStockTrue("%" + name + "%",pageRequest)// LIMIT OFFSET ID IN (?,?,?....1M....)
         .stream()
-        // RAU#1: performanta
-        // 200ms x 50 item = 10 sec bataie de joc fata de client
-//        .filter(p -> inventoryRestApi.inStock(p.id()))// REST API CALL
-
-        // 20ms x 50 item = 1 sec bataie de joc fata de client
+        // RAU#1: performanta: 20ms x 50 item = 1 sec bataie de joc fata de client
         // RAU#2: rupt incapsularea lui inventory
         // RAU#3: filtrezi dupa ce paginezi = GRESIT
-        .filter(p -> stockRepo.findByProductId(p.id()).map(s -> s.items() > 0).orElse(false))
+//        .filter(p -> stockRepo.findByProductId(p.id()).map(s -> s.items() > 0).orElse(false))
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
