@@ -24,8 +24,16 @@ public class SearchProductApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%",
+            pageRequest)// LIMIT OFFSET
         .stream()
+        // RAU#1: performanta
+        // 200ms x 50 item = 10 sec bataie de joc fata de client
+//        .filter(p -> inventoryRestApi.inStock(p.id()))// REST API CALL
+
+        // 20ms x 50 item = 1 sec bataie de joc fata de client
+        // RAU#2: rupt incapsularea lui inventory
+        // RAU#3: filtrezi dupa ce paginezi = GRESIT
         .filter(p -> stockRepo.findByProductId(p.id()).map(s -> s.items() > 0).orElse(false))
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
