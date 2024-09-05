@@ -26,7 +26,7 @@ class ArchUnitTest {
 
     // Stage 1. Progressive decoupling phase: lower this number every sprint
     List<String> violations = rule.evaluate(classes).getFailureReport().getDetails();
-    assertThat(violations).hasSizeLessThan(123); // starting point after moving classes around
+    assertThat(violations).hasSizeLessThan(0); // starting point after moving classes around
     assertThat(violations).hasSize(0); // 6 months from now
 
     // Stage 2. Maintenance phase: fail test at any violation
