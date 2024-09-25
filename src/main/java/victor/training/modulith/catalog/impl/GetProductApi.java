@@ -31,6 +31,7 @@ public class GetProductApi {
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
     int stock = inventoryInternalApi.getStock(productId);
+    // tomorrow when inventory moves to a separate deployment unit, we'll have to call a REST API/gRPC
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
