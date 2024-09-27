@@ -24,9 +24,12 @@ public class SearchProductApi {
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items in stock
-    List<Product> productsMatchingName = productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest);
+    // TODO only return items in stock (>=1)
+//    List<Product> productsMatchingName = productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest);
+    List<Product> productsMatchingName = productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest);
 //    stockRepo.
+    //acceptable if ids.size<1000
+//    Map<Long,Integer> stockLevels = stockGRPCApi.getStockForProductIds(allIds); // less network traffic
     return productsMatchingName
         .stream()
 //        .filter(p -> stockRepo.findByProductId(p.id()).orElseThrow().items() > 0)

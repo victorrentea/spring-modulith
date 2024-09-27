@@ -38,6 +38,9 @@ public class StockService {
   private void subtractStock(long productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
+    if (stock.items() == 0) {
+      // kafkaTemplate.send("OutOfStockEvent", productId);
+    }
     stockRepo.save(stock);
   }
 
