@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 @Slf4j
@@ -23,12 +24,14 @@ public class GetProductApi {
       Double stars
       ) {
   }
-private final StockRepo stockRepo;
+//private final StockRepo stockRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock= stockRepo.findById(productId).orElseThrow().items();
+//    int stock= stockRepo.findById(productId).orElseThrow().items();
+    int stock = inventoryInternalApi.getStock(productId);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
