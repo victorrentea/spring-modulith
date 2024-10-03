@@ -28,11 +28,3 @@ public class StockReservation {
 
   private LocalDateTime createdAt = now();
 }
-
-// 1 grand stock
-// 2 reservations
-// when do I decrease the grand stock?
-// a) at reservation time
-// b) at confirmation time
-
-// catalog might misinterpret the stock semantics.
