@@ -18,6 +18,7 @@ public class AddStockApi {
   public void execute(@PathVariable long productId, @PathVariable int items) {
     Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
     stock.add(items);
+    // publish back in stocjk event on Kafka
     stockRepo.save(stock);
   }
 }
