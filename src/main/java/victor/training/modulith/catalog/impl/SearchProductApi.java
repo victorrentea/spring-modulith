@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class SearchProductApi {
   public record ProductSearchResult(long id, String name) {
   }
 
+  private final InventoryInternalApi inventoryInternalApi;
   @GetMapping("catalog/search")
   public List<ProductSearchResult> execute(
       @RequestParam String name,
@@ -25,6 +27,7 @@ public class SearchProductApi {
     // TODO only return items in stock
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+        .filter(e -> inventoryInternalApi.getStock(e.id()) > 0)
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
