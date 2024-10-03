@@ -22,21 +22,14 @@ class ArchUnitTest {
   public void noCyclesBetweenModules() {
     SliceRule rule = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)")
-        // slice my code by the package coming after 'victor.training.modulith.'
         .should().beFreeOfCycles();
 
     // Stage 1. Progressive decoupling phase: lower this number every sprint
     List<String> violations = rule.evaluate(classes).getFailureReport().getDetails();
-//    assertThat(violations).hasSizeLessThan(123); // starting point after moving classes around
-//    assertThat(violations).hasSizeLessThan(110); // starting point after moving classes around
-//    assertThat(violations).hasSizeLessThan(80); // starting point after moving classes around
-//    assertThat(violations).hasSizeLessThan(50); // starting point after moving classes around
-//    assertThat(violations).hasSizeLessThan(70); // starting point after moving classes around
-//    assertThat(violations).hasSizeLessThan(20); // starting point after moving classes around
-//    assertThat(violations).hasSizeLessThan(6); // starting point after moving classes around
-//    assertThat(violations).hasSize(0); // 6 months from now
+    assertThat(violations).hasSizeLessThan(123); // starting point after moving classes around
+    assertThat(violations).hasSize(0); // 6 months from now
 
-    // Stage 2. Maintenance phase: fail test at any violationasdasd
+    // Stage 2. Maintenance phase: fail test at any violation
     rule.check(classes);
   }
 
