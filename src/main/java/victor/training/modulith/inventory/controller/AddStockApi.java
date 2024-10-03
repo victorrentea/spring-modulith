@@ -17,9 +17,6 @@ public class AddStockApi {
   @Transactional
   public void execute(@PathVariable long productId, @PathVariable int items) {
     Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
-    if (stock.items() == 0) {
-      // kafkaTemplate.send("BackInStockEvent", productId);
-    }
     stock.add(items);
     stockRepo.save(stock);
   }

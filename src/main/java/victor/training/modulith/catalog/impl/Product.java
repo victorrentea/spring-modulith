@@ -25,12 +25,6 @@ public class Product {
 
   private Double stars;
 
-  //data replication. I am about to commit a sin
-  // replicate data.
-  // at least commit the smallest sin
-//  private Integer stockLevel; //7 9 10 1 0
-  private Boolean inStock;
-
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
