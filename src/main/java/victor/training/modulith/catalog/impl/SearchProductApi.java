@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryInternalApi;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
