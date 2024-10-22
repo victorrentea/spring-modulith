@@ -10,6 +10,7 @@ import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -26,9 +27,15 @@ public class SearchProductApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // a) JOIN with stock!? no, with a VIEW the inventory team conscoiusly expose to others
 
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+
+//    List<Product> products = productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest);
+//    var productIds = products.stream().map(Product::id).toList();
+//    Map<Long, Integer> stocks= inventoryInternalApi.getStockForProducts(productIds);
+     // result: not always the requested 20 lines / page. Maybe fewer if out of stock
+
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
-        .filter(p -> inventoryInternalApi.getStockForProduct(p.id())>0)
+//        .filter(p -> inventoryInternalApi.getStockForProduct(p.id())>0)
         // N+1 queries problem;
         // a) now in-mem call to inventory -> N network calls to DB. 100 x 5ms = 500ms
         // b) now REST call to inventory -> N network calls to DB. 100 x ???? 50ms = 5000ms

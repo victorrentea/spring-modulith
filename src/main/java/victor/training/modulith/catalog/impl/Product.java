@@ -25,6 +25,8 @@ public class Product {
 
   private Double stars;
 
+  private Boolean inStock;
+
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
