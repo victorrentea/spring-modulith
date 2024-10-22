@@ -29,6 +29,9 @@ public class GetProductApi {
   public GetProductResponse execute(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
     int stock=stockRepo.findByProductId(productId).orElseThrow().items();
+    // bad because:
+    // 1 coupling > impedes changes
+    // 2 data semantics i might miss them, > leak domain logic from inventory to me
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
