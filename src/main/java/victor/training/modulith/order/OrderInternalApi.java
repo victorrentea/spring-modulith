@@ -1,9 +1,9 @@
-package victor.training.modulith.shared;
+package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
 import victor.training.modulith.shipping.ShippingInternalApi;
