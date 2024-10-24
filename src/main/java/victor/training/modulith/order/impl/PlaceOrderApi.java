@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.payment.PaymentInternalApi;
+import victor.training.modulith.shared.PaymentInternalApi;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
