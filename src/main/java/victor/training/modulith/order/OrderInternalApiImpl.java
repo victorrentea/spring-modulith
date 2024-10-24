@@ -5,17 +5,15 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
-import victor.training.modulith.shared.OrderInternalApi;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Service
 @RequiredArgsConstructor
-public class OrderInternalApiImpl implements OrderInternalApi {
+public class OrderInternalApiImpl {
   private final OrderRepo orderRepo;
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  @Override
   public void confirmPaymentCompleted(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.pay(ok);

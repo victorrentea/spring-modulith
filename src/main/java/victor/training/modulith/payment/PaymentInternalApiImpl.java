@@ -4,15 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.payment.impl.PaymentGatewayClient;
-import victor.training.modulith.shared.PaymentInternalApi;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentInternalApiImpl implements PaymentInternalApi {
+public class PaymentInternalApiImpl {
   private final PaymentGatewayClient paymentGatewayClient;
 
-  @Override
   public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
     // payment gateway implementation details
     log.info("Request payment url for order id: " + orderId);
