@@ -1,10 +1,12 @@
 package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.payment.PaymentCompletedEvent;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Service
@@ -14,9 +16,12 @@ public class OrderInternalApiImpl {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  public void confirmPaymentCompleted(long orderId, boolean ok) {
-    Order order = orderRepo.findById(orderId).orElseThrow();
-    order.pay(ok);
+  @EventListener // sincron in threadul publisherului
+
+  // @KafkaListener maine cand unu din module pleaca curand deplot
+  public void onPaymentCompleted(PaymentCompletedEvent event) {
+    Order order = orderRepo.findById(event.orderId()).orElseThrow();
+    order.pay(event.success());
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
       inventoryInternalApi.confirmReservation(order.id());
       String trackingNumber = shippingInternalApi.requestShipment(order.id(), order.shippingAddress());
@@ -24,4 +29,5 @@ public class OrderInternalApiImpl {
     }
     orderRepo.save(order);
   }
+
 }
