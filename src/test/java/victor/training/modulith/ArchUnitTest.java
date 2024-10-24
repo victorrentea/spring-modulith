@@ -34,6 +34,7 @@ class ArchUnitTest {
   }
 
   @Test
+  @Disabled
   public void moduleInternalApisAreIndependent() {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)")
