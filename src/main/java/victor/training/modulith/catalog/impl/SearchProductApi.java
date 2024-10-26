@@ -25,16 +25,21 @@ public class SearchProductApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // 1) ⭐️ JOIN intre scheme prin VIEW-URI expuse de aia
-    // TODO only return items in stock
     // OOME
     // List<> toateProduseleCuStockNeNul = productRepo.findAll().stream().filter(p -> stockRepo.findByProductId(p.id()).items()>0).toList();
     // in-memory join
-
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    // TODO only return items in stock
+    List<ProductSearchResult> list = productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
 //        .filter(p ->stockRepo.findByProductId(p.id()).orElseThrow().items()>0) // 2ms x 1000 = 2s
 //        .filter(p ->stockRestApi.get(p.id()).orElseThrow().items()>0) // 100ms x 50 = 5s
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
+//    var selectedProductIds = list.stream().map(ProductSearchResult::id).toList();
+//    // 20
+//    List<Long> iduriDeProduseInStock = inventoryApi.damiDacaSuntInStockPentruProduseleAstea(selectedProductIds);
+//    list.removeIf(p -> !iduriDeProduseInStock.contains(p.id()));
+    // <= 20, poate 0 ca nici unu din pagina gasita dupa nume nu s-a dovedit a fi in stock
+    return list;
   }
 }
