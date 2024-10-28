@@ -5,8 +5,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static jakarta.persistence.GenerationType.SEQUENCE;
+import java.util.Map;
 
 @Entity
 @Data // sorry
@@ -20,6 +19,9 @@ public class Product {
   private String name;
 
   private String description;
+
+  @ElementCollection
+  private Map<String,String> attributes;
 
   private Double price;
 
