@@ -30,12 +30,12 @@ public class SearchProductApi {
     // Cons: filtering after pagination = bad semantics= bugs
 //    Set<Long> allProductIdsInStock = inventoryApi.findAllProductIdsInStock();
 
+    // WHERE ID IN (?,?,?,....10M?) <max 1000 x ? /query > syntax error in SQL + TO MUCH DATA
+//    return productRepo.searchByNameLikeIgnoreCaseAndIdIn("%" + name + "%", allProductIdsInStock, pageRequest)
 
-
-
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
-//        .filter(e -> allProductIdsInStock.contains(e.id())) // DEAD: filter after pagination
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
