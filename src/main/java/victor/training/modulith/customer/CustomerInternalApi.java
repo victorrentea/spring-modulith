@@ -11,7 +11,6 @@ import victor.training.modulith.customer.impl.CustomerRepo;
 @RequiredArgsConstructor
 public class CustomerInternalApi {
   private final CustomerRepo customerRepo;
-  private final ProductRepo productRepo;
 
 
 }

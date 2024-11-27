@@ -31,13 +31,13 @@ class ArchUnitTest {
   @Test
   public void respectEncapsulation() { // TODO
     var slices = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*).*");
-    var encapsulationViolations = slices.should().notDependOnEachOther()
-//        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.*"))
+        .matching("victor.training.modulith.(*)..");
+    var violations = slices.should().notDependOnEachOther()
+        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.*"))
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared"))
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
-    assertThat(encapsulationViolations).hasSize(0); // end 🎉
+    assertThat(violations).hasSize(0); // end 🎉
   }
 
   @Test
