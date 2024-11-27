@@ -2,7 +2,6 @@ package victor.training.modulith;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
-import com.tngtech.archunit.library.dependencies.SliceRule;
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -14,23 +13,31 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ArchUnitTest {
-  private JavaClasses classes = new ClassFileImporter()
+  private static final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
       .importPackages("victor.training.modulith");
 
+  @Test
+  public void noCycles() {
+    var slices = SlicesRuleDefinition.slices()
+        .matching("victor.training.modulith.(*).*");
+    var cycles = slices.should().beFreeOfCycles()
+        .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
+
+    // assertThat(cycles).hasSize(3); // starting point of migration
+    // assertThat(cycles).hasSize(3); // next quarter
+    assertThat(cycles).hasSize(0); // end 🎉
+  }
 
   @Test
-  public void noCyclesBetweenModules() {
-    SliceRule rule = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*)")
-        .should().beFreeOfCycles();
+  public void respectEncapsulation() { // TODO
+    var slices = SlicesRuleDefinition.slices()
+        .matching("victor.training.modulith.(*).*");
+    var encapsulationViolations = slices.should().notDependOnEachOther()
+//        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.*"))
+        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared"))
+        .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
-    // Stage 1. Progressive decoupling phase: lower this number every sprint
-    List<String> violations = rule.evaluate(classes).getFailureReport().getDetails();
-    assertThat(violations).hasSizeLessThan(123); // starting point after moving classes around
-    assertThat(violations).hasSize(0); // 6 months from now
-
-    // Stage 2. Maintenance phase: fail test at any violation
-    rule.check(classes);
+    assertThat(encapsulationViolations).hasSize(0); // end 🎉
   }
 
   @Test
@@ -39,7 +46,7 @@ class ArchUnitTest {
         .matching("victor.training.modulith.(*)")
         .should().notDependOnEachOther()
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared"))
-        .check(classes);
+        .check(PROJECT_CLASSES);
   }
 
   @Test
@@ -47,7 +54,7 @@ class ArchUnitTest {
   public void sharedApiIndependent() {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.shared.api.(*)..*")
-        .should().notDependOnEachOther().check(classes);
+        .should().notDependOnEachOther().check(PROJECT_CLASSES);
   }
 
 }
