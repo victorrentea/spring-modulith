@@ -13,6 +13,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
+  private final InventoryInternalApi inventoryInternalApi;
   // example of Vertical Slice Architecture (VSA) - one class / API
 
   public record GetProductResponse(
@@ -24,7 +25,6 @@ public class GetProductApi {
       Double stars
       ) {
   }
-  private final InventoryInternalApi inventoryInternalApi;
 
   @GetMapping("catalog/{productId}")
   public GetProductResponse execute(@PathVariable long productId) {
