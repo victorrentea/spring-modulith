@@ -25,6 +25,8 @@ public class Product {
 
   private Double stars;
 
+//  private boolean isDeleted;
+
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
