@@ -23,13 +23,19 @@ class ArchUnitTest {
     var cycles = slices.should().beFreeOfCycles()
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
-    // assertThat(cycles).hasSize(3); // starting point of migration
+    // arch fitness function
+
+    // assertThat(cycles).hasSize(120); // starting point of migration
+    // assertThat(cycles).hasSize(90); // starting point of migration
+    // assertThat(cycles).hasSize(70); // starting point of migration
+    // assertThat(cycles).hasSize(75); // starting point of migration
+    // assertThat(cycles).hasSize(23); // starting point of migration
+    // assertThat(cycles).hasSize(5); // starting point of migration
     // assertThat(cycles).hasSize(3); // next quarter
     assertThat(cycles).hasSize(0); // end 🎉
   }
 
   @Test
-  @Disabled
   public void respectEncapsulation() {
     var slices = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..");
