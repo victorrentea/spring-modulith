@@ -22,4 +22,9 @@ public class InventoryInternalApi {
     stockService.confirmReservation(orderId);
   }
 
+  public int getStockByProduct(long productId) {
+    return stockRepo.findByProductId(productId)
+        .orElseThrow()
+        .items();
+  }
 }

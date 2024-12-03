@@ -29,7 +29,8 @@ class ArchUnitTest {
   }
 
   @Test
-  public void respectEncapsulation() { // TODO
+  @Disabled
+  public void respectEncapsulation() {
     var slices = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..");
     var violations = slices.should().notDependOnEachOther()

@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class GetProductApiTest {
+public class GetProductDetailsByIdApiTest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
