@@ -2,7 +2,11 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
@@ -16,7 +20,14 @@ public class OrderInternalApi {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  @EventListener
+  // AVOID until the publisher or listener want to "move out" = become a separate deploy ----> @KafkaListener
+  // if the modular monolith is still comfortable today, use method calls, not events.
+  @EventListener // is this executed async: NO! It's synchronous by default unlike a @KafkaListener
+  // PANIC: if i throw an exception it is thrown in the publisher
+  // PANIC: if i cause a Tx rollback, i rollback the publisher's Tx too
+//  @Async // loose  hell  breaks
+//  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+//  @ApplicationModuleListener // spring-modulith: i'm going to persist the event until you proceess it
   public void onPaymentConfirmationEvent(PaymentConfirmationEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.ok());

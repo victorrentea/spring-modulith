@@ -14,14 +14,11 @@ import victor.training.modulith.order.OrderInternalApi;
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi {
-//  private final OrderInternalApi orderInternalApi; // TODO move to 'payment' module
   private final ApplicationEventPublisher applicationEventPublisher;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-//    orderInternalApi.confirmPayment(orderId, ok);
-    applicationEventPublisher.publishEvent(
-        new PaymentConfirmationEvent(orderId, ok));
+    applicationEventPublisher.publishEvent(new PaymentConfirmationEvent(orderId, ok));
     return "Payment callback received";
   }
 }
