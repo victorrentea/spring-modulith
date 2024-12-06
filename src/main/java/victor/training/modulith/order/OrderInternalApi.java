@@ -20,6 +20,7 @@ public class OrderInternalApi {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
+//  @org.springframework.core.annotation.Order(2)
   // AVOID until the publisher or listener want to "move out" = become a separate deploy ----> @KafkaListener
   // if the modular monolith is still comfortable today, use method calls, not events.
   @EventListener // is this executed async: NO! It's synchronous by default unlike a @KafkaListener
