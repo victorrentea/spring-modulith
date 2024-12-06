@@ -2,15 +2,11 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
-import org.springframework.modulith.ApplicationModuleListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
-import victor.training.modulith.payment.PaymentConfirmationEvent;
+import victor.training.modulith.payment.PaymentConfirmedEvent;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Service
@@ -29,7 +25,7 @@ public class OrderInternalApi {
 //  @Async // loose  hell  breaks
 //  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
 //  @ApplicationModuleListener // spring-modulith: i'm going to persist the event until you proceess it
-  public void onPaymentConfirmationEvent(PaymentConfirmationEvent event) {
+  public void onPaymentConfirmationEvent(PaymentConfirmedEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.ok());
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
