@@ -6,6 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import victor.training.modulith.inventory.InventoryInternalApi;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchProductApi {
   private final ProductRepo productRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -25,7 +28,15 @@ public class SearchProductApi {
     // TODO only return items in stock
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+        .filter(product -> fetchStock(product.id()) > 0)
+        //#1: only 1 items left of the intended page of 20  => BAD UX
+        //#2: for() { api.call } => 20 calls to inventory => BAD PERFORMANCE
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
+  }
+
+  private int fetchStock(Long id) {
+//    return new RestTemplate().getForObject("http://localhost:8080/inventory/stock/" + id, Integer.class);
+//    return inventoryInternalApi.getStock(id); // recommended if inventory in inside the same deployable
   }
 }
