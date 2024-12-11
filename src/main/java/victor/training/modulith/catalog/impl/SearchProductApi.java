@@ -36,7 +36,7 @@ public class SearchProductApi {
   }
 
   private int fetchStock(Long id) {
-//    return new RestTemplate().getForObject("http://localhost:8080/inventory/stock/" + id, Integer.class);
+    return new RestTemplate().getForObject("http://localhost:8080/inventory/stock/" + id, Integer.class);
 //    return inventoryInternalApi.getStock(id); // recommended if inventory in inside the same deployable
   }
 }
