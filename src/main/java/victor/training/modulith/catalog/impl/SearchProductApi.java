@@ -26,9 +26,10 @@ public class SearchProductApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
-        .stream()
-        .filter(product -> fetchStock(product.id()) > 0)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
+        .stream() // job done here
+//        .filter(product -> fetchStock(product.id()) > 0)
         //#1: only 1 items left of the intended page of 20  => BAD UX
         //#2: for() { api.call } => 20 calls to inventory => BAD PERFORMANCE
         .map(e -> new ProductSearchResult(e.id(), e.name()))
