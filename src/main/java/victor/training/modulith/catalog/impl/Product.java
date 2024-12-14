@@ -25,6 +25,11 @@ public class Product {
 
   private Double stars;
 
+
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+
+
+  private Boolean inStock; // kept in sync with state in inventory service using events
 }

@@ -22,10 +22,25 @@ public class SearchProductApi {
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
+//    a) var allProductIdsInStock = inventoryRestApi.getAllInStock(); // too large list
+
+    // b) get all products by name = OOME and then check which are in stock
     // TODO only return items in stock
+
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+//  c)      .filter(prod-> inventoryApi.isInStock(prod.id())) // network call in the loop
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
+
+    // d)
+    // get the ids of all the 20 products matching name and fetch their stock in bulks
+    // Map<long, boolean> availability=inventoryApi.bulkGetAvailability(productIds);
+    // remove those with false = 17
+    // user sees 3 products on the first page (of 20 items suposedly) = bad UX
+
+    // we should first FILTER then PAGINATE.
+
+    // e) replicate state via Kafka or the like = ~~~inconsistencies .......
   }
 }

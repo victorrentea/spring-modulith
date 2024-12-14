@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
+// in module paypal: //public class PayPalService implement PaymentProvider {
+
   private final PaymentGatewayClient paymentGatewayClient;
 
   public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
