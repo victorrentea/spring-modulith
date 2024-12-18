@@ -35,7 +35,9 @@ public class SearchProductsApiTest {
 
 
   @Test
-  @Disabled // TODO fix
+//  @Disabled // TODO fix
+
+  // TODO add a test that does not also check pagination
   void showsOnlyItemsInStock() throws Exception {
     Long inStockId = productRepo.save(new Product().name("a1")).id();
     Long outOfStockId = productRepo.save(new Product().name("a2")).id();

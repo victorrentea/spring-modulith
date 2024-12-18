@@ -13,12 +13,13 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 @Table(schema = "inventory")
 @SequenceGenerator(name = "stock_seq", schema = "inventory")
 public class Stock {
+
   @Id
   @GeneratedValue(generator = "stock_seq")
   private Long id;
 
   @NotNull
-  @Setter // + FK to PRODUCT.ID
+  @Setter // + FK to CATALOG.PRODUCT.ID
   private Long productId;
 
 //  @ManyToOne private Product product; // TODO explore JPA links between @Entity in different module
