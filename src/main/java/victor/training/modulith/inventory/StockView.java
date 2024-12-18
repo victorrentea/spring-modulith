@@ -12,7 +12,7 @@ import org.hibernate.annotations.View;
 @Entity
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
-    from STOCK
+    from INVENTORY.STOCK
     """)
 @Getter
 @Immutable // cannot be INSERT/UPDATE/DELETE
