@@ -1,5 +1,6 @@
 package victor.training.modulith;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,21 +34,36 @@ public class SearchProductsApiTest {
   @Autowired
   SearchProductApi searchProductApi;
 
+  Long outOfStockId;
+  Long inStockId;
+
+  @BeforeEach
+  final void setup() throws Exception {
+    inStockId = productRepo.save(new Product().name("a1")).id();
+    outOfStockId = productRepo.save(new Product().name("a2")).id();
+    mockMvc.perform(post("/stock/{productId}/add/{items}", inStockId, 3));
+  }
 
   @Test
-  @Disabled // TODO fix
+  @Disabled // TODO
   void showsOnlyItemsInStock() throws Exception {
-    Long inStockId = productRepo.save(new Product().name("a1")).id();
-    Long outOfStockId = productRepo.save(new Product().name("a2")).id();
-    mockMvc.perform(post("/stock/{productId}/add/{items}", inStockId, 3));
+    PageRequest pageRequest = PageRequest.of(0, 10, DESC, "name");
+
+    var results = searchProductApi.execute("a", pageRequest);
+
+    assertThat(results.get(0).id()).describedAs("If this failed, the item out of stock was returned")
+        .isEqualTo(inStockId);
+  }
+
+  @Test
+  @Disabled // TODO
+  void showsOnlyItemsInStock_paginated() throws Exception {
     PageRequest pageRequest = PageRequest.of(0, 1, DESC, "name");
 
     var results = searchProductApi.execute("a", pageRequest);
 
     assertThat(results).describedAs("If this failed, you probably .filter()ed after query-pagination")
         .hasSize(1);
-    assertThat(results.get(0).id()).describedAs("If this failed, the item out of stock was returned")
-        .isEqualTo(inStockId);
   }
 
 }
