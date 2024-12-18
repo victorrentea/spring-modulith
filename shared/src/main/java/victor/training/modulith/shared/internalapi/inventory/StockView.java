@@ -1,4 +1,4 @@
-package victor.training.modulith.shared.api.inventory;
+package victor.training.modulith.shared.internalapi.inventory;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

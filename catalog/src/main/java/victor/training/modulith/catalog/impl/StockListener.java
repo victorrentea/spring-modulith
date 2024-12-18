@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.shared.api.inventory.events.BackInStockEvent;
-import victor.training.modulith.shared.api.inventory.events.OutOfStockEvent;
+import victor.training.modulith.shared.internalapi.inventory.events.BackInStockEvent;
+import victor.training.modulith.shared.internalapi.inventory.events.OutOfStockEvent;
 
 @Slf4j
 @Service

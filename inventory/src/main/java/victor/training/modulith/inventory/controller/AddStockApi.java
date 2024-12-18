@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.shared.api.inventory.events.BackInStockEvent;
+import victor.training.modulith.shared.internalapi.inventory.events.BackInStockEvent;
 
 @RestController
 @RequiredArgsConstructor

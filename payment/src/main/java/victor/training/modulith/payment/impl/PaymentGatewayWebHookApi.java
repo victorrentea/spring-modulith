@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.shared.api.order.events.PaymentCompletedEvent;
+import victor.training.modulith.shared.internalapi.order.events.PaymentCompletedEvent;
 
 @RestController
 @RequiredArgsConstructor

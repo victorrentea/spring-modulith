@@ -9,13 +9,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.CatalogModule;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.shared.api.inventory.InventoryModuleApi;
-import victor.training.modulith.shared.api.order.OrderStatus;
+import victor.training.modulith.shared.internalapi.inventory.InventoryModuleApi;
+import victor.training.modulith.shared.internalapi.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.payment.impl.PaymentGatewayClient;
 import victor.training.modulith.payment.impl.PaymentGatewayWebHookApi;
-import victor.training.modulith.shared.api.shipping.ShippingModuleApi;
+import victor.training.modulith.shared.internalapi.shipping.ShippingModuleApi;
 
 import java.util.List;
 import java.util.Map;

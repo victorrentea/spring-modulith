@@ -1,4 +1,4 @@
-package victor.training.modulith.shared.api.order;
+package victor.training.modulith.shared.internalapi.order;
 
 public enum OrderStatus {
   AWAITING_PAYMENT,

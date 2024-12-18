@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.modulith.test.PublishedEvents;
 import victor.training.modulith.shipping.in.rest.ShippingProviderWebHookApi;
-import victor.training.modulith.shared.api.shipping.ShippingResultEvent;
+import victor.training.modulith.shared.internalapi.shipping.ShippingResultEvent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
