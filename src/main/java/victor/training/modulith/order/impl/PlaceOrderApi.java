@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +35,7 @@ public class PlaceOrderApi {
   }
 
   @PostMapping("order")
+  @Transactional
   public String placeOrder(@RequestBody @Validated PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
     Map<Long, Double> prices = catalogInternalApi.getManyPrices(productIds);
@@ -44,7 +46,7 @@ public class PlaceOrderApi {
         .shippingAddress(request.shippingAddress)
         .customerId(request.customerId)
         .total(totalPrice);
-    orderRepo.save(order);
+    orderRepo.save(order); // INSERT in ORDERS.ORDERS table
     inventoryInternalApi.reserveStock(order.id(), request.items);
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }

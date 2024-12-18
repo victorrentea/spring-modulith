@@ -32,6 +32,8 @@ public class StockService {
         .orderId(orderId)
         .productId(productId)
         .items(count);
+    // INSERT in INVENTORY.STOCK_RESERVATIONS table within
+    // the same tx with the order module
     stockReservationRepo.save(reservation);
   }
 
