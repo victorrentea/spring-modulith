@@ -46,4 +46,7 @@ public class StockService {
     stockReservationRepo.deleteAllByOrderId(orderId);
   }
 
+  public Integer getStock(long productId) {
+    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+  }
 }

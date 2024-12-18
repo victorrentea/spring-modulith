@@ -9,11 +9,10 @@ import victor.training.modulith.shared.LineItem;
 
 import java.util.List;
 
-@Service
+@Service // from other modules
 @RequiredArgsConstructor
 public class InventoryInternalApi {
   private final StockService stockService;
-  private final StockRepo stockRepo;
 
   public void reserveStock(long orderId, List<LineItem> items) {
     stockService.reserveStock(orderId, items);
@@ -23,7 +22,8 @@ public class InventoryInternalApi {
     stockService.confirmReservation(orderId);
   }
 
+  //  @Secured("ROLE_ADMIN")
   public int getStock(long productId) {
-    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+    return stockService.getStock(productId);
   }
 }

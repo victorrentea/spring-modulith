@@ -7,15 +7,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
+import victor.training.modulith.inventory.service.StockService;
 
 @RestController
 @RequiredArgsConstructor
 public class GetStockApi {
-  private final StockRepo stockRepo;
 
-  @GetMapping("stock/{productId}")
+  private final StockRepo stockRepo;
+  private final StockService stockService;
+
+  @GetMapping("stock/{productId}") // for other remote suystems to call
   @Transactional
+//  @Secured("ROLE_ADMIN")
   public Integer execute(@PathVariable long productId) {
-    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+    return stockService.getStock(productId);
   }
 }
