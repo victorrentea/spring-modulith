@@ -12,7 +12,7 @@ import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shared.api.catalog.CatalogModuleApi;
 import victor.training.modulith.shared.api.inventory.InventoryModuleApi;
 import victor.training.modulith.shared.api.payment.PaymentModuleApi;
-import victor.training.modulith.shipping.out.event.ShippingResultEvent;
+import victor.training.modulith.shared.api.shipping.ShippingResultEvent;
 
 import java.util.List;
 import java.util.Map;
