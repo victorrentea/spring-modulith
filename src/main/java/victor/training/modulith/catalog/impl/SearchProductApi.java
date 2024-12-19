@@ -24,17 +24,24 @@ public class SearchProductApi {
   public List<ProductSearchResult> execute(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO CR: only return items in stock TODO add more criteria
+    // TODO CR: only return items in stock       TODO add more criteria
 //    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
 
     // GOOD 2 (planning to split the DB, aka microservices):
     // replicate data from inventory to catalog: Stock#items -> Product#stock
     // HOW TO KEEP IT IN SYNC?
     //~ a persisted cache?
+    // a) DB-level replication
+    // b) >> API calls: poll for / >>>push changes
+    // c) Events (Kafka, RabbitMQ) bringing me the changes async
 
 
     // GOOD 1 (longer modulith): JOIN a VIEW from THEM. DON'T ABUSE!
-    return productRepo.searchInStockByName("%" + name + "%", pageRequest)
+//    return productRepo.searchInStockByName("%" + name + "%", pageRequest)
+
+
+    // where += " AND stock > 0"
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
         // BAD:
         //#1 KO incorrect to filter after pagination

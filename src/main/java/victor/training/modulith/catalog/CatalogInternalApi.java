@@ -1,5 +1,6 @@
 package victor.training.modulith.catalog;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.catalog.impl.Product;
@@ -21,4 +22,7 @@ public class CatalogInternalApi {
         .collect(toMap(Product::id, Product::price));
   }
 
+  public void setStock(long productId, int items) {
+
+  }
 }
