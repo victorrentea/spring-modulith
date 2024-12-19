@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentService {
+public class PaymentService /*implements order.PaymentUrlProvider*/{
   private final PaymentGatewayClient paymentGatewayClient;
 
   public String generatePaymentUrl(long orderId, double total) { // TODO move to 'payment' module
