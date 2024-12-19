@@ -15,6 +15,7 @@ public class StockEventListener {
 
   @EventListener // spring today, tomorrow Kafka/Rabbit lisneter
   public void onStockChanged(StockUpdated event) {
+    System.out.println("Stock updated event received: " + event);
     Product product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(event.items() > 0);
     productRepo.save(product);
