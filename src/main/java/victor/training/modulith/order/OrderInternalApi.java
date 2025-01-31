@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.order.impl.PlaceOrderApi;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Service
@@ -23,5 +24,9 @@ public class OrderInternalApi {
       order.wasScheduleForShipping(trackingNumber);
     }
     orderRepo.save(order);
+  }private final PlaceOrderApi placeOrderApi;
+
+  public void placeOrder(PlaceOrderApi.PlaceOrderRequest request) {
+    placeOrderApi.placeOrder(request);
   }
 }

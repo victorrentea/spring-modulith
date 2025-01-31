@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 @Slf4j
-@RestController
+@Service
 @RequiredArgsConstructor
 public class PlaceOrderApi {
   private final OrderRepo orderRepo;
@@ -34,7 +35,7 @@ public class PlaceOrderApi {
       @NotEmpty String shippingAddress) {
   }
 
-  @PostMapping("order")
+//  @PostMapping("order")
   public String placeOrder(@RequestBody @Validated PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
     Map<Long, Double> prices = catalogInternalApi.getManyPrices(productIds);
