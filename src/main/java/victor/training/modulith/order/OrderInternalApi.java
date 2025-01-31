@@ -17,6 +17,7 @@ public class OrderInternalApi {
   private final ShippingInternalApi shippingInternalApi;
 
   @EventListener
+//  @org.springframework.core.annotation.Order // bad practice as it represents a global coupling point
   public void onPaymentCompleted(PaymentCompletedEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.ok());
