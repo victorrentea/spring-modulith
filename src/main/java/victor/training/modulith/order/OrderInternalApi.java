@@ -2,6 +2,7 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
@@ -16,7 +17,9 @@ public class OrderInternalApi {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  @EventListener
+  @EventListener //1
+//  @ApplicationModuleListener // 2new in spring-modulith: persistent events
+//  @KafkaListener // 3
 //  @org.springframework.core.annotation.Order // bad practice as it represents a global coupling point
   public void onPaymentCompleted(PaymentCompletedEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
