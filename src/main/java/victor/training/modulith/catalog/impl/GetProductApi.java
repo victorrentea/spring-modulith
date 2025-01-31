@@ -40,6 +40,8 @@ public class GetProductApi {
     );
   }
 }
+
+
 // Hints:
 // 1. stock is in inventory/impl/Stock#items
 // 2. ▶️ GetProductApiTest ✅
