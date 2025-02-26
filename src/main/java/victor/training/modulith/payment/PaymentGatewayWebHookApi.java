@@ -24,7 +24,6 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-//    orderInternalApi.confirmPayment(orderId, ok);
     applicationEventPublisher.publishEvent(new PaymentConfirmed(orderId, ok));
     return "Payment callback received";
   }

@@ -16,7 +16,7 @@ public class OrderInternalApi {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  @EventListener
+  @EventListener // runs in the same thread as the publisher
   public void onPaymentConfirmed(PaymentConfirmed event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.ok());
