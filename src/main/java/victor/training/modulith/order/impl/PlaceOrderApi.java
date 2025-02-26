@@ -4,12 +4,13 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
+import victor.training.modulith.order.PaymentUrlProvider;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -19,13 +20,13 @@ import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 
 @Slf4j
-@RestController
+@Service
 @RequiredArgsConstructor
 public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogInternalApi catalogInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
-  private final PaymentService paymentService;
+  private final PaymentUrlProvider paymentUrlProvider;
 
   public record PlaceOrderRequest(
       @NotEmpty String customerId,
@@ -46,7 +47,7 @@ public class PlaceOrderApi {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryInternalApi.reserveStock(order.id(), request.items);
-    return paymentService.generatePaymentUrl(order.id(), order.total());
+    return paymentUrlProvider.generatePaymentUrl(order.id(), order.total());
   }
 
   @ApplicationModuleListener
