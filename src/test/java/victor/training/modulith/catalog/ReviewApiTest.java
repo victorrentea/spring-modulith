@@ -1,5 +1,6 @@
 package victor.training.modulith.catalog;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +51,7 @@ public class ReviewApiTest {
   @Value("classpath:/data-migration.sql")
   Resource dataMigrationScript;
   @Test
+  @Disabled // TODO move reviews out of Product
   @DirtiesContext(methodMode = AFTER_METHOD) // because it COMMITs data to DB
   void testWithExistingData_forMigration() throws SQLException {
     // existing data
