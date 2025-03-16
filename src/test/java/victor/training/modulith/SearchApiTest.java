@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.catalog.impl.SearchProductApi;
+import victor.training.modulith.catalog.impl.SearchApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class SearchProductsApiTest {
+public class SearchApiTest {
   @Autowired
   MockMvc mockMvc;
   @Autowired
@@ -32,7 +32,7 @@ public class SearchProductsApiTest {
   @Autowired
   StockRepo stockRepo;
   @Autowired
-  SearchProductApi searchProductApi;
+  SearchApi searchApi;
 
   Long outOfStockId;
   Long inStockId;
@@ -49,7 +49,7 @@ public class SearchProductsApiTest {
   void showsOnlyItemsInStock() throws Exception {
     PageRequest pageRequest = PageRequest.of(0, 10, DESC, "name");
 
-    var results = searchProductApi.execute("a", pageRequest);
+    var results = searchApi.execute("a", pageRequest);
 
     assertThat(results.get(0).id()).describedAs("If this failed, the item out of stock was returned")
         .isEqualTo(inStockId);
@@ -60,7 +60,7 @@ public class SearchProductsApiTest {
   void showsOnlyItemsInStock_paginated() throws Exception {
     PageRequest pageRequest = PageRequest.of(0, 1, DESC, "name");
 
-    var results = searchProductApi.execute("a", pageRequest);
+    var results = searchApi.execute("a", pageRequest);
 
     assertThat(results).describedAs("If this failed, you probably .filter()ed after query-pagination")
         .hasSize(1);
