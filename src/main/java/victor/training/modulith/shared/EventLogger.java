@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class LogEventsForDebug {
+public class EventLogger {
   @EventListener
   public void justLog(Object event) {
     if (event.getClass().getPackageName().contains("victor")) {
