@@ -13,10 +13,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
   //  List<Product> searchByNameLikeIgnoreCaseAndInStockTrue(String namePart, PageRequest pageRequest);
 
   // #2 join an Entity from inventory - if we keep on modulith for longer
-//  @Query("""
-//      SELECT p FROM Product p
-//      JOIN StockView stock ON p.id = stock.productId
-//      WHERE UPPER(p.name) LIKE UPPER(?1)
-//      AND stock.stock > 0""")
-//  List<Product> searchInStockByName(String namePart, PageRequest pageRequest);
+  @Query("""
+      SELECT p FROM Product p
+      JOIN StockView stock ON p.id = stock.productId
+      WHERE UPPER(p.name) LIKE UPPER(?1)
+      AND stock.stock > 0""")
+  List<Product> searchInStockByName(String namePart, PageRequest pageRequest);
 }

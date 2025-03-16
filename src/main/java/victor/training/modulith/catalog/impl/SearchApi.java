@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -25,9 +24,9 @@ public class SearchApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchInStockByName("%" + name + "%", pageRequest)
         .stream()
-        .filter(e->stockRepo.findByProductId(e.id()).isPresent())
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

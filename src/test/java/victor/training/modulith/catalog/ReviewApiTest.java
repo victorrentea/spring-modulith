@@ -1,27 +1,26 @@
-package victor.training.modulith.product;
+package victor.training.modulith.catalog;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.AddReviewApi;
 import victor.training.modulith.catalog.impl.AddReviewApi.AddReviewRequest;
 import victor.training.modulith.catalog.impl.GetProductApi;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
+import victor.training.modulith.inventory.StockView;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@ApplicationModuleTest
 @Transactional
+@EntityScan(basePackageClasses = {Product.class, StockView.class /*using StockView in my @Query*/})
 public class ReviewApiTest {
   @Autowired
   ProductRepo productRepo;
