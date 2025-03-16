@@ -21,7 +21,7 @@ public class SearchApi {
   }
 
   @GetMapping("catalog/search")
-  public List<ProductSearchResult> execute(
+  public List<ProductSearchResult> call(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock

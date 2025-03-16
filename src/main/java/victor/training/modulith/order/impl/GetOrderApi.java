@@ -11,7 +11,7 @@ public class GetOrderApi {
   private final OrderRepo orderRepo;
 
   @GetMapping("order/{orderId}")
-  public Order execute(@PathVariable long orderId) {
+  public Order call(@PathVariable long orderId) {
     return orderRepo.findById(orderId).orElseThrow();
   }
 }

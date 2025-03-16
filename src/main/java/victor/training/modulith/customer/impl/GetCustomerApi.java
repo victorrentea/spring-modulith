@@ -18,7 +18,7 @@ public class GetCustomerApi {
   ) {}
 
   @GetMapping("customer/{id}")
-  public GetCustomerResponse getCustomerById(@PathVariable String id) {
+  public GetCustomerResponse call(@PathVariable String id) {
     Customer entity = customerRepo.findById(id).orElseThrow();
     return new GetCustomerResponse(
         entity.id(),

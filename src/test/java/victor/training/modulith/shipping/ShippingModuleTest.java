@@ -15,7 +15,7 @@ public class ShippingModuleTest {
   @Test
 //  @Disabled
   void callback(PublishedEvents publishedEvents) {
-    sut.shippedStatus(1L, true);
+    sut.call(1L, true);
 
     assertThat(publishedEvents.ofType(ShippingResultEvent.class))
         .containsExactly(new ShippingResultEvent(1L, true));

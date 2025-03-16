@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.GetProductApi;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.inventory.controller.AddStockApi;
+import victor.training.modulith.inventory.api.AddStockApi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,7 +29,7 @@ public class GetProductApiTest {
   @Test
   void returnsStock() {
     Long productId = productRepo.save(new Product()).id();
-    addStockApi.execute(productId, 5);
+    addStockApi.call(productId, 5);
 
     var result = getProductApi.call(productId);
 

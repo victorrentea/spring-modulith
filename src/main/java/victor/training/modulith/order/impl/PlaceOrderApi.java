@@ -34,7 +34,7 @@ public class PlaceOrderApi {
   }
 
   @PostMapping("order")
-  public String placeOrder(@RequestBody @Validated PlaceOrderRequest request) {
+  public String call(@RequestBody @Validated PlaceOrderRequest request) {
     List<Long> productIds = request.items().stream().map(LineItem::productId).toList();
     Map<Long, Double> prices = catalogInternalApi.getManyPrices(productIds);
     Map<Long, Integer> items = request.items.stream().collect(toMap(LineItem::productId, LineItem::count));

@@ -50,7 +50,7 @@ public class OrderPaymentTest {
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
     when(paymentGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 
-    String url = placeOrderApi.placeOrder(placeOrderRequest);
+    String url = placeOrderApi.call(placeOrderRequest);
 
     assertThat(url).startsWith("http://payment.com");
   }

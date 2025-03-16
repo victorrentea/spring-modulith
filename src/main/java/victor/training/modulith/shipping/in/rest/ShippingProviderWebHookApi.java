@@ -14,7 +14,7 @@ public class ShippingProviderWebHookApi {
   private final ApplicationEventPublisher eventPublisher;
 
   @PutMapping("shipping/{orderId}/status")
-  public String shippedStatus(@PathVariable long orderId, @RequestBody boolean ok) {
+  public String call(@PathVariable long orderId, @RequestBody boolean ok) {
     eventPublisher.publishEvent(new ShippingResultEvent(orderId, ok));
     return "Shipping callback received";
   }

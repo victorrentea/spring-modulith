@@ -49,7 +49,7 @@ public class SearchApiTest {
   void showsOnlyItemsInStock() throws Exception {
     PageRequest pageRequest = PageRequest.of(0, 10, DESC, "name");
 
-    var results = searchApi.execute("a", pageRequest);
+    var results = searchApi.call("a", pageRequest);
 
     assertThat(results.get(0).id()).describedAs("If this failed, the item out of stock was returned")
         .isEqualTo(inStockId);
@@ -60,7 +60,7 @@ public class SearchApiTest {
   void showsOnlyItemsInStock_paginated() throws Exception {
     PageRequest pageRequest = PageRequest.of(0, 1, DESC, "name");
 
-    var results = searchApi.execute("a", pageRequest);
+    var results = searchApi.call("a", pageRequest);
 
     assertThat(results).describedAs("If this failed, you probably .filter()ed after query-pagination")
         .hasSize(1);
