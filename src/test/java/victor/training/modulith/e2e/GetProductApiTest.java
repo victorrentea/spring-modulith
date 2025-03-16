@@ -1,4 +1,4 @@
-package victor.training.modulith;
+package victor.training.modulith.e2e;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Transactional
-@Disabled // TODO fix
+//@Disabled // TODO fix
 public class GetProductApiTest {
   @Autowired
   ProductRepo productRepo;

@@ -1,16 +1,19 @@
-package victor.training.modulith;
+package victor.training.modulith.product;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.catalog.impl.AddReviewApi;
+import victor.training.modulith.catalog.impl.AddReviewApi.AddReviewRequest;
+import victor.training.modulith.catalog.impl.GetProductApi;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -18,35 +21,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @Transactional
-public class ReviewTest {
-  @Autowired
-  MockMvc mockMvc;
+public class ReviewApiTest {
   @Autowired
   ProductRepo productRepo;
+  @Autowired
+  AddReviewApi addReviewApi;
+  @Autowired
+  GetProductApi getProductApi;
 
   @Test
-  @Disabled
-  void test() throws Exception {
+  void test() {
     Long productId = productRepo.save(new Product()).id();
 
-    addReview(productId, 3);
-    addReview(productId, 5);
-    addReview(productId, null);
+    var review = AddReviewRequest.builder();
+    addReviewApi.call(productId, review.stars(4d).build());
+    addReviewApi.call(productId, review.stars(5d).build());
+    addReviewApi.call(productId, review.stars(null).build());
 
-    mockMvc.perform(get("/catalog/{productId}", productId))
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(jsonPath("$.stars", CoreMatchers.is(4.0)));
+    var response = getProductApi.call(productId);
+    assertThat(response.stars()).isEqualTo(4.5);
   }
 
-  private void addReview(Long productId, Integer stars) throws Exception {
-    mockMvc.perform(post("/catalog/{productId}/reviews", productId)
-            .content("""
-                { "stars": %d }
-                """.formatted(stars))
-            .contentType(APPLICATION_JSON))
-        .andExpect(status().is2xxSuccessful());
-  }
 
 }

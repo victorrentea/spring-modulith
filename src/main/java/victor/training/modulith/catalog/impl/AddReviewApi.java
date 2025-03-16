@@ -1,5 +1,6 @@
 package victor.training.modulith.catalog.impl;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ public class AddReviewApi {
   private final ProductRepo productRepo;
   private final ProductReviewRepo productReviewRepo;
 
+  @Builder
   public record AddReviewRequest(
       String title,
       String contents,

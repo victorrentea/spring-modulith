@@ -1,16 +1,13 @@
-package victor.training.modulith;
+package victor.training.modulith.order;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
-import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.shipping.ShippingInternalApi;
@@ -22,15 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @Transactional
-public class OrderPaymentTest {
-  @Autowired
-  MockMvc mockMvc;
-  @Autowired
-  PlaceOrderApi placeOrderApi;
-  @Autowired
-  StockRepo stockRepo;
+public class OrderApiTest {
   @MockBean
   CatalogInternalApi catalog;
   @MockBean
@@ -39,12 +29,15 @@ public class OrderPaymentTest {
   ShippingInternalApi shippingInternalApi;
   @MockBean
   PaymentGatewayClient paymentGatewayClient;
+
+  @Autowired
+  PlaceOrderApi placeOrderApi;
   @Autowired
   PaymentGatewayWebHookApi paymentGatewayWebHookApi;
   @Autowired
   OrderRepo orderRepo;
 
-  @Test // TODO keep passing
+  @Test
   void placeOrderReturnsPaymentUrlFromGateway() {
     when(catalog.getManyPrices(any())).thenReturn(Map.of());
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
@@ -52,10 +45,11 @@ public class OrderPaymentTest {
 
     String url = placeOrderApi.call(placeOrderRequest);
 
+    verify(inventoryModuleApi).reserveStock(any(), any());
     assertThat(url).startsWith("http://payment.com");
   }
 
-  @Test // TODO keep passing
+  @Test
   void gatewayCallbackUpdatesTheOrder() {
     Long orderId = orderRepo.save(new Order()).id();
 
