@@ -1,0 +1,1 @@
+ALTER TABLE inventory.stock ADD CONSTRAINT fk_stock_product FOREIGN KEY (product_id) REFERENCES catalog.product (id);

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 public class AddReviewApi {
   private final ProductRepo productRepo;
   private final ProductReviewRepo productReviewRepo;
+  private final ReviewedProductRepo reviewedProductRepo;
 
   @Builder
   public record AddReviewRequest(
@@ -35,10 +37,23 @@ public class AddReviewApi {
         .contents(request.contents())
         .stars(request.stars())
         .createdAt(LocalDate.now());
-    product.reviews().add(review);
     review.product(product);
+    product.reviews().add(review);
 
-    Double newStars = product.reviews()
+    product.stars(computeAverageStars(product.reviews()));
+
+    if (true) {
+      ReviewedProduct reviewedProduct = reviewedProductRepo.findByProductId(productId)
+          .orElseGet(() -> reviewedProductRepo.save(new ReviewedProduct().productId(productId)));
+      review.reviewedProduct(reviewedProduct);
+      reviewedProduct.reviews().add(review);
+      reviewedProduct.stars(computeAverageStars(reviewedProduct.reviews()));
+    }
+    productReviewRepo.save(review);
+  }
+
+  private Double computeAverageStars(List<ProductReview> reviews) {
+    return reviews
         .stream()
         .flatMap(productReview -> productReview.stars().stream())
         .mapToDouble(Double::doubleValue)
@@ -47,7 +62,5 @@ public class AddReviewApi {
         .boxed()
         .findFirst()
         .orElse(null);
-    product.stars(newStars);
-    productReviewRepo.save(review);
   }
 }

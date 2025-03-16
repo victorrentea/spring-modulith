@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Entity
 @Data // sorry
+@Table(schema = "catalog")
 @SequenceGenerator(name = "review_seq", schema = "catalog")
 public class ProductReview {
   @Id
@@ -17,6 +18,9 @@ public class ProductReview {
   @ManyToOne
   @ToString.Exclude
   private Product product;
+  @ManyToOne
+  @ToString.Exclude
+  private ReviewedProduct reviewedProduct;
   private String title;
   private String contents;
   private Double stars;

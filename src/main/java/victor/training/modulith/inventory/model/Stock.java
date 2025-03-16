@@ -19,9 +19,10 @@ public class Stock {
 
   @NotNull
   @Setter // + FK to PRODUCT.ID
+  // is added a fk_stock_product by import.sql
   private Long productId;
 
-//  @ManyToOne private Product product; // TODO explore JPA links between @Entity in different module
+//  @ManyToOne private Product product; // can't refer to other module's @Entity directly
 
   @NotNull
   private Integer items = 0;
