@@ -26,7 +26,7 @@ public class AddReviewApi {
 
   @PostMapping("catalog/{productId}/reviews")
   @Transactional
-  public void execute(@PathVariable long productId, @RequestBody AddReviewRequest request) {
+  public void call(@PathVariable long productId, @RequestBody AddReviewRequest request) {
     Product product = productRepo.findById(productId).orElseThrow();
     ProductReview review = new ProductReview()
         .title(request.title())

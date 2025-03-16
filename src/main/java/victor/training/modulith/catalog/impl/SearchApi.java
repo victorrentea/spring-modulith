@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
+  private final StockRepo stockRepo;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -25,6 +27,7 @@ public class SearchApi {
     // TODO only return items in stock
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+        .filter(e->stockRepo.findByProductId(e.id()).isPresent())
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
