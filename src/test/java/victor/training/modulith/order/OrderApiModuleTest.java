@@ -2,7 +2,6 @@ package victor.training.modulith.order;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +17,9 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@ApplicationModuleTest
+@ApplicationModuleTest()
 @Transactional
-public class OrderApiTest {
+public class OrderApiModuleTest {
   @MockBean
   CatalogInternalApi catalogApi;
   @MockBean
