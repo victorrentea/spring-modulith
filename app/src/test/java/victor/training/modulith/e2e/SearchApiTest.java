@@ -35,17 +35,18 @@ public class SearchApiTest {
 
   @BeforeEach
   final void setup() {
-    productId = productRepo.save(new Product().name("a1")).id();
+    productId = productRepo.save(new Product().name("xa1")).id();
     addStockApi.call(productId, 3);
   }
 
   @Test
   void returnsProductsMatchingName() {
+    productRepo.save(new Product().name("b"));
     var results = searchApi.call("a", null);
 
     assertThat(results)
         .map(ProductSearchResult::id)
-        .doesNotContain(productId);
+        .containsExactly(productId);
   }
   @Test
   void doesNotReturnProductsOutOfStock() {

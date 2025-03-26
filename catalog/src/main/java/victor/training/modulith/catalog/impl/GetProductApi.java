@@ -34,7 +34,7 @@ public class GetProductApi {
         .map(StockKnob::stock)
         .orElse(0);
     boolean andreiFlag = false;
-    double stars;
+    Double stars;
     if (andreiFlag) {
       stars = reviewedProductRepo.findByProductId(productId)
           .map(ReviewedProduct::stars)
