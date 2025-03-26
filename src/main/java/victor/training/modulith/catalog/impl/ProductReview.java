@@ -19,9 +19,9 @@ public class ProductReview {
   @ToString.Exclude
   private Product product;
 
-//  @ManyToOne
-//  @ToString.Exclude
-//  private ReviewedProduct reviewedProduct;
+  @ManyToOne
+  @ToString.Exclude
+  private ReviewedProduct reviewedProduct;
 
   private String title;
   private String contents;

@@ -18,6 +18,7 @@ import java.util.List;
 public class AddReviewApi {
   private final ProductRepo productRepo;
   private final ProductReviewRepo productReviewRepo;
+  private final ReviewedProductRepo reviewedProductRepo;
 
   @Builder
   public record AddReviewRequest(
@@ -43,6 +44,12 @@ public class AddReviewApi {
     product.stars(computeAverageStars(product.reviews()));
 
     // NEXT: reviews & stars -> ReviewedProduct
+    ReviewedProduct reviewedProduct = reviewedProductRepo.findByProductId(productId)
+        .orElseGet(() -> reviewedProductRepo.save(
+            new ReviewedProduct().productId(productId)));
+    reviewedProduct.reviews().add(review); // bidirectional 1:N
+    review.reviewedProduct(reviewedProduct);
+    reviewedProduct.stars(computeAverageStars(reviewedProduct.reviews()));
     // 1) find or create a ReviewedProduct
     // 2) do the same as CURRENT above
 

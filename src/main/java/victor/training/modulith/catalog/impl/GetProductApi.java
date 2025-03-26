@@ -17,6 +17,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 public class GetProductApi {
   private final ProductRepo productRepo;
   private final InventoryInternalApi inventoryInternalApi;
+  private final ReviewedProductRepo reviewedProductRepo;
 
   public record GetProductResponse(
       long id,
@@ -34,12 +35,25 @@ public class GetProductApi {
     int stock = inventoryInternalApi.getStock(productId)
         .map(StockKnob::stock)
         .orElse(0);
+    boolean andreiFlag = false;
+    double stars;
+    if (andreiFlag) {
+      stars = reviewedProductRepo.findByProductId(productId)
+          .map(ReviewedProduct::stars)
+          .orElse(0.0);
+      if (stars != product.stars()) {
+        log.warn("Oups, call @andrei");
+        stars = product.stars();
+      }
+    } else {
+      stars = product.stars();
+    }
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
         stock,
         product.price(),
-        product.stars()
+        stars
     );
   }
 }
