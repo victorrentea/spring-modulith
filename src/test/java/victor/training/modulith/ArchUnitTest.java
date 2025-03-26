@@ -36,7 +36,7 @@ class ArchUnitTest {
         .matching("victor.training.modulith.(*)..");
     var violations = slices.should().notDependOnEachOther()
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.*"))
-        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared"))
+        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared.."))
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
     assertThat(violations).hasSize(0); // end 🎉
