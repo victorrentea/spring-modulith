@@ -41,6 +41,7 @@ public class StockService {
     stockRepo.save(stock);
   }
 
+  @Transactional
   public void confirmReservation(long orderId) {
     log.info("Stock reservation confirmed for order {}", orderId);
     stockReservationRepo.deleteAllByOrderId(orderId);

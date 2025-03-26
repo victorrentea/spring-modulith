@@ -3,6 +3,7 @@ package victor.training.modulith.order.impl;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,9 +51,12 @@ public class PlaceOrderApi {
   }
 
   @ApplicationModuleListener
+//  @EventListener
   public void onShippingResultEvent(ShippingResultEvent event) {
+    log.info("Listened to {}", event);
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.wasShipped(event.ok());
     orderRepo.save(order); // without @Test fails, as events not published
+    log.info("Listener completed");
   }
 }

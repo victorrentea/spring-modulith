@@ -36,6 +36,7 @@ public class Order extends AbstractAggregateRoot<Order> {
   @NotNull
   private Double total;
 
+  @Enumerated(EnumType.STRING)
   private OrderStatus status = OrderStatus.AWAITING_PAYMENT;
   private String shippingTrackingNumber;
 

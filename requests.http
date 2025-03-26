@@ -1,0 +1,31 @@
+###
+GET http://localhost:8080/produce
+
+###
+GET http://localhost:8080/measure-db-latency
+
+<> 2025-03-10T152330.200.txt
+
+###
+GET http://localhost:8080/logins/CORE
+
+<> 2025-03-18T085547.200.txt
+
+###
+GET http://localhost:8080/logins/CORE
+
+<> 2025-03-18T085637.200.json
+<> 2025-03-18T085606.200.txt
+
+###
+GET http://localhost:8080/drink
+
+###
+GET http://localhost:8080/leak5/upload?
+    file={{$random.alphanumeric(8)}}
+
+###
+PUT http://localhost:8080/shipping/1/status
+Content-Type: application/json
+
+true
