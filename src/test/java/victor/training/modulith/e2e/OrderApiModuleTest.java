@@ -1,12 +1,13 @@
-package victor.training.modulith.order;
+package victor.training.modulith.e2e;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
+import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.shipping.ShippingInternalApi;
@@ -17,7 +18,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@ApplicationModuleTest()
+@SpringBootTest
 @Transactional
 public class OrderApiModuleTest {
   @MockBean
@@ -49,7 +50,7 @@ public class OrderApiModuleTest {
   }
 
   @Test
-  void gatewayCallbackUpdatesTheOrder() {
+  void paymentGatewayCallbackUpdatesTheOrder() {
     Long orderId = orderRepo.save(new Order()).id();
 
     paymentGatewayWebHookApi.confirmPayment(orderId, true);

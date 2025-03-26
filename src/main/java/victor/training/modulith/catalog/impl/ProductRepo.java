@@ -18,5 +18,5 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
       JOIN StockView stock ON p.id = stock.productId
       WHERE UPPER(p.name) LIKE UPPER(?1)
       AND stock.stock > 0""")
-  List<Product> searchInStockByName(String namePart, PageRequest pageRequest);
+  List<Product> searchJoinView(String namePart, PageRequest pageRequest);
 }
