@@ -2,6 +2,7 @@ package victor.training.modulith;
 
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
@@ -16,6 +17,7 @@ class ArchitectureTest {
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
 	@Test
+//	@Disabled("fix when I return from my sabatical year")
 	void encapsulated_and_withoutCycles() {
 		// 1. modules only access each others' root package (or explicitly allowed packages)
 		// 2. no cycles between modules
