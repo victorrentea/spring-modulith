@@ -12,7 +12,7 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 // provided by org.springframework.modulith:spring-modulith-starter-core
 class ArchitectureTest {
 	public static final DescribedPredicate<JavaClass> IGNORED_MODULES =
-			resideInAnyPackage( "victor.training.modulith.shared");
+			resideInAnyPackage( "victor.training.modulith.shared..");
 	public static final ApplicationModules modules =
 			ApplicationModules.of(ModulithApp.class, IGNORED_MODULES);
 
