@@ -4,6 +4,7 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
+import org.glassfish.jaxb.core.v2.TODO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +20,16 @@ class ArchUnitTest {
       ;
 
   @Test
+  //TODO fix
   public void noCycles() {
     var slices = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*).*");
     var cycles = slices.should().beFreeOfCycles()
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
-    // assertThat(cycles).hasSize(3); // starting point of migration
+     assertThat(cycles).hasSize(0); // starting point of migration
     // assertThat(cycles).hasSize(3); // next quarter
-    assertThat(cycles).hasSize(0); // end 🎉
+//    assertThat(cycles).hasSize(0); // end 🎉
   }
 
   @Test

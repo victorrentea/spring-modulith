@@ -13,11 +13,11 @@ import victor.training.modulith.order.PaymentConfirmationHandler;
 @RequiredArgsConstructor
 // Webhook = a call back to me over HTTP
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-  private final PaymentConfirmationHandler paymentConfirmationHandler;
+  private final PaymentConfirmationHandler IPaymentConfirmationHandler;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    paymentConfirmationHandler.confirmPayment(orderId, ok);
+    IPaymentConfirmationHandler.confirmPayment(orderId, ok);
     return "Payment callback received";
   }
 
