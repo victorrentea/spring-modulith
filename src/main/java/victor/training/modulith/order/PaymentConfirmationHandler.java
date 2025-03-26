@@ -3,6 +3,7 @@ package victor.training.modulith.order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
@@ -19,6 +20,8 @@ public class PaymentConfirmationHandler {
   private final ShippingInternalApi shippingInternalApi;
 
   @EventListener
+//  @ApplicationModuleListener // spring will insert in a SQL db your event and consume it in anothertransaction running in another thread
+//  @KafkaListener
   public void on(PaymentCompleted event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
     order.pay(event.ok());
