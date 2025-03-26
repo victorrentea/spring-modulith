@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.order.PaymentUrlGenerator;
+import victor.training.modulith.payment.PaymentUrlGeneratorImpl;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -26,7 +26,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogInternalApi catalogInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
-  private final PaymentUrlGenerator PaymentUrlGenerator;
+  private final PaymentUrlGeneratorImpl PaymentUrlGenerator;
 
   public record PlaceOrderRequest(
       @NotEmpty String customerId,
