@@ -1,11 +1,9 @@
 package victor.training.modulith.catalog;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.inventory.StockView;
 
 import java.util.Collection;
 import java.util.Map;
