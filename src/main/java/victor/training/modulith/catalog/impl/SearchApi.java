@@ -27,13 +27,13 @@ public class SearchApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
         // #1 SELECT in loop
         // #2 screw page size
-        .filter(p->inventoryInternalApi.getStock(p.id())
-                       .map(StockKnob::stock)
-                       .orElse(0) > 0)
+//        .filter(p->inventoryInternalApi.getStock(p.id())
+//                       .map(StockKnob::stock)
+//                       .orElse(0) > 0)
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

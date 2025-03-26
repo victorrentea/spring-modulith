@@ -2,8 +2,10 @@ package victor.training.modulith.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.inventory.StockStatusUpdatedEvent;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
@@ -18,6 +20,7 @@ import java.util.List;
 public class StockService {
   private final StockRepo stockRepo;
   private final StockReservationRepo stockReservationRepo;
+  private final ApplicationEventPublisher applicationEventPublisher;
 
   @Transactional
   public void reserveStock(long orderId, List<LineItem> items) {
@@ -38,6 +41,10 @@ public class StockService {
   private void subtractStock(long productId, Integer count) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
+    if (stock.items() == 0) {
+      var event = new StockStatusUpdatedEvent(productId, false);
+      applicationEventPublisher.publishEvent(event);
+    }
     stockRepo.save(stock);
   }
 

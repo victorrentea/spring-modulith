@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Transactional
-@Disabled // TODO
+//@Disabled // TODO
 public class SearchApiTest {
   @Autowired
   ProductRepo productRepo;

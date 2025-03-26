@@ -27,4 +27,13 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  enum StockStatus {
+//    IN_STOCK,
+//    OUT_OF_STOCK
+//  }
+//  @Enumerated(EnumType.STRING)
+//  private StockStatus stockStatus;
+
+  private boolean inStock;
 }
