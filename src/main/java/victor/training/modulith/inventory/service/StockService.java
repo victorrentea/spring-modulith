@@ -39,6 +39,8 @@ public class StockService {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
     stockRepo.save(stock);
+    // TODO publish StockUpdatedEvent(productId, newValue) = 💖integration event
+    // TODO publish ItemSold(productId, howMany) = delta event
   }
 
   @Transactional

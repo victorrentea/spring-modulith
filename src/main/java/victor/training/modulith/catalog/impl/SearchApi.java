@@ -27,7 +27,8 @@ public class SearchApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
 //    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
-    return productRepo.searchJoinView("%" + name + "%", pageRequest) // A
+//    return productRepo.searchJoinView("%" + name + "%", pageRequest) // A
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest) // B
         .stream()
 
 //        .filter(p->inventoryInternalApi.getStockForProduct(p.id()) > 0)

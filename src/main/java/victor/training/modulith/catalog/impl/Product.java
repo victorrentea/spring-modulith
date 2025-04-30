@@ -25,6 +25,16 @@ public class Product {
 
   private Double stars;
 
+//  private Integer stock; // replicated from inventory
+  private Boolean inStock; // store less data!
+
+  // how to keep this in sync with Stock#items
+  // a) SUBSCRIBE to their events 💖, microservice friendly
+  // b) POLLING: periodically??⏱️ check ALL their state
+  // c) THEY CALL ME on each stock change? my crash crashes them,
+  // d) replicate data over night via files.
+
+
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
