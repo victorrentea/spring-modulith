@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -24,8 +26,22 @@ public class SearchApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchJoinView("%" + name + "%", pageRequest) // A
         .stream()
+
+//        .filter(p->inventoryInternalApi.getStockForProduct(p.id()) > 0)
+        // TERRIBLE because:
+        // - bad performance: lots of DB queries = N+1 queries problem
+        // - bad UX: resulting page in UI may not be 20
+
+//        .filter(p->listOf1MIdsOfAllProductIds.contains(p.id()))
+
+        // find all product ids matching name (1M:))) and give them to inventory to check stock
+        // Correct:
+        // A) JOIN their VIEW 🤔🤨 -simplest, most pragmatic
+        // B) REPLICATE their DATA (the stock count) - microservice-friendly
+
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
