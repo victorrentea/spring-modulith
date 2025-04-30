@@ -10,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.base.DescribedPredicate.doesNot;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
+import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ArchUnitTest {
   private static final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
+      .withImportOption(DO_NOT_INCLUDE_TESTS)
       .importPackages("victor.training.modulith")
       .that(doesNot(resideInAnyPackage("victor.training.modulith.e2e")))
       ;
