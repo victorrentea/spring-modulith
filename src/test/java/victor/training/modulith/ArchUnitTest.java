@@ -19,18 +19,6 @@ class ArchUnitTest {
       ;
 
   @Test
-  public void noCycles() {
-    var slices = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*).*");
-    var cycles = slices.should().beFreeOfCycles()
-        .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
-
-    // assertThat(cycles).hasSize(3); // starting point of migration
-    // assertThat(cycles).hasSize(3); // next quarter
-    assertThat(cycles).hasSize(0); // end 🎉
-  }
-
-  @Test
   public void respectEncapsulation() { // TODO
     var slices = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..");
@@ -40,6 +28,18 @@ class ArchUnitTest {
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
     assertThat(violations).hasSize(0); // end 🎉
+  }
+
+  @Test
+  public void noCycles() {
+    var slices = SlicesRuleDefinition.slices()
+        .matching("victor.training.modulith.(*).*");
+    var cycles = slices.should().beFreeOfCycles()
+        .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
+
+    // assertThat(cycles).hasSize(3); // starting point of migration
+    // assertThat(cycles).hasSize(3); // next quarter
+    assertThat(cycles).hasSize(0); // end 🎉
   }
 
   @Test
