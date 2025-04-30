@@ -26,6 +26,20 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
     //orderInternalApi.confirmPayment(orderId, ok);
     PaymentProcessedEvent event = new PaymentProcessedEvent(orderId, ok);
     applicationEventPublisher.publishEvent(event);
+    // Phase1 "in-process events"
+    // Guice/Spring events are weak, just for decoupling design
+    // run the all the listeners in undetermined order
+    // in the same thread±transaction as the publisher
+    // blocking the publisher until all listeners finish.
+    // bubbling subscriber exceptions to publisher!
+    // PHASE1 NOT FOLLOWED BY PHASE2 is OVERENGINEERING
+
+    // Phase2 "remote events"
+    // kafkaTemplate.send
+    // gigaSpace.write
+    //later on, for NFR (scaling/fault tolerance) you might want to turn them
+    // into "remote events" persisted, eventual consistent\
+    // THAT'S GONNA HURT!
     return "Payment callback received";
   }
 }
