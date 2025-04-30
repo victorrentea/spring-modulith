@@ -21,6 +21,8 @@ public class GetProductApi {
       String name,
       String description,
       int stock,
+      // DEAR FRONTEND, please call the inventory API instead to get this information
+      // towards micro-frontends
       Double price,
       Double stars
   ) {
