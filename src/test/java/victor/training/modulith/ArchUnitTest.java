@@ -10,46 +10,51 @@ import org.junit.jupiter.api.Test;
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.base.DescribedPredicate.doesNot;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
+import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ArchUnitTest {
   private static final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
+      .withImportOption(DO_NOT_INCLUDE_TESTS)
       .importPackages("victor.training.modulith")
       .that(doesNot(resideInAnyPackage("victor.training.modulith.e2e")))
       ;
 
   @Test
-  public void respectEncapsulation() { // TODO
-    var slices = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*)..");
-    var violations = slices.should().notDependOnEachOther()
+  public void encapsulated() { // TODO
+    var violations = SlicesRuleDefinition.slices()
+        .matching("victor.training.modulith.(*)..")
+        .should().notDependOnEachOther()
+        // ok to depend on any class in any top-level package = exposed internal api
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.*"))
+        // ok to depend on any class in 'shared' or any of its sub-packages
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared.."))
+
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
-    assertThat(violations).hasSize(0); // end 🎉
+    assertThat(violations).hasSize(0);
   }
 
   @Test
   public void noCycles() {
-    var slices = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*).*");
-    var cycles = slices.should().beFreeOfCycles()
+    var cycles = SlicesRuleDefinition.slices()
+        .matching("victor.training.modulith.(*).*")
+        .should().beFreeOfCycles()
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
-    // assertThat(cycles).hasSize(3); // starting point of migration
+    // assertThat(cycles).hasSize(3); // legacy migration starting point
     // assertThat(cycles).hasSize(3); // next quarter
-    assertThat(cycles).hasSize(0); // end 🎉
+    assertThat(cycles).hasSize(0);
   }
 
   @Test
-  public void moduleInternalApisAreIndependent() {
+  public void internalApisAreIndependent() {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)") // root package of all slices
         .should().notDependOnEachOther()
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared"))
         .check(new ClassFileImporter()
-            .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
+            .withImportOption(DO_NOT_INCLUDE_TESTS)
             .importPackages("victor.training.modulith"));
 
   }
