@@ -25,6 +25,7 @@ public class SearchApi {
   @GetMapping("catalog/search")
   public List<ProductSearchResult> call(
       @RequestParam String name,
+      @RequestParam String category,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock (there is a Stock{productId}.items > 0)
 
@@ -32,16 +33,14 @@ public class SearchApi {
 //    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
 
 
-
-
-    // B) microservices-friendly
-
-
     // A) for staying in a monolith
     // I NEED TO JOIN CATALOG.PRODUCT with INVENTORY.STOCK => query will break when inventory team alters their table
     // CREATE A VIEW JOINING the two tables. - who owns it
     // CREATE A VIEW offerd with ❤️ by INVENTORY team
-    return productRepo.searchJoinView("%" + name + "%", pageRequest)
+//    return productRepo.searchJoinView("%" + name + "%", pageRequest)
+
+    // B) microservices-friendly
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
 //        .filter(product -> stockRepo.findByProductId(product.id()).get().items() > 0)
         // BAD because

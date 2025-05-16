@@ -25,6 +25,16 @@ public class Product {
 
   private Double stars;
 
+  // DATA DUPLICATION from inventory
+
+//  private int stock; // too much data
+  private boolean inStock; // kept in sync with inventory state
+  // a) scheduler every 2 minutes that downloads the stock of
+  //    -ALL the products from inventory
+  //    -the lastest updated since 2 min ago/since last poll
+  // b) events: StockUpdatedEvent{q:0} or OutOf/BackInStockEvent on Service Bus/Kafka
+  // c) debezium/CDC to auto-emit events from inventory DB
+
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
