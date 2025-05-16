@@ -1,32 +1,34 @@
-package victor.training.modulith.inventory;
+package victor.training.modulith.inventory.service;
 
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
-import victor.training.modulith.inventory.service.StockService;
 import victor.training.modulith.shared.LineItem;
+import victor.training.modulith.shared.api.inventory.StockKnob;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryInternalApi {
+public class InventoryInternalApiImpl implements victor.training.modulith.shared.api.inventory.InventoryInternalApi {
   private final StockService stockService;
   private final StockRepo stockRepo;
   private final StockReservationRepo stockReservationRepo;
 
+  @Override
   public void reserveStock(long orderId, List<LineItem> items) {
     stockService.reserveStock(orderId, items);
   }
 
+  @Override
   public void confirmReservation(long orderId) {
     stockService.confirmReservation(orderId);
   }
 
+  @Override
   public StockKnob getStockDetails(long productId) {
     int reserved = stockReservationRepo.findAllByProductId(productId).stream()
         .mapToInt(StockReservation::items)
@@ -40,6 +42,7 @@ public class InventoryInternalApi {
   //b) raise a ticket and block your dev until those son on the beaches do it - waste
   //c) open-source model: I change their code and submit them a dedicated PR that they have to 4-eyes review.⭐️!important
       // via CODEOWNERS file
+  @Override
   public int getStock(long productId) {
     return stockRepo.findById(productId).map(Stock::items).orElse(0);
   }

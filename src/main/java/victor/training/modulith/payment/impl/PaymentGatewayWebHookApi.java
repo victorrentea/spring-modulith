@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.payment.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.order.OrderInternalApi;
-import victor.training.modulith.order.impl.OrderRepo;
-import victor.training.modulith.shipping.ShippingInternalApi;
+import victor.training.modulith.shared.api.payment.PaymentCompletedEvent;
 
 @Slf4j
 @RestController
