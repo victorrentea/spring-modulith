@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
+import victor.training.modulith.inventory.StockReservationRequestKnob;
 import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shipping.ShippingResultEvent;
 
@@ -45,7 +46,7 @@ public class PlaceOrderApi {
         .customerId(request.customerId)
         .total(totalPrice);
     orderRepo.save(order);
-    inventoryInternalApi.reserveStock(order.id(), request.items);
+    inventoryInternalApi.reserveStock(new StockReservationRequestKnob(order.id(), request.items));
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
 

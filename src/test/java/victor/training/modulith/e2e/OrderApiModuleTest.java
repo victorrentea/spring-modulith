@@ -45,7 +45,7 @@ public class OrderApiModuleTest {
 
     String url = placeOrderApi.call(placeOrderRequest);
 
-    verify(inventoryModuleApi).reserveStock(anyLong(), any());
+    verify(inventoryModuleApi).reserveStock(any());
     assertThat(url).startsWith("http://payment.com");
   }
 
