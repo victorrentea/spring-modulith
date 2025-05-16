@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.api.shared.shipping.ShippingInternalApi;
+import victor.training.modulith.shared.api.shipping.ShippingInternalApi;
 import victor.training.modulith.shared.api.catalog.CatalogInternalApi;
 import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 import victor.training.modulith.shared.api.order.OrderStatus;
