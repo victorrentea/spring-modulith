@@ -17,12 +17,13 @@ public class Stock {
   @GeneratedValue(generator = "stock_seq")
   private Long id;
 
-  @NotNull
-  @Setter // + FK to PRODUCT.ID
-  // is added a fk_stock_product by import.sql
-  private Long productId;
+// ❌ don't reference other module's @Entity directly
+//  @ManyToOne private Product product;
 
-//  @ManyToOne private Product product; // can't refer to other module's @Entity directly
+// ✅ instead, only store ID of the catalog.Product
+  @NotNull
+  @Setter // + fk_stock_product to PRODUCT (import.sql)
+  private Long productId;
 
   @NotNull
   private Integer items = 0;
@@ -37,7 +38,7 @@ public class Stock {
 
   public void remove(Integer itemsRemoved) {
     if (itemsRemoved <= 0) {
-      throw new IllegalArgumentException("Negative: " + itemsRemoved);
+      throw new IllegalArgumentException("Must substract a positive number: " + itemsRemoved);
     }
     if (itemsRemoved > items) {
       throw new IllegalArgumentException("Not enough stock to remove: " + itemsRemoved);
