@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -23,7 +21,6 @@ public class SearchApi {
   @GetMapping("catalog/search")
   public List<ProductSearchResult> call(
       @RequestParam String name,
-      @RequestParam String category,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock (there is a Stock{productId}.items > 0)
 

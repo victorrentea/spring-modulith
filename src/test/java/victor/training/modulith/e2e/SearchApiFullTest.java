@@ -42,7 +42,7 @@ public class SearchApiFullTest {
   @Test
   void returnsProductsMatchingName() {
     productRepo.save(new Product().name("b"));
-    var results = searchApi.call("a", null);
+    var results = searchApi.call("a",null);
 
     assertThat(results)
         .map(ProductSearchResult::id)
