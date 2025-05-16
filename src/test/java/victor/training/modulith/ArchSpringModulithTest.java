@@ -9,7 +9,7 @@ import org.springframework.modulith.docs.Documenter;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
 
 // provided by org.springframework.modulith:spring-modulith-starter-core
-class ArchSpringTest {
+class ArchSpringModulithTest {
 	public static final DescribedPredicate<JavaClass> IGNORED =
 			resideInAnyPackage( "victor.training.modulith.shared..");
 	public static final ApplicationModules modules =
