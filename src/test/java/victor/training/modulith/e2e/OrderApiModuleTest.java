@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
+import victor.training.modulith.api.shared.shipping.ShippingInternalApi;
 import victor.training.modulith.shared.api.catalog.CatalogInternalApi;
 import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 import victor.training.modulith.shared.api.order.OrderStatus;
@@ -12,7 +13,6 @@ import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.payment.impl.PaymentGatewayClient;
 import victor.training.modulith.payment.impl.PaymentGatewayWebHookApi;
-import victor.training.modulith.shipping.ShippingInternalApi;
 
 import java.util.List;
 import java.util.Map;
