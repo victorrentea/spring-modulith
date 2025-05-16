@@ -39,7 +39,7 @@ class ArchUnitTest {
   @Test
   public void noCycles() {
     var cycles = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*).*")
+        .matching("victor.training.modulith.(*)..")
         .should().beFreeOfCycles()
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
