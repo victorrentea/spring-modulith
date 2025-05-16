@@ -24,5 +24,18 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
     applicationEventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
     return "Payment callback received";
   }
+  // avoid events because:
+  // harder to navigate/stack trace
+  // most people assume listeners run in a separate threead = FALSE by default
+  // applicationEventPublisher + @EventListener are in--mem event bus= GOOD === strictly consistent and sync
+  //   => listeners BLOCK the publisher thread
+  //   => listeners exceptions fire up in publisher
+  //   => listeners can rollback a transaction in PUBLISHER
+  // hard to maintain.
+  // don't use in-mem events unless you plan to eject one of the two modules to a separate microservice
+  // in this Quarter!!!
+  // use such events as a sandbox (staging) to crystalize future service-bus/kafka events
+
+  // MORE ROBUST: store it and poll it
 
 }

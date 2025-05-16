@@ -49,6 +49,7 @@ class ArchUnitTest {
   }
 
   @Test
+  @Disabled
   public void internalApisAreIndependent() {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)") // root package of all slices

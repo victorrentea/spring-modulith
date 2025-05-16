@@ -2,6 +2,7 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
@@ -19,7 +20,8 @@ public class OrderInternalApi {
   private final InventoryInternalApi inventoryInternalApi;
 
 //  public void confirmPaymentForOrder(long orderId, boolean ok, PaymentGatewayWebHookApi paymentGatewayWebHookApi) {
-  @EventListener
+//  @EventListener
+  @ApplicationModuleListener // stores the event in DB and reads it back in another thread
   public void confirmPaymentForOrder(PaymentCompletedEvent event) {
     long orderId = event.orderId();
     boolean ok = event.ok();
