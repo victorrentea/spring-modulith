@@ -28,13 +28,26 @@ public class SearchApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock (there is a Stock{productId}.items > 0)
 
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    List<Long> allProductsInStock = stockApi.findAllProductIdsInStock(); // 10 M items too many BAD
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+
+
+
+
+    // B) microservices-friendly
+
+
+    // A) for staying in a monolith
+    // I NEED TO JOIN CATALOG.PRODUCT with INVENTORY.STOCK => query will break when inventory team alters their table
+    // CREATE A VIEW JOINING the two tables. - who owns it
+    // CREATE A VIEW offerd with ❤️ by INVENTORY team
+    return productRepo.searchJoinView("%" + name + "%", pageRequest)
         .stream()
-        .filter(product -> stockRepo.findByProductId(product.id()).get().items() > 0)
+//        .filter(product -> stockRepo.findByProductId(product.id()).get().items() > 0)
         // BAD because
         // 1 screw encapsulation
         // 2 bad performance (N+1) queries: repetead in a loop
-        // 3 actual page returned might not be 20 (as requested)
+        // 3 actual page returned might not be 20 (as requested) -> use JOIN to move the filtering before pagination
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

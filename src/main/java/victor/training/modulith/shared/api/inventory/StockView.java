@@ -10,6 +10,7 @@ import org.hibernate.annotations.View;
 //   Use only when you really have to join this
 //   to a query of another module to avoid N+1 queries
 @Entity
+// - (SELECT SUM(R.ITEMS) FROM STOCK_RESERVATION R WHERE R.PRODUCT_ID=STOCK.PRODUCT_ID)
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
     from INVENTORY.STOCK
