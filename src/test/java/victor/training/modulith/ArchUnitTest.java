@@ -14,7 +14,7 @@ import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ArchUnitTest {
-  private static final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
+  private final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
       .withImportOption(DO_NOT_INCLUDE_TESTS)
       .importPackages("victor.training.modulith")
       .that(doesNot(resideInAnyPackage("victor.training.modulith.e2e")))
@@ -38,7 +38,7 @@ class ArchUnitTest {
   @Test
   public void noCycles() {
     var cycles = SlicesRuleDefinition.slices()
-        .matching("victor.training.modulith.(*).*")
+        .matching("victor.training.modulith.(*)..")
         .should().beFreeOfCycles()
         .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
 
