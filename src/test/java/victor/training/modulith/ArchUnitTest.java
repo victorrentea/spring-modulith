@@ -13,6 +13,7 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@Disabled("fix after holiday") //2023-06
 class ArchUnitTest {
   private static final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
       .withImportOption(DO_NOT_INCLUDE_TESTS)

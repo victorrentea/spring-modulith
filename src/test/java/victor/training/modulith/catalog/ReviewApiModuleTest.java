@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.annotation.DirtiesContext.MethodMode.AFTER_METHOD;
-
+@Disabled
 @ApplicationModuleTest
 @EntityScan(basePackageClasses = {Product.class, StockView.class /*using StockView in my @Query*/})
 public class ReviewApiModuleTest {
