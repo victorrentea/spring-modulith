@@ -9,7 +9,7 @@ import victor.training.modulith.shipping.in.rest.ShippingProviderWebHookApi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ApplicationModuleTest
+@ApplicationModuleTest // start part of the entire spring app
 public class ShippingModuleTest {
   @Autowired
   ShippingProviderWebHookApi sut;
