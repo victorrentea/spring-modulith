@@ -60,7 +60,7 @@ class ArchUnitTest {
   }
 
   @Test
-  @Disabled("For after the APIs are moved to shared")
+//  @Disabled("For after the APIs are moved to shared")
   public void moduleInternalApisInSharedAreIndependent() {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.shared.api.(*)..*")

@@ -22,9 +22,17 @@ public class SearchApi {
   public List<ProductSearchResult> call(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    // TODO only return items currently in stock
+
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+
+    // ✅ OK for a long-lived Monolith
+//    return productRepo.searchJoinView("%" + name + "%", pageRequest)
+
+    // ✅ OK replicating data from inventory
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
+//        .filter(p->stockRepo.findByProductId(p.id()).orElseThrow().items() >0) // N+1 quyery, screwed page size, broke encapsulation
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
