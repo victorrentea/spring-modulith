@@ -23,9 +23,6 @@ public class Product {
 
   private Double stars;
 
-  private boolean inStock; // projection of the state in inventory
-  // kept in sync via events in-mem (ACID), or eventual(Kafka..).
-
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
