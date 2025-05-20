@@ -1,7 +1,5 @@
 package victor.training.modulith;
 
-import com.tngtech.archunit.base.DescribedPredicate;
-import com.tngtech.archunit.core.domain.JavaClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.docs.Documenter;
@@ -10,10 +8,12 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 
 // provided by org.springframework.modulith:spring-modulith-starter-core
 class ArchSpringModulithTest {
-	public static final DescribedPredicate<JavaClass> IGNORED =
-			resideInAnyPackage( "victor.training.modulith.shared..");
-	public static final ApplicationModules modules =
-			ApplicationModules.of(ModulithApp.class, IGNORED);
+//	public static final ApplicationModules modules =
+//			ApplicationModules.of(ModulithApp.class,
+//					/*except*/resideInAnyPackage( "victor.training.modulith.shared..")
+//			);
+	// TODO after
+	public static final ApplicationModules modules = ApplicationModules.of(ModulithApp.class);
 
 	@Test
 	void encapsulated_and_withoutCycles() {
