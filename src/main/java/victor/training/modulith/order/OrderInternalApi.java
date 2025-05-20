@@ -2,6 +2,7 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
@@ -16,7 +17,9 @@ public class OrderInternalApi {
   private final ShippingInternalApi shippingInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
 
-  @EventListener
+  @ApplicationModuleListener
+  // runs the lsitener in anotehr thread/transaction
+  // stores the event until dispatched in DB/Kafka/Rabbit
   public void onPaymentCompleted(PaymentCompletedEvent event) {
     var orderId = event.orderId();
     var ok = event.ok();
