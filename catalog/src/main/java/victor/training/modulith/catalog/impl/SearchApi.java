@@ -25,7 +25,7 @@ public class SearchApi {
     // TODO only return items currently in stock
 
 //    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
-//victor.training.modulith.inventory.repo.StockRepo s;
+
     // ✅ OK for a long-lived Monolith
 //    return productRepo.searchJoinView("%" + name + "%", pageRequest)
 
