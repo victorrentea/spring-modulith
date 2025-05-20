@@ -9,12 +9,11 @@ import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Service
 @RequiredArgsConstructor
-public class OrderInternalApi implements victor.training.modulith.payment.IOrderInternalApi {
+public class OrderInternalApi {
   private final OrderRepo orderRepo;
   private final ShippingInternalApi shippingInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
 
-  @Override
   public void confirmPayment(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.pay(ok);
