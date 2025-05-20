@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
