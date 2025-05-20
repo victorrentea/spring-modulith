@@ -2,6 +2,8 @@ package victor.training.modulith.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.inventory.model.Stock;
+import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -24,4 +26,14 @@ public class InventoryInternalApi {
     stockService.confirmReservation(orderId);
   }
 
+  public int getStock(long productId) {
+    int reservedItems = stockReservationRepo.findByProductId(productId)
+        .stream()
+        .mapToInt(StockReservation::items)
+        .sum();
+    return stockRepo.findByProductId(productId)
+        .map(Stock::items)
+        .orElse(0)
+        -reservedItems; // OpenSource model: catalog sumbits a PR to inventory team, 2 people from inventory have to review this.
+  }
 }

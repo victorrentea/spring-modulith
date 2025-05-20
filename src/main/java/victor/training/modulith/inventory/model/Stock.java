@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
+import victor.training.modulith.catalog.impl.Product;
 
 @Getter
 @ToString
-@Entity
 @Table(schema = "inventory")
 @SequenceGenerator(name = "stock_seq", schema = "inventory")
+@Entity
 public class Stock {
   @Id
   @GeneratedValue(generator = "stock_seq")
