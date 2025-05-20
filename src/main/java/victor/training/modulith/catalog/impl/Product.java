@@ -6,6 +6,8 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Data // sorry
 @Table(schema = "catalog")
