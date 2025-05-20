@@ -1,4 +1,4 @@
-package victor.training.modulith.shipping.in.internal;
+package victor.training.modulith.shipping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,10 +8,9 @@ import victor.training.modulith.shipping.app.ShippingService;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ShippingInternalApiImpl implements victor.training.modulith.shared.api.shipping.ShippingInternalApi {
+public class ShippingInternalApi {
   private final ShippingService shippingService;
 
-  @Override
   public String requestShipment(long orderId, String customerAddress) {
     return shippingService.requestShipment(orderId, customerAddress);
   }

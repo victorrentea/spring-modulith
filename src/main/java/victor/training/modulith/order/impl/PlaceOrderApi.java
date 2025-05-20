@@ -8,12 +8,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.shared.api.catalog.CatalogInternalApi;
-import victor.training.modulith.shared.api.inventory.StockReservationRequestKnob;
+import victor.training.modulith.catalog.CatalogInternalApi;
+import victor.training.modulith.inventory.InventoryInternalApi;
+import victor.training.modulith.inventory.StockReservationRequestKnob;
+import victor.training.modulith.order.PaymentUrlGenerator;
 import victor.training.modulith.shared.LineItem;
-import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
-import victor.training.modulith.shared.api.payment.PaymentInternalApi;
-import victor.training.modulith.shared.api.shipping.ShippingResultEvent;
+import victor.training.modulith.shipping.ShippingResultEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogInternalApi catalogInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
-  private final PaymentInternalApi paymentUrlGenerator;
+  private final PaymentUrlGenerator paymentUrlGenerator;
 
   public record PlaceOrderRequest(
       @NotEmpty String customerId,

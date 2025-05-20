@@ -1,4 +1,4 @@
-package victor.training.modulith.shared.api.shipping;
+package victor.training.modulith.shipping;
 
 public record ShippingResultEvent(long orderId, boolean ok) {
 }
