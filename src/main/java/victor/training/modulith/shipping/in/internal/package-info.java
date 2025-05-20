@@ -1,4 +1,4 @@
 @NamedInterface
 package victor.training.modulith.shipping.in.internal;
-// this package + sub-packages is the shipping internal API
 import org.springframework.modulith.NamedInterface;
+// allows other modules to access this package + its sub-packages

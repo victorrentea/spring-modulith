@@ -13,7 +13,7 @@ import victor.training.modulith.shipping.ShippingInternalApi;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-// Webhook = a call back to me over HTTP
+// Webhook = HTTP call back to me from a third party
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   private final OrderRepo orderRepo;
   private final ShippingInternalApi shippingInternalApi;
