@@ -1,0 +1,5 @@
+Slice catalog depends on Slice inventory:\
+Constructor <victor.training.modulith.catalog.impl.GetProductApi.<init>(victor.training.modulith.catalog.impl.ProductRepo, victor.training.modulith.inventory.InventoryInternalApi, victor.training.modulith.inventory.repo.StockRepo)> has parameter of type <victor.training.modulith.inventory.repo.StockRepo> in (GetProductApi.java:0)\
+Field <victor.training.modulith.catalog.impl.GetProductApi.stockRepo> has type <victor.training.modulith.inventory.repo.StockRepo> in (GetProductApi.java:0)\
+Method <victor.training.modulith.catalog.impl.GetProductApi.call(long)> calls method <victor.training.modulith.inventory.repo.StockRepo.findById(java.lang.Object)> in (GetProductApi.java:36)\
+Method <victor.training.modulith.catalog.impl.GetProductApi.call(long)> calls method <victor.training.modulith.inventory.model.Stock.items()> in (GetProductApi.java:37)
