@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderStatus;
@@ -21,8 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@Transactional
-public class OrderTest {
+public class OrderE2ETest {
   @MockBean
   CatalogInternalApi catalogModule;
   @MockBean
@@ -53,11 +51,15 @@ public class OrderTest {
 
   @Test
   void paymentGatewayCallbackUpdatesTheOrder() {
-    Long orderId = orderRepo.save(new Order()).id();
+    Long orderId = orderRepo.save(
+        new Order()
+            .customerId("1")
+            .total(0.0001d)
+            .items(Map.of(1L,1))).id();
 
     paymentGatewayWebHookApi.confirmPayment(orderId, true);
 
-    verify(shippingModule).requestShipment(eq(orderId), any());
+    verify(shippingModule,timeout(1000)).requestShipment(eq(orderId), any());
     Order order = orderRepo.findById(orderId).orElseThrow();
     assertThat(order.status()).isEqualTo(OrderStatus.SHIPPING_IN_PROGRESS);
   }
