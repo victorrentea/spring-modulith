@@ -25,6 +25,7 @@ public class SearchApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock => SearchE2ETest
+    var allProductsInStock10M = inventoryAPi.getMeAllProductsIdsInStock()=>#4 still ON
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
         .filter(p -> stockRepo.findByProductId(p.id()).orElseThrow().items() > 0)
