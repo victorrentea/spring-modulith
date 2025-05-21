@@ -2,6 +2,7 @@ package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderStatus;
@@ -15,6 +16,9 @@ public class PaymentEventHandler {
   private final ShippingInternalApi shippingInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
 
+  @Async // puts you in a memory waiting queue if all 10 worker threads are busy
+  // k8s kill-9s you =>loose data
+  // @simon said: why not set a queue of 0 => .publish will crash to Payment webhook call
   @EventListener
   public void onPaymentCompleted(PaymentCompletedEvent event) {
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
