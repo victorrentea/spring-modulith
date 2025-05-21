@@ -17,7 +17,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
-  private final StockReservationRepo repo;
   private final InventoryInternalApi inventoryInternalApi;
 // example of Vertical Slice Architecture (VSA) - one class / API, no layers
 

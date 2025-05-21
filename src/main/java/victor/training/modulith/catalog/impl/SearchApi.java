@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
+  private final StockRepo stockRepo;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -26,6 +27,11 @@ public class SearchApi {
     // TODO only return items in stock => SearchE2ETest
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+        .filter(p -> stockRepo.findByProductId(p.id()).orElseThrow().items() > 0)
+        // - PERFORMANCE HIT: N+1 query
+        // - 500 instead of not found due to .orElseThrow
+        // - broke encapsulation
+        // - if the user requested a page of 20, they might receive 5 (15 filtered out)
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
