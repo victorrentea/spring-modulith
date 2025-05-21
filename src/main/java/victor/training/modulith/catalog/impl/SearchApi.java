@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
 
   public record ProductSearchResult(long id, String name) {
   }
