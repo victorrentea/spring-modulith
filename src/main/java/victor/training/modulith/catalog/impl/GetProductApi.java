@@ -17,7 +17,6 @@ import java.util.Optional;
 public class GetProductApi {
   private final ProductRepo productRepo;
   private final InventoryInternalApi inventoryInternalApi;
-  private final StockRepo stockRepo;
 // example of Vertical Slice Architecture (VSA) - one class / API, no layers
 
   public record GetProductResponse(
@@ -33,8 +32,6 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse call(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    Optional<Stock> stockEntityIShouldNotTouch = stockRepo.findById(1L);
-    System.out.println(stockEntityIShouldNotTouch.get().items());
     int stock = inventoryInternalApi.getStockByProduct(productId);
     return new GetProductResponse(product.id(),
         product.name(),
