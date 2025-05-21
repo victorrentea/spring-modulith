@@ -3,6 +3,7 @@ package victor.training.modulith.inventory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
+import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -30,6 +31,12 @@ public class InventoryInternalApi {
   }
 
   public int getStockByProduct(long productId) {
-    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+    // well, this is actually wrong and we need to subtract the existing reservations that are already for this product I
+//    int reservedStock = stockReservationRepo.findByProductId(productId)
+//        .stream().mapToInt(StockReservation::items).sum();
+
+
+    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0)
+        /*-reservedStock*/;
   }
 }
