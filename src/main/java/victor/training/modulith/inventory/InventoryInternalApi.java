@@ -24,4 +24,7 @@ public class InventoryInternalApi {
     stockService.confirmReservation(orderId);
   }
 
+  public void cancelReservation(Long orderId) {
+    stockService.cancelReservation(orderId);
+  }
 }

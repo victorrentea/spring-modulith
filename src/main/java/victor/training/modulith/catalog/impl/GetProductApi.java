@@ -10,9 +10,9 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-// example of Vertical Slice Architecture (VSA) - one class / API, no layers
 public class GetProductApi {
   private final ProductRepo productRepo;
+// example of Vertical Slice Architecture (VSA) - one class / API, no layers
 
   public record GetProductResponse(
       long id,
@@ -27,7 +27,7 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse call(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = 0; // TODO display stock in product page UI
+    int stock = 0; // TODO display stock in product page UI => GetProductE2ETest
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),

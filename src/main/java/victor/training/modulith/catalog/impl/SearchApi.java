@@ -23,7 +23,7 @@ public class SearchApi {
   public List<ProductSearchResult> call(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items in stock
+    // TODO only return items in stock => SearchE2ETest
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))

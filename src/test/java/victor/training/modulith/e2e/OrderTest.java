@@ -20,13 +20,13 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Transactional
-public class OrderApiModuleTest {
+public class OrderTest {
   @MockBean
-  CatalogInternalApi catalogApi;
+  CatalogInternalApi catalogModule;
   @MockBean
-  InventoryInternalApi inventoryModuleApi;
+  InventoryInternalApi inventoryModule;
   @MockBean
-  ShippingInternalApi shippingInternalApi;
+  ShippingInternalApi shippingModule;
   @MockBean
   PaymentGatewayClient paymentGatewayClient;
 
@@ -39,13 +39,13 @@ public class OrderApiModuleTest {
 
   @Test
   void placeOrderReturnsPaymentUrlFromGateway() {
-    when(catalogApi.getManyPrices(any())).thenReturn(Map.of());
+    when(catalogModule.getManyPrices(any())).thenReturn(Map.of());
     PlaceOrderRequest placeOrderRequest = new PlaceOrderRequest("customer-id", List.of(), "shipping-address");
     when(paymentGatewayClient.generatePaymentLink(any(), any(), any())).thenReturn("http://payment.com");
 
     String url = placeOrderApi.call(placeOrderRequest);
 
-    verify(inventoryModuleApi).reserveStock(any());
+    verify(inventoryModule).reserveStock(any());
     assertThat(url).startsWith("http://payment.com");
   }
 
@@ -55,9 +55,8 @@ public class OrderApiModuleTest {
 
     paymentGatewayWebHookApi.confirmPayment(orderId, true);
 
-    verify(shippingInternalApi).requestShipment(eq(orderId), any());
+    verify(shippingModule).requestShipment(eq(orderId), any());
     Order order = orderRepo.findById(orderId).orElseThrow();
     assertThat(order.status()).isEqualTo(OrderStatus.SHIPPING_IN_PROGRESS);
   }
-
 }

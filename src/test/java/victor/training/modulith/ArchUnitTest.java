@@ -3,9 +3,16 @@ package victor.training.modulith;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests;
+import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.library.dependencies.SliceRule;
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
+import com.tngtech.archunit.library.freeze.FreezingArchRule;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
 import static com.tngtech.archunit.base.DescribedPredicate.doesNot;
@@ -13,58 +20,58 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@AnalyzeClasses(packages = "victor.training.modulith",
+    importOptions = DoNotIncludeTests.class)
 class ArchUnitTest {
-  private final JavaClasses PROJECT_CLASSES = new ClassFileImporter()
-      .withImportOption(DO_NOT_INCLUDE_TESTS)
-      .importPackages("victor.training.modulith")
-      .that(doesNot(resideInAnyPackage("victor.training.modulith.e2e")))
-      ;
 
-  @Test
-  public void encapsulated() { // TODO
-    var violations = SlicesRuleDefinition.slices()
+  @ArchTest
+  public void modules_only_depend_on_internal_apis_of_others(JavaClasses classes) { // TODO
+    var rule = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..")
         .should().notDependOnEachOther()
-        // ok to depend on any class in any top-level package = exposed internal api
+
+        // Exception: it's allowed to depend on any class in any top-level package = exposed internal api
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.*"))
+
         // ok to depend on any class in 'shared' or any of its sub-packages
-        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared.."))
+        .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared.."));
 
-        .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
+    // crash on any violation
+    rule.check(classes);
 
-    assertThat(violations).hasSize(0);
+    // measure distance from ideal
+//    assertThat(rule.evaluate(classes).getFailureReport().getDetails()).hasSize(0);
+
+    // record initial violations in /src/test/resources/archunit
+    // ❌ FAILS for new violations 🔼
+    // ✅ PASSES for same known violations 🟰
+    // ✅ PASSES for less violations 🔽, and auto-updates the file
+//    FreezingArchRule.freeze(rule).check(classes);
   }
 
-  @Test
-  public void noCycles() {
+  @ArchTest
+  public void no_cycles_between_modules(JavaClasses classes) {
     var cycles = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..")
         .should().beFreeOfCycles()
-        .evaluate(PROJECT_CLASSES).getFailureReport().getDetails();
+        .evaluate(classes).getFailureReport().getDetails();
 
-    // assertThat(cycles).hasSize(3); // legacy migration starting point
-    // assertThat(cycles).hasSize(3); // next quarter
     assertThat(cycles).hasSize(0);
   }
 
-  @Test
-  public void internalApisAreIndependent() {
+  @ArchTest
+  public void module_internal_apis_are_independent(JavaClasses classes) {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)") // root package of all slices
         .should().notDependOnEachOther()
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared"))
-        .check(new ClassFileImporter()
-            .withImportOption(DO_NOT_INCLUDE_TESTS)
-            .importPackages("victor.training.modulith"));
-
+        .check(classes);
   }
 
-  @Test
-  @Disabled("For after the APIs are moved to shared")
-  public void moduleInternalApisInSharedAreIndependent() {
+//  @ArchTest // TODO Use when the APIs are moved to shared
+  public void module_internal_apis_are_independent_in_shared(JavaClasses classes) {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.shared.api.(*)..*")
-        .should().notDependOnEachOther().check(PROJECT_CLASSES);
+        .should().notDependOnEachOther().check(classes);
   }
-
 }

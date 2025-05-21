@@ -1,39 +1,41 @@
-package victor.training.modulith.e2e;
+package victor.training.modulith.catalog;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.GetProductApi;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
+import victor.training.modulith.inventory.StockView;
 import victor.training.modulith.inventory.api.AddStockApi;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@SpringBootTest
+@ApplicationModuleTest
+@EntityScan(basePackageClasses = {Product.class, StockView.class /*using StockView in my @Query*/})
 @Transactional
-@Disabled // TODO enable and fix
-public class GetProductApiFullTest {
+public class GetProductModuleTest {
   @Autowired
   ProductRepo productRepo;
-  @Autowired
-  AddStockApi addStockApi;
   @Autowired
   GetProductApi getProductApi;
 
   @Test
   void returnsStock() {
-    Long productId = productRepo.save(new Product()).id();
-    addStockApi.call(productId, 5);
+    var product = new Product()
+        .name("name")
+        .description("desc")
+        .price(1d);
+    Long productId = productRepo.save(product).id();
 
     var result = getProductApi.call(productId);
 
-    assertThat(result.stock()).isEqualTo(5);
+    assertThat(result.name()).isEqualTo("name");
+    assertThat(result.description()).isEqualTo("desc");
+    assertThat(result.price()).isEqualTo(1d);
   }
-
 }

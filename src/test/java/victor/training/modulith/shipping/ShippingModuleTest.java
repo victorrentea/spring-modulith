@@ -13,12 +13,10 @@ public class ShippingModuleTest {
   @Autowired
   ShippingProviderWebHookApi sut;
   @Test
-//  @Disabled
   void callback(PublishedEvents publishedEvents) {
     sut.call(1L, true);
 
     assertThat(publishedEvents.ofType(ShippingResultEvent.class))
         .containsExactly(new ShippingResultEvent(1L, true));
-
   }
 }

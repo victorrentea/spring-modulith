@@ -10,10 +10,9 @@ import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyP
 
 // provided by org.springframework.modulith:spring-modulith-starter-core
 class ArchSpringModulithTest {
-	public static final DescribedPredicate<JavaClass> IGNORED =
-			resideInAnyPackage( "victor.training.modulith.shared..");
-	public static final ApplicationModules modules =
-			ApplicationModules.of(ModulithApp.class, IGNORED);
+	public static final DescribedPredicate<JavaClass> IGNORING_SHARED_MODULE =
+			resideInAnyPackage("victor.training.modulith.shared..");
+	public static final ApplicationModules modules = ApplicationModules.of(ModulithApp.class);
 
 	@Test
 	void encapsulated_and_withoutCycles() {
@@ -24,14 +23,14 @@ class ArchSpringModulithTest {
 	}
 
 	@Test
-	void generateDiagrams() {
+	void generate_module_dependencies_diagrams() {
 		new Documenter(modules)
 				.writeModulesAsPlantUml()
 				.writeIndividualModulesAsPlantUml();
 	}
 
 	@Test
-	void generateAsciidoc() {
+	void generate_asciidoc() {
 		var canvasOptions = Documenter.CanvasOptions.defaults();
 
 		var docOptions = Documenter.DiagramOptions.defaults()

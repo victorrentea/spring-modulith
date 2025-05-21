@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.AbstractAggregateRoot;
+import victor.training.modulith.catalog.impl.Product;
 
 @Getter
 @ToString
@@ -18,7 +19,8 @@ public class Stock {
   private Long id;
 
 // ❌ don't reference other module's @Entity directly
-//  @ManyToOne private Product product;
+//  @ManyToOne
+//  private Product product;
 
 // ✅ instead, only store ID of the catalog.Product
   @NotNull

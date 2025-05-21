@@ -27,6 +27,8 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
       inventoryInternalApi.confirmReservation(order.id());
       String trackingNumber = shippingInternalApi.requestShipment(order.id(), order.shippingAddress());
       order.wasScheduleForShipping(trackingNumber);
+    } else {
+      inventoryInternalApi.cancelReservation(order.id());
     }
     orderRepo.save(order);
     return "Payment callback received";

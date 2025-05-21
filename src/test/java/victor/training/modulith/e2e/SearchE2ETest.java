@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
-import victor.training.modulith.catalog.impl.Product;
-import victor.training.modulith.catalog.impl.ProductRepo;
+import victor.training.modulith.catalog.impl.CreateProductApi;
+import victor.training.modulith.catalog.impl.CreateProductApi.CreateProductRequest;
 import victor.training.modulith.catalog.impl.SearchApi;
 import victor.training.modulith.catalog.impl.SearchApi.ProductSearchResult;
 import victor.training.modulith.inventory.api.AddStockApi;
@@ -23,9 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @Disabled // TODO
-public class SearchApiFullTest {
+public class SearchE2ETest {
   @Autowired
-  ProductRepo productRepo;
+  CreateProductApi createProductApi;
   @Autowired
   SearchApi searchApi;
   @Autowired
@@ -35,13 +35,13 @@ public class SearchApiFullTest {
 
   @BeforeEach
   final void setup() {
-    productId = productRepo.save(new Product().name("xa1")).id();
+    productId = createProductApi.createProduct(new CreateProductRequest("xa1","",0d));
     addStockApi.call(productId, 3);
   }
 
   @Test
   void returnsProductsMatchingName() {
-    productRepo.save(new Product().name("b"));
+    createProductApi.createProduct(new CreateProductRequest("b","",0d));
     var results = searchApi.call("a", null);
 
     assertThat(results)
@@ -50,7 +50,7 @@ public class SearchApiFullTest {
   }
   @Test
   void doesNotReturnProductsOutOfStock() {
-    Long productIdOutOfStock = productRepo.save(new Product().name("b")).id();
+    Long productIdOutOfStock = createProductApi.createProduct(new CreateProductRequest("b","",0d));
 
     var results = searchApi.call("a", null);
 
@@ -61,7 +61,7 @@ public class SearchApiFullTest {
 
   @Test
   void paginationWorks() {
-    var product2Id = productRepo.save(new Product().name("b")).id();
+    var product2Id = createProductApi.createProduct(new CreateProductRequest("b","",0d));
     addStockApi.call(product2Id, 3);
 
     PageRequest pageRequest = PageRequest.of(0, 1, ASC, "name");
