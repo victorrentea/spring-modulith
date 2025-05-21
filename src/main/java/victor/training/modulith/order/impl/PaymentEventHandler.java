@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 import victor.training.modulith.shared.api.order.OrderStatus;
 import victor.training.modulith.shared.api.payment.PaymentCompletedEvent;
-import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 import victor.training.modulith.shared.api.shipping.ShippingInternalApi;
 
 @Slf4j
