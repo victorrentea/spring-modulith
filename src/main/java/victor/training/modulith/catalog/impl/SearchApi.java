@@ -27,7 +27,11 @@ public class SearchApi {
 //    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
 
     // #1 if you plan to stay in monolith for long
-    return productRepo.searchJoinView("%" + name + "%", pageRequest)
+//    return productRepo.searchJoinView("%" + name + "%", pageRequest)
+
+// #2 suitable if you plan to move either of the 2 modules as a microservice soon
+
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
 //        .filter(p -> stockRepo.findByProductId(p.id()).orElseThrow().items() > 0)
         // - PERFORMANCE HIT: N+1 query
