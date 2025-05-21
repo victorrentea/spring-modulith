@@ -26,6 +26,10 @@ public class Stock {
   @NotNull
   @Setter // + fk_stock_product to PRODUCT (import.sql)
   private Long productId;
+  // you will fetch product data from catalog internal api by ID
+  // if this causes a perf hit
+
+  private String productName;// COPYING DATA FROM CATALOG
 
   @NotNull
   private Integer items = 0;
