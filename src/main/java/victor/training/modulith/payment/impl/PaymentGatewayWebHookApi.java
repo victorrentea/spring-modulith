@@ -16,13 +16,15 @@ import victor.training.modulith.payment.PaymentCompletedEvent;
 // Webhook = HTTP call back to me from a third party
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   private final ApplicationEventPublisher applicationEventPublisher;
+  private final PaymentEvidenceRepo paymentEvidenceRepo;
 
   @PutMapping("payment/{orderId}/status")
   @Transactional
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
     var event = new PaymentCompletedEvent(orderId, ok);
-//    paymentEvidenceRepo.save(new PaymentEvidence(blah)); // committed with the event insert
+    paymentEvidenceRepo.save(new PaymentEvidence()); // committed with the event insert
     applicationEventPublisher.publishEvent(event);
+//    kafkaTemplate.send(...);
     return "Payment callback received";
   }
   // problems:
