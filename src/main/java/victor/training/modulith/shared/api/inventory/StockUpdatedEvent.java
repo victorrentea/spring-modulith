@@ -1,4 +1,4 @@
-package victor.training.modulith.inventory;
+package victor.training.modulith.shared.api.inventory;
 
 public record StockUpdatedEvent(
     long productId,

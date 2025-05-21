@@ -2,14 +2,12 @@ package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.payment.PaymentCompletedEvent;
-import victor.training.modulith.shipping.ShippingInternalApi;
+import victor.training.modulith.shared.api.order.OrderStatus;
+import victor.training.modulith.shared.api.payment.PaymentCompletedEvent;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
+import victor.training.modulith.shared.api.shipping.ShippingInternalApi;
 
 @Slf4j
 @Service
