@@ -25,10 +25,12 @@ public class SearchApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock => SearchE2ETest
-    var allProductsInStock10M = inventoryAPi.getMeAllProductsIdsInStock()=>#4 still ON
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+
+    // #1 if you plan to stay in monolith for long
+    return productRepo.searchJoinView("%" + name + "%", pageRequest)
         .stream()
-        .filter(p -> stockRepo.findByProductId(p.id()).orElseThrow().items() > 0)
+//        .filter(p -> stockRepo.findByProductId(p.id()).orElseThrow().items() > 0)
         // - PERFORMANCE HIT: N+1 query
         // - 500 instead of not found due to .orElseThrow
         // - broke encapsulation
