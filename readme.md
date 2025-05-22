@@ -1,47 +1,41 @@
 # Modular Monolith Exercise
 
-using Spring Modulith https://spring.io/projects/spring-modulith/
+Uses Spring Modulith https://spring.io/projects/spring-modulith/
 
-## API Overview
+## Module Overview
 
-- Catalog: Search product
-- Catalog: Get product details
-- Order: Place order, returning a redirect url to a payment page
-- Inventory: Add stock
-- Inventory: Get stock bulk
-- Inventory: Reserve stock (confirmed via OrderConfirmedEvent)
-- Customer: Get customer address
+- `catalog`: product details management & search
+- `order`: order workflow
+- `inventory`: stock and reservations
+- `customer` data
+- `shipping`
 
 ## Spring Modulith Intro
-A module can only reference by default the classes in the top-level package of other modules. 
-A class in any subpackage (eg. `impl`) is considered implementation detail,
-and it should NOT be accessed from outside that module.
+A module can only reference by default the classes in the top-level package of other modules. A class in any subpackage (eg. `impl`) is considered implementation detail, and it should NOT be accessed from outside that module. Extra packages can be exposed via @NamedInterface
 
 Modules cannot form dependency cycles.
 
-A diagram overviewing the module interactions is auto-generated at each test run. See `index.adoc`
+`index.adoc` contains a diagram of the module interactions generated at each test run.
 
 ## Exercises
 
-Taking small baby-steps, implement the changes below. 
-Expand the hints if needed, and keep running `ArchitectureTest`:
-1. Return the number of items currently in stock from `GetProductApi`
+Expand the hints if needed, and keep running `ArchSpringModulithTest`:
+1. In `GetProductApi` return the stock in the response.
 - `catalog` should not access any internal class of `inventory` module (run tests).
-- `GetProductApiTest` should pass.
-- <details><summary>Hint</summary>Retrieve the stock item number via a call to a new method in `InventoryModule`</details>
+- Enable and Pass `GetProductE2ETest`.
+- <details><summary>Hint</summary>Retrieve the stock item number via a call to a new method in `InventoryInternalApi`</details>
 
-2. Pull payment-related classes out of `order` module into a separate `payment` module.
-    - Check there are no illegal internal calls or cycles with `ArchitectureTest`
-    - <details><summary>Hint to fix 'non-exposed..':</summary>Code having to do with the `order` internals should stay in `order`.</details>
-    - <details><summary>Hint to fix cycle:Solution#1</summary>Have a `PaymentCompletedEvent` thrown from payment back into order</details>
-    - <details><summary>Hint to fix cycle:Solution#2</summary>Introduce an interface in one of the modules implemented in the other (aka Dependency Inversion). Which module should hold the interface?</details>
-    - Encapsulate the new `payment` module: hide as many classes exposing the least amount of public stuff
-    - <details><summary>Hint</summary>Move classes in a subpackage, like 'impl'</details>
+2. Extract payment-related classes out of `order` module into a new `payment` module.
+- Fix the encapsulation violation and the dependency cycle introduced.
+  - <details><summary>Hint to fix 'non-exposed..':</summary>Code having to do with the `order` internals should stay in `order`.</details>
+  - <details><summary>Hint to fix cycle:Solution#1</summary>Have a `PaymentCompletedEvent` thrown from payment back into order</details>
+  - <details><summary>Hint to fix cycle:Solution#2</summary>Introduce an interface in one of the modules implemented in the other (aka Dependency Inversion). Which module should hold the interface?</details>
+- Encapsulate the new `payment` module: hide as many classes exposing as few classes to other modules
+  - <details><summary>Hint</summary>Move classes in a subpackage, like 'impl'</details>
 3. `SearchProductApi` should only return products in stock
-    - What options you see? Tradeoffs of each?
     - Test `SearchProductsApiTest` should pass.
 
-    1. <details><summary>Option</summary>Find all products and join in-memory with all stock. Or vice-versa.</details>
+    1. <details><summary>Option</summary>Search for matching products and join in-memory with all stock. Or vice-versa.</details>
     1. <details><summary>Option</summary>JOIN Stock via SQL/JPQL😐</details>
     1. <details><summary>Option</summary>Replicate stock item number at every change via events from `inventory`</details>
     1. <details><summary>Option</summary>Publish `OutOfStockEvent` and `BackInStockEvent` from `inventory`, updating a `Product.inStock` boolean; </details>
@@ -64,5 +58,5 @@ Expand the hints if needed, and keep running `ArchitectureTest`:
       ```
    </details>
 5. Move Reviews-related stuff out of `catalog` module
-    - E2E Test should still pass
+    - tests should pass
 

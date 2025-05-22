@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 @Slf4j
@@ -12,7 +13,6 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
-// example of Vertical Slice Architecture (VSA) - one class / API, no layers
 
   public record GetProductResponse(
       long id,
@@ -37,9 +37,6 @@ public class GetProductApi {
     );
   }
 }
-// Hints:
-// 1. stock is in inventory/impl/Stock#items
-// 2. ▶️ GetProductApiTest ✅
-// 3. ▶️ ArchitectureTest ✅ (uses spring-modulith)
-//    by default a module is only allowed to depend on classes
-//    in the top-level package of another module
+// Tip: stock is in inventory/impl/Stock#items
+// Tip: you are only allowed to use exposed classes of another modules
+//     (that is, by default, the module's root package)

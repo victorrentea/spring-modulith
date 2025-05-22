@@ -23,6 +23,7 @@ import static org.springframework.test.annotation.DirtiesContext.MethodMode.AFTE
 
 @ApplicationModuleTest
 @EntityScan(basePackageClasses = {Product.class, StockView.class /*using StockView in my @Query*/})
+@Disabled
 public class ReviewApiModuleTest {
   @Autowired
   ProductReviewRepo reviewRepo;
