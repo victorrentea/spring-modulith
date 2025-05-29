@@ -2,6 +2,7 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
@@ -18,7 +19,8 @@ public class OrderInternalApi {
   private final ShippingInternalApi shippingInternalApi;
 
 //  public void confirmPayment(long orderId, boolean ok) {
-  @EventListener
+//  @EventListener
+  @ApplicationModuleListener // ⭐️ async, DB-persisted events; different thread & transaction
   public void onPaymentConfirmed(PaymentConfirmationEvent event) {
     long orderId = event.orderId();
     boolean ok = event.ok();
