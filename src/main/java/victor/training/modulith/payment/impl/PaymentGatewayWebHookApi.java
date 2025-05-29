@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.payment.PaymentConfirmationEvent;
+import victor.training.modulith.shared.api.payment.PaymentConfirmationEvent;
 
 @Slf4j
 @RestController
@@ -38,9 +38,9 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
   // order.cofirmPayment <- PaymentWebHook.call
   // ways to fix this cycle:
   // ✅ a) Dependency Inversion (via a new interface)
-  // >> b) Event: payment->PaymentConfirmationEvent->order
+  // ✅ b) Event: payment->PaymentConfirmationEvent->order
   // X c) Orchestrate From Above: Facade module to call PlaceOrder, then getPayUrl
   // c-fullstack) fetch('placeorder').then(r=>fetch('paymenturl))
   // x d) 💖 Merge back the two modules; oups: wrong boundary
-  // >>>> e) Segregate module contracts => no cycles are possible ⭐️
+  // ✅✅ e) Segregate module contracts => no cycles are possible ⭐️
 }

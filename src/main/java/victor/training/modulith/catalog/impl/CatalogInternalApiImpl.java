@@ -1,11 +1,8 @@
-package victor.training.modulith.catalog;
+package victor.training.modulith.catalog.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.catalog.impl.Product;
-import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.inventory.StockView;
+import victor.training.modulith.shared.api.catalog.ProductInternalDto;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,14 +12,16 @@ import static java.util.stream.Collectors.toMap;
 
 @Service
 @RequiredArgsConstructor
-public class CatalogInternalApi {
+public class CatalogInternalApiImpl implements victor.training.modulith.shared.api.catalog.CatalogInternalApi {
   private final ProductRepo productRepo;
 
+  @Override
   public Map<Long, Double> getManyPrices(Collection<Long> ids) {
     return productRepo.findAllById(ids).stream()
         .collect(toMap(Product::id, Product::price));
   }
 
+  @Override
   public List<ProductInternalDto> getProductNames(List<Long> productIds) {
     return productRepo.findAllById(productIds).stream()
         .map(p -> new ProductInternalDto(p.id(), p.name()))

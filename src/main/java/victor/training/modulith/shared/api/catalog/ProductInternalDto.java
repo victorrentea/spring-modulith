@@ -1,4 +1,4 @@
-package victor.training.modulith.catalog;
+package victor.training.modulith.shared.api.catalog;
 
 // Knob
 //public record ProductKnob(Long id, String name) {
