@@ -25,9 +25,15 @@ public class SearchApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock => SearchE2ETest
 
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    // 2 correct options:
+    // B
+
+
+    // A Join a VIEW crafted and maintained with 💖 by Inventory Team for me to join in EXCEPTIONAL CASES
+    // WARNING: don't ABUSE. only for performance.
+    return productRepo.searchJoinView("%" + name + "%", pageRequest)
         .stream()
-        .filter(p->inventory.getStockByProductId(p.id())>0)
+//        .filter(p->inventory.getStockByProductId(p.id())>0)
         // BAD because:
         // 1 Performance hit: N+1 qeuery (network call in a loop)
         // 2 Bad UX: user wants 20 lines / page, but they might see 19 or 5 or 0 :)) if they are filtered
