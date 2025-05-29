@@ -2,8 +2,16 @@
 
 Uses Spring Modulith https://spring.io/projects/spring-modulith/
 
-## Module Overview
+## Startup instructions
+- mvn install
+- run StartDatabase.java
+- run StartWireMock.java
+- run ModulithApp.java
+- use requests.http for example HTTP requests
 
+Note: Tests probably provide a faster way to practice one flow.
+
+## Module Overview
 - `catalog`: product details management & search
 - `order`: order workflow
 - `inventory`: stock and reservations
