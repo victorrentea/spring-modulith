@@ -18,9 +18,20 @@ public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-//    orderInternalApi.confirmPayment(orderId, ok);
     // spring,Guice,Quarkus have in-memory event bus
     applicationEventPublisher.publishEvent(new PaymentConfirmationEvent(orderId, ok));
+    // All devs assume the listeners run in another thread than publisher = WRONG by default.
+    // - how to know if the listener succeeded?
+    // - can these events get lost?
+
+    // by default all the even listeners will run sequentially in the publishers thread,
+    // blocking the publisher, throwing exceptions back to publisher if any fails and
+    // sharing the transaction that might have been there
+
+    // THEY MAKE CODE HARD TO NAVIGATE => AVOID
+    // USE Only if you plan to eject one of the two modules as a microservice soon
+    // as a staging ground until you switch to @KafkaListener..
+
     return "Payment callback received";
   }
   // order.PlaceOrderApi -> PaymentService.getPayUrl
