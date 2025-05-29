@@ -5,6 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.catalog.CatalogInternalApi;
+import victor.training.modulith.catalog.ProductInternalDto;
+import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 
@@ -14,13 +17,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetLowStocksApi {
   private final StockRepo stockRepo;
+  private final CatalogInternalApi catalogInternalApi;
 
   @GetMapping("stock/low")
-  @Transactional
+//  @Transactional
   public List<String> call() {
     var lowStocks = stockRepo.findStockByItemsLessThan(10);
-    // TODO return IDs of products low on stock
-    //  + CR: get their names (speculate)
-    return List.of();
+
+    // opt1: with link between the Domain Models
+    // - DM coupling ❌❌
+//    return lowStocks.stream().map(Stock::product).map(Product::name).toList();
+
+    // migrate slowly to 🔽
+
+    // opt2: call to catalog internal API
+    // - performance: +1 SELECT
+    var productIds = lowStocks.stream()
+        .map(Stock::productId)
+        .toList();
+    return catalogInternalApi.getProductNames(productIds)
+        .stream().map(ProductInternalDto::name).toList();
   }
 }

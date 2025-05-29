@@ -8,6 +8,7 @@ import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.inventory.StockView;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
@@ -22,4 +23,9 @@ public class CatalogInternalApi {
         .collect(toMap(Product::id, Product::price));
   }
 
+  public List<ProductInternalDto> getProductNames(List<Long> productIds) {
+    return productRepo.findAllById(productIds).stream()
+        .map(p -> new ProductInternalDto(p.id(), p.name()))
+        .toList();
+  }
 }
