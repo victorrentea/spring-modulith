@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Formula;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import victor.training.modulith.catalog.impl.Product;
 
@@ -18,6 +19,8 @@ public class Stock {
   @GeneratedValue(generator = "stock_seq")
   private Long id;
 
+//  @Formula() // ❌ adds to SKLECT ..., (select name from product ...) FROM STOCK
+
 // ❌ don't reference other module's @Entity directly
 //  @ManyToOne
 //  private Product product;
@@ -26,6 +29,8 @@ public class Stock {
   @NotNull
   @Setter // + fk_stock_product to PRODUCT (import.sql)
   private Long productId;
+
+//  private String productName; // a copy of the data in catalog to save queries
 
   @NotNull
   private Integer items = 0;
