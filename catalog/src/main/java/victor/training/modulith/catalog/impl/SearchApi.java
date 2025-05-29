@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
-
+  private final InventoryInternalApi inventory;
   public record ProductSearchResult(long id, String name) {
   }
 
@@ -23,8 +24,13 @@ public class SearchApi {
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items in stock => SearchE2ETest
+
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+        .filter(p->inventory.getStockByProductId(p.id())>0)
+        // BAD because:
+        // 1 Performance hit: N+1 qeuery (network call in a loop)
+        // 2 Bad UX: user wants 20 lines / page, but they might see 19 or 5 or 0 :)) if they are filtered
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
