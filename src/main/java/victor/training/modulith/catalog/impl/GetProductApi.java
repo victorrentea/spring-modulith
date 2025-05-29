@@ -30,6 +30,7 @@ public class GetProductApi {
     Product product = productRepo.findById(productId).orElseThrow();
 //    int stock = stockRepo.findByProductId(productId).get().items();
     int stock = inventoryInternalApi.getStockByProductId(productId);
+
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
