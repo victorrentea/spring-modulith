@@ -15,6 +15,7 @@ public class GetStockApi {
 
   @GetMapping("stock/{productId}")
   @Transactional
+  // different rate of change. don't call from another module
   public Integer call(@PathVariable long productId) {
     return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
   }
