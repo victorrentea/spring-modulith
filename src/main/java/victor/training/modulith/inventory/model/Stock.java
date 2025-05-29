@@ -30,7 +30,7 @@ public class Stock {
   @Setter // + fk_stock_product to PRODUCT (import.sql)
   private Long productId;
 
-//  private String productName; // a copy of the data in catalog to save queries
+  private String productName; // a copy of the data in catalog to save queries
 
   @NotNull
   private Integer items = 0;

@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetLowStocksApi {
   private final StockRepo stockRepo;
-  private final CatalogInternalApi catalogInternalApi;
+//  private final CatalogInternalApi catalogInternalApi;
 
   @GetMapping("stock/low")
 //  @Transactional
@@ -27,15 +27,16 @@ public class GetLowStocksApi {
     // opt1: with link between the Domain Models
     // - DM coupling ❌❌
 //    return lowStocks.stream().map(Stock::product).map(Product::name).toList();
+    return lowStocks.stream().map(Stock::productName).toList();
 
     // migrate slowly to 🔽
 
     // opt2: call to catalog internal API
     // - performance: +1 SELECT
-    var productIds = lowStocks.stream()
-        .map(Stock::productId)
-        .toList();
-    return catalogInternalApi.getProductNames(productIds)
-        .stream().map(ProductInternalDto::name).toList();
+//    var productIds = lowStocks.stream()
+//        .map(Stock::productId)
+//        .toList();
+//    return catalogInternalApi.getProductNames(productIds)
+//        .stream().map(ProductInternalDto::name).toList();
   }
 }
