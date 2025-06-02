@@ -18,16 +18,21 @@ import victor.training.modulith.shipping.ShippingInternalApi;
 @RestController
 @RequiredArgsConstructor
 // Webhook = HTTP call back to me from a third party
-public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-  private final ApplicationEventPublisher applicationEventPublisher;
+public class PaymentGatewayWebHookApi {
+  private final OrderInternalApi orderInternalApi; // TODO move to 'payment' module
+//  private final ApplicationEventPublisher applicationEventPublisher;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
 //    orderInternalApi.confirmPayment(orderId, ok);
     // a) event to shield 'payment' against 'order'
 //    applicationEventPublisher.publishEvent(new PaymentReceived(orderId)); + PaymentFailed(orderId)
-    applicationEventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
+//    applicationEventPublisher.publishEvent(new PaymentCompletedEvent(orderId, ok));
+    // events make code harder to navigate, expose you to framework magic = avoid unless:
+    // use them to draft you future Solace/Kafka events you plan to extract one of the modules as a separate microservice
+
     // b) extract interface of ...
+    orderInternalApi.confirmPayment(orderId, ok);
     return "Payment callback received";
   }
 }

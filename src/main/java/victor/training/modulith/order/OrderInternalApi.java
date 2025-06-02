@@ -21,11 +21,13 @@ public class OrderInternalApi {
 
 //  public void confirmPayment(long orderId, boolean ok) {
 
-  @EventListener
+//  @EventListener
 //  @ApplicationModuleListener
-  public void confirmPayment(PaymentCompletedEvent event) {
-    long orderId = event.orderId();
-    boolean ok = event.ok();
+//  public void confirmPayment(PaymentCompletedEvent event) {
+//    long orderId = event.orderId();
+//    boolean ok = event.ok();
+
+  public void confirmPayment(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.pay(ok);
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
