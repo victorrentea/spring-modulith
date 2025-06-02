@@ -2,9 +2,9 @@ package victor.training.modulith.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.shared.api.inventory.StockReservationRequestIdo;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
+import victor.training.modulith.shared.api.inventory.StockReservationRequestIdo;
 
 @Service
 @RequiredArgsConstructor

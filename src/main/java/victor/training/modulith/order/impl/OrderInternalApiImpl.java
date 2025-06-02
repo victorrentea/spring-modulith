@@ -2,8 +2,8 @@ package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.shared.api.order.OrderStatus;
 import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
+import victor.training.modulith.shared.api.order.OrderStatus;
 import victor.training.modulith.shared.api.shipping.ShippingInternalApi;
 
 @Service
