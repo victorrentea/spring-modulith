@@ -2,10 +2,13 @@ package victor.training.modulith.order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.impl.Order;
 import victor.training.modulith.order.impl.OrderRepo;
+import victor.training.modulith.payment.PaymentCompletedEvent;
 import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Service
@@ -16,7 +19,13 @@ public class OrderInternalApi {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  public void confirmPayment(long orderId, boolean ok) {
+//  public void confirmPayment(long orderId, boolean ok) {
+
+  @EventListener
+//  @ApplicationModuleListener
+  public void confirmPayment(PaymentCompletedEvent event) {
+    long orderId = event.orderId();
+    boolean ok = event.ok();
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.pay(ok);
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
