@@ -3,6 +3,7 @@ package victor.training.modulith.order.impl;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,8 +51,15 @@ public class PlaceOrderApi {
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
 
-  @ApplicationModuleListener
-//  @EventListener
+//  @EventListener // runs all listeners (in unspecified order) sequentially
+  // in the same thread/transaction😱 of the publisher
+  // blocking the publisher until all complete.
+  // throwing an exception from listeners to publisher
+
+  // if sharing tx becomes a problem, use
+  @ApplicationModuleListener // runs listeners in another thread/tx
+  // storing the event in the meantime in DB (also for @EventListener?)
+  // and committing the event in the publisher's tx
   public void onShippingResultEvent(ShippingResultEvent event) {
     log.info("Listened to {}", event);
     Order order = orderRepo.findById(event.orderId()).orElseThrow();
