@@ -33,6 +33,11 @@ public class PaymentGatewayWebHookApi {
 
     // b) extract interface (Dependency Inversion in soliD):
     orderInternalApi.confirmPayment(orderId, ok);
+
+    // c) merge back the two modules saying: "there is too much coupling between
+    // 'pricing' and 'offers' to keep them separate"
+
+
     return "Payment callback received";
   }
 }
