@@ -31,7 +31,7 @@ public class PaymentGatewayWebHookApi {
     // events make code harder to navigate, expose you to framework magic = avoid unless:
     // use them to draft you future Solace/Kafka events you plan to extract one of the modules as a separate microservice
 
-    // b) extract interface of ...
+    // b) extract interface (Dependency Inversion in soliD):
     orderInternalApi.confirmPayment(orderId, ok);
     return "Payment callback received";
   }
