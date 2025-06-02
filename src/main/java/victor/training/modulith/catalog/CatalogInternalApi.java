@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.inventory.StockView;
+import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.Collection;
 import java.util.Map;

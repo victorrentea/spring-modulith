@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.CatalogInternalApi;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
+import victor.training.modulith.payment.PaymentGatewayClient;
+import victor.training.modulith.payment.PaymentGatewayWebHookApi;
 import victor.training.modulith.shipping.ShippingInternalApi;
 import victor.training.modulith.shipping.in.rest.ShippingProviderWebHookApi;
 import victor.training.modulith.shipping.out.infra.ShippingProviderClient;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
