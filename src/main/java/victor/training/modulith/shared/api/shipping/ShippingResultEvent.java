@@ -1,4 +1,4 @@
-package victor.training.modulith.shipping;
+package victor.training.modulith.shared.api.shipping;
 
 import org.jmolecules.event.annotation.Externalized;
 
