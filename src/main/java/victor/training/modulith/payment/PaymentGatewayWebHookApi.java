@@ -37,6 +37,12 @@ public class PaymentGatewayWebHookApi {
     // c) merge back the two modules saying: "there is too much coupling between
     // 'pricing' and 'offers' to keep them separate"
 
+    // d) "orchestrate from above"
+    // d1) full-stack solution:
+      //fetch(POST, /orders)
+      //.then(r=>fetch(GET, /payment?r.orderId...))
+    // d2) orchestrate from a separate module: "api", "site"
+    // that calls the 'order' and 'payment' modules
 
     return "Payment callback received";
   }
