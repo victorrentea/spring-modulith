@@ -51,13 +51,13 @@ public class PlaceOrderApi {
     return paymentService.generatePaymentUrl(order.id(), order.total());
   }
 
-//  @EventListener // runs all listeners (in unspecified order) sequentially
+  @EventListener // runs all listeners (in unspecified order) sequentially
   // in the same thread/transaction😱 of the publisher
   // blocking the publisher until all complete.
   // throwing an exception from listeners to publisher
 
   // if sharing tx becomes a problem, use
-  @ApplicationModuleListener // runs listeners in another thread/tx
+//  @ApplicationModuleListener // runs listeners in another thread/tx
   // storing the event in the meantime in DB (also for @EventListener?)
   // and committing the event in the publisher's tx
   public void onShippingResultEvent(ShippingResultEvent event) {

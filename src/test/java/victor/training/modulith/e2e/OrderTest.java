@@ -1,5 +1,7 @@
 package victor.training.modulith.e2e;
 
+import jakarta.servlet.ServletConfig;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +13,15 @@ import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.shipping.ShippingInternalApi;
+import victor.training.modulith.shipping.in.rest.ShippingProviderWebHookApi;
+import victor.training.modulith.shipping.out.infra.ShippingProviderClient;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -36,6 +43,10 @@ public class OrderTest {
   PaymentGatewayWebHookApi paymentGatewayWebHookApi;
   @Autowired
   OrderRepo orderRepo;
+  @Autowired
+  private ShippingProviderClient shippingProviderClient;
+  @Autowired
+  private ServletConfig servletConfig;
 
   @Test
   void placeOrderReturnsPaymentUrlFromGateway() {
@@ -58,5 +69,25 @@ public class OrderTest {
     verify(shippingModule).requestShipment(eq(orderId), any());
     Order order = orderRepo.findById(orderId).orElseThrow();
     assertThat(order.status()).isEqualTo(OrderStatus.SHIPPING_IN_PROGRESS);
+  }
+
+  @Autowired
+  ShippingProviderWebHookApi shippingProviderWebHookApi;
+  @Test
+  void shippingCompletedUpdatesTheOrder() {
+    Long orderId = orderRepo.save(new Order()
+            .customerId("customer-id")
+            .items(Map.of(1L, 1))
+            .total(1d)
+        .pay(true)
+        .wasScheduleForShipping("tracking-number")).id();
+
+    shippingProviderWebHookApi.call(orderId, true);
+
+    Awaitility.await()
+        .pollInterval(ofMillis(50))
+        .timeout(ofSeconds(2))
+        .untilAsserted(() -> assertThat(orderRepo.findById(orderId).orElseThrow().status())
+            .isEqualTo(OrderStatus.SHIPPING_COMPLETED));
   }
 }
