@@ -68,7 +68,7 @@ class ArchUnitTest {
         .check(classes);
   }
 
-//  @ArchTest // TODO Use when the APIs are moved to shared
+  @ArchTest // TODO Use when the APIs are moved to shared
   public void module_internal_apis_are_independent_in_shared(JavaClasses classes) {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.shared.api.(*)..*")
