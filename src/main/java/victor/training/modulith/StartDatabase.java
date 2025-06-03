@@ -3,6 +3,7 @@ package victor.training.modulith;
 import java.io.File;
 import java.sql.SQLException;
 
+// support class: start an in-memory H2 database server that the app can connect to
 public class StartDatabase {
 	public static void main(String[] args) throws SQLException {
 		System.out.println("Started DB...");

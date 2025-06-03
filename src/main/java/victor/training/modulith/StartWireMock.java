@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+// support class: simulate 3rd party endpoints
 public class StartWireMock {
   public static void main(String[] args) throws IOException {
     File rootFolder = new File(".", "src/test/resources/wiremock");
