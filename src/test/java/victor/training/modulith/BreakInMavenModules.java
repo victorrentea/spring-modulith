@@ -50,7 +50,19 @@ public class BreakInMavenModules {
       new File(new File("src/test/java/victor/training/modulith"), moduleName).renameTo(new File(testFolder, moduleName));
       System.out.println("Moved src/test: " + b);
 
-      createPom(moduleName, moduleName.equals("app")?appDependencies : "");
+
+      String dependencies = switch (moduleName) {
+        case "app" -> appDependencies;
+        case "shared" -> "";
+        default -> """
+            <dependency>
+                <groupId>victor.training</groupId>
+                <artifactId>shared</artifactId>
+              </dependency>
+            """;
+      };
+
+      createPom(moduleName, dependencies);
     }
     replaceInPomXml("<packaging>jar</packaging>",
         "<packaging>pom</packaging>\n<modules>\n"
