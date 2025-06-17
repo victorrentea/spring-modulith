@@ -58,6 +58,7 @@ public class BreakInMavenModules {
             <dependency>
                 <groupId>victor.training</groupId>
                 <artifactId>shared</artifactId>
+                <version>1.0</version>
               </dependency>
             """;
       };
