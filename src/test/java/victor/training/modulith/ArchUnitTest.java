@@ -37,7 +37,7 @@ class ArchUnitTest {
         .ignoreDependency(alwaysTrue(), resideInAnyPackage("victor.training.modulith.shared.."));
 
     // crash on any violation
-    rule.check(classes);
+    FreezingArchRule.freeze(rule).check(classes);
 
     // measure distance from ideal
 //    assertThat(rule.evaluate(classes).getFailureReport().getDetails()).hasSize(0);
