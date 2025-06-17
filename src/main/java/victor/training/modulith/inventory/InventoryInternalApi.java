@@ -30,6 +30,10 @@ public class InventoryInternalApi {
 
   public int getStockByProductId(Long productId) {
     // I submit to them a PR that will be peer reviewed by 2+ devs owning inventory
-    return stockRepo.findByProductId(productId).orElseThrow().items();
+//    int reservedQuantity = stockReservationRepo.sumReservedQuantityByProductId(productId);
+    return stockRepo.findByProductId(productId).orElseThrow().items() /*- reservedQuantity*/;
+    // Inventory teams corrects your code saying: we here decided to remove
+    // from master stock AFTER the reservation is CONFIRMED
+    // for that purpose, the reported stock level should be MASTER - SUM(all reservatiosn)
   }
 }
