@@ -20,12 +20,12 @@ public class Stock {
 
 // ❌ don't reference other module's @Entity directly
 //  @ManyToOne
-//  private Product product;
+//  private Product product; // BAD naive OOP link
 
 // ✅ instead, only store ID of the catalog.Product
   @NotNull
   @Setter // + fk_stock_product to PRODUCT (import.sql)
-  private Long productId;
+  private Long productId; // GOOD + explicit productRepo.fbi(id)
 
   @NotNull
   private Integer items = 0;
