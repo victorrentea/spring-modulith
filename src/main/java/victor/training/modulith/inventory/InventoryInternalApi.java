@@ -5,9 +5,6 @@ import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
-import victor.training.modulith.shared.LineItem;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +13,7 @@ public class InventoryInternalApi {
   private final StockRepo stockRepo;
   private final StockReservationRepo stockReservationRepo;
 
-  public void reserveStock(StockReservationRequestKnob reservationRequest) {
+  public void reserveStock(StockReservationRequestIDto reservationRequest) {
     stockService.reserveStock(reservationRequest.orderId(), reservationRequest.items());
   }
 

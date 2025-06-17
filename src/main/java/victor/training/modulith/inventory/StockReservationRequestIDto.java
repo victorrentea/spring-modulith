@@ -4,8 +4,8 @@ import victor.training.modulith.shared.LineItem;
 
 import java.util.List;
 
-// "Knob" = Internal Dto 😆
-public record StockReservationRequestKnob(
+// Internal Dto
+public record StockReservationRequestIDto(
     long orderId,
     List<LineItem> items) {
 }
