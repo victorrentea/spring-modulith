@@ -8,12 +8,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.catalog.CatalogInternalApi;
-import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.inventory.StockReservationRequestKnob;
-import victor.training.modulith.payment.PaymentService;
+import victor.training.modulith.shared.api.catalog.CatalogInternalApi;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
+import victor.training.modulith.shared.api.inventory.StockReservationRequestKnob;
 import victor.training.modulith.shared.LineItem;
-import victor.training.modulith.shipping.ShippingResultEvent;
+import victor.training.modulith.shared.api.payment.PaymentApi;
+import victor.training.modulith.shared.api.shipping.ShippingResultEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogInternalApi catalogInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
-  private final PaymentService paymentService;
+  private final PaymentApi paymentApi;
 
   public record PlaceOrderRequest(
       @NotEmpty String customerId,
@@ -48,7 +48,7 @@ public class PlaceOrderApi {
         .total(totalPrice);
     orderRepo.save(order);
     inventoryInternalApi.reserveStock(new StockReservationRequestKnob(order.id(), request.items));
-    return paymentService.generatePaymentUrl(order.id(), order.total());
+    return paymentApi.generatePaymentUrl(order.id(), order.total());
   }
 
   @ApplicationModuleListener
