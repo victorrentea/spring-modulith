@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class SearchApi {
   }
 
   @GetMapping("catalog/search")
-  public List<ProductSearchResult> call(
+  public List<ProductSearchResult> search(
       @RequestParam String name, // Description, color, size, price, ... 10 more
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items that are currently in stock

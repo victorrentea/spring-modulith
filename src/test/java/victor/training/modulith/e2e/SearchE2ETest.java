@@ -1,7 +1,6 @@
 package victor.training.modulith.e2e;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Transactional
-@Disabled // TODO
+//@Disabled // TODO
 public class SearchE2ETest {
   @Autowired
   CreateProductApi createProductApi;
@@ -31,41 +30,38 @@ public class SearchE2ETest {
   @Autowired
   AddStockApi addStockApi;
 
-  Long productId;
-
-  @BeforeEach
-  final void setup() {
-    productId = createProductApi.createProduct(new CreateProductRequest("xa1","",0d));
-    addStockApi.call(productId, 3);
-  }
-
   @Test
   void returnsProductsMatchingName() {
+    long productId = createProductApi.createProduct(new CreateProductRequest("xa1","",0d));
+    addStockApi.call(productId, 3);
     createProductApi.createProduct(new CreateProductRequest("b","",0d));
-    var results = searchApi.call("a", null);
+    addStockApi.call(productId, 3);
+
+    var results = searchApi.search("a", null);
 
     assertThat(results)
-        .map(ProductSearchResult::id)
-        .containsExactly(productId);
+        .hasSize(1)
+        .first()
+        .returns(productId, ProductSearchResult::id);
   }
   @Test
   void doesNotReturnProductsOutOfStock() {
-    Long productIdOutOfStock = createProductApi.createProduct(new CreateProductRequest("b","",0d));
+    createProductApi.createProduct(new CreateProductRequest("b","",0d));
 
-    var results = searchApi.call("a", null);
+    var results = searchApi.search("b", null);
 
-    assertThat(results)
-        .map(ProductSearchResult::id)
-        .doesNotContain(productIdOutOfStock);
+    assertThat(results).isEmpty();
   }
 
   @Test
   void paginationWorks() {
-    var product2Id = createProductApi.createProduct(new CreateProductRequest("b","",0d));
+    long productId = createProductApi.createProduct(new CreateProductRequest("a1","",0d));
+    addStockApi.call(productId, 3);
+    var product2Id = createProductApi.createProduct(new CreateProductRequest("a2","",0d));
     addStockApi.call(product2Id, 3);
 
     PageRequest pageRequest = PageRequest.of(0, 1, ASC, "name");
-    var results = searchApi.call("a", pageRequest);
+    var results = searchApi.search("a", pageRequest);
 
     assertThat(results)
         .describedAs("If this failed, you probably .filter()ed after query-pagination")
