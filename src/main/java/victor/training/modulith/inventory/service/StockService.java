@@ -54,4 +54,8 @@ public class StockService {
   public void cancelReservation(Long orderId) {
     // omitted for demo
   }
+
+  public int getStockForProduct(long productId) {
+    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+  }
 }
