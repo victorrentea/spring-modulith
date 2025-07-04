@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator;
 import org.springframework.web.client.RestClient;
 
-@EnableFeignClients
+@EnableFeignClients(basePackages = "victor.training.modulith")
 @SpringBootApplication(nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class) // allow classes with same name in different packages, eg "InitialData"
 @ConfigurationPropertiesScan
 public class ModulithApp {

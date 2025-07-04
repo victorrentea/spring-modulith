@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ApplicationModuleTest
 @EntityScan(basePackageClasses = {Product.class, StockView.class /*using StockView in my @Query*/})
 @Transactional
-@Disabled
+//@Disabled
 public class GetProductModuleTest {
   @Autowired
   ProductRepo productRepo;
