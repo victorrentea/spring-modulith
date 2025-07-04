@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.CreateProductApi;
 import victor.training.modulith.catalog.impl.CreateProductApi.CreateProductRequest;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 //@Disabled // TODO
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SearchE2ETest {
   @Autowired
   CreateProductApi createProductApi;
@@ -29,17 +31,13 @@ public class SearchE2ETest {
   @Autowired
   AddStockApi addStockApi;
 
-  @BeforeEach
-  final void before() {
-
-  }
-
   @Test
   void returnsProductsMatchingName() {
-    long productId = createProductApi.createProduct(new CreateProductRequest("xa1","",0d));
+    long productId = createProductApi.createProduct(new CreateProductRequest("xa1", "", 0d));
     addStockApi.call(productId, 3);
-    createProductApi.createProduct(new CreateProductRequest("b","",0d));
-    addStockApi.call(productId, 3);
+    long product2Id = createProductApi.createProduct(new CreateProductRequest("b", "", 0d));
+    addStockApi.call(product2Id, 3);
+
 
     var results = searchApi.search("a", null);
 
@@ -48,9 +46,10 @@ public class SearchE2ETest {
         .first()
         .returns(productId, ProductSearchResult::id);
   }
+
   @Test
   void doesNotReturnProductsOutOfStock() {
-    createProductApi.createProduct(new CreateProductRequest("b","",0d));
+    createProductApi.createProduct(new CreateProductRequest("b", "", 0d));
 
     var results = searchApi.search("b", null);
 
@@ -59,9 +58,9 @@ public class SearchE2ETest {
 
   @Test
   void paginationWorks() {
-    long productId = createProductApi.createProduct(new CreateProductRequest("a1","",0d));
+    long productId = createProductApi.createProduct(new CreateProductRequest("a1", "", 0d));
     addStockApi.call(productId, 3);
-    var product2Id = createProductApi.createProduct(new CreateProductRequest("a2","",0d));
+    var product2Id = createProductApi.createProduct(new CreateProductRequest("a2", "", 0d));
     addStockApi.call(product2Id, 3);
 
     PageRequest pageRequest = PageRequest.of(0, 1, ASC, "name");
