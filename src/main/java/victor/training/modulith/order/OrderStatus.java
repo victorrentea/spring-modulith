@@ -1,4 +1,4 @@
-package victor.training.modulith.shared.api.order;
+package victor.training.modulith.order;
 
 import java.util.Arrays;
 import java.util.List;

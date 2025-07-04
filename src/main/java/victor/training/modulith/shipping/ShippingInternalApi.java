@@ -1,4 +1,4 @@
-package victor.training.modulith.shared.api.shipping;
+package victor.training.modulith.shipping;
 
 public interface ShippingInternalApi {
   String requestShipment(long orderId, String customerAddress);

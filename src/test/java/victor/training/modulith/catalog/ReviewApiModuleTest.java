@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.*;
 import victor.training.modulith.catalog.impl.AddReviewApi.AddReviewRequest;
-import victor.training.modulith.shared.api.inventory.StockView;
+import victor.training.modulith.inventory.StockView;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
