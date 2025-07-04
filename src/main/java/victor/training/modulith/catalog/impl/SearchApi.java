@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
+  private final StockRepo stockRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchResult(long id, String name) {
   }
@@ -23,9 +26,14 @@ public class SearchApi {
   public List<ProductSearchResult> call(
       @RequestParam String name,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items in stock => SearchE2ETest
+    // TODO only return items that are currently in stock
+//    var list10Mitems = inventoryInternalApi.getAllProductsWithStock()
+//    Map<long,int:stock> manyStocks = inventoryInternalApi.getManyStocks(list50ProductIds); // WHERE ID IN (?,...?)
+
     return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
         .stream()
+//        .filter(p->stockRepo.findByProductId(p.id()).orElseThrow().items()>0)
+//        .filter(p->inventoryInternalApi.getStockForProduct(p.id())>0) // TOO LATE: has to happen before LIMIT / OFFSET in SQL
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

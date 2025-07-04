@@ -7,6 +7,7 @@ import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.View;
 
 // ⚠️ Last resort: Join this to a query of another module to avoid N+1 queries
+// PREFER to call InventoryInternalApi methods💖
 @Entity
 @View(query = """
     select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
