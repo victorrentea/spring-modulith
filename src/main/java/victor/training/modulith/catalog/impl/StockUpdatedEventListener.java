@@ -2,16 +2,9 @@ package victor.training.modulith.catalog.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.ApplicationModuleListener;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
-import victor.training.modulith.inventory.StockUpdatedEvent;
-
-import static org.springframework.transaction.event.TransactionPhase.AFTER_COMMIT;
+import victor.training.modulith.shared.api.inventory.StockUpdatedEvent;
 
 @Slf4j
 @RequiredArgsConstructor

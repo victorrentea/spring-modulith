@@ -2,12 +2,13 @@ package victor.training.modulith.inventory.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.inventory.StockReservationRequestIDto;
+import victor.training.modulith.shared.api.inventory.StockReservationRequestIDto;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryInternalApiImpl implements victor.training.modulith.inventory.InventoryInternalApi {
+public class InventoryInternalApiImpl implements InventoryInternalApi {
   private final StockService stockService;
   private final StockReservationRepo stockReservationRepo;
 
