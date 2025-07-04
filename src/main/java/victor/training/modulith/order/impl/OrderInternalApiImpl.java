@@ -2,13 +2,14 @@ package victor.training.modulith.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.shipping.ShippingInternalApi;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
+import victor.training.modulith.shared.api.order.OrderStatus;
+import victor.training.modulith.shared.api.order.OrderInternalApi;
+import victor.training.modulith.shared.api.shipping.ShippingInternalApi;
 
 @Service
 @RequiredArgsConstructor
-public class OrderInternalApiImpl implements victor.training.modulith.order.OrderInternalApi {
+public class OrderInternalApiImpl implements OrderInternalApi {
   private final OrderRepo orderRepo;
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;

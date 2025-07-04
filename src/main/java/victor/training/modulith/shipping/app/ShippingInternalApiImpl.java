@@ -3,7 +3,7 @@ package victor.training.modulith.shipping.app;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.shipping.ShippingInternalApi;
+import victor.training.modulith.shared.api.shipping.ShippingInternalApi;
 
 @Slf4j
 @Service
