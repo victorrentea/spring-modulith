@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
   private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchResult(long id, String name) {
@@ -24,13 +23,14 @@ public class SearchApi {
 
   @GetMapping("catalog/search")
   public List<ProductSearchResult> call(
-      @RequestParam String name,
+      @RequestParam String name, // Description, color, size, price, ... 10 more
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items that are currently in stock
 //    var list10Mitems = inventoryInternalApi.getAllProductsWithStock()
 //    Map<long,int:stock> manyStocks = inventoryInternalApi.getManyStocks(list50ProductIds); // WHERE ID IN (?,...?)
 
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+//    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.searchByNameLikeIgnoreCaseAndInStockTrue("%" + name + "%", pageRequest)
         .stream()
 //        .filter(p->stockRepo.findByProductId(p.id()).orElseThrow().items()>0)
 //        .filter(p->inventoryInternalApi.getStockForProduct(p.id())>0) // TOO LATE: has to happen before LIMIT / OFFSET in SQL
