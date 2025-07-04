@@ -22,18 +22,19 @@ public class StockUpdatedEventListener {
 
   // AVOID EVENTS UNLESS TRYING TO DECOUPLE A MICROSERVICE SOON
 
-  @Transactional
-  @EventListener
+//  @Transactional
+//  @EventListener
   // SURPRISE: event listeners in Spring run in the caller thread & transaction
   // hell  if @Async you use want
 
 //  @Async // kept in mem until ran - prone to kill-9
 //  @TransactionalEventListener(phase = AFTER_COMMIT) // .. of the publisher tx
 
-//  @ApplicationModuleListener // inserts in a table the event until dispatched
+  @ApplicationModuleListener // inserts in a table the event until dispatched
 
   // @KafkaListener
   public void method(StockUpdatedEvent event) {
+    log.info("Got event: " + event);
     var product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(event.newStock() != 0);
   }

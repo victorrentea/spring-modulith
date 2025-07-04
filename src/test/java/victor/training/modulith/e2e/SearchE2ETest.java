@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
-@Transactional
 //@Disabled // TODO
 public class SearchE2ETest {
   @Autowired
@@ -29,6 +28,11 @@ public class SearchE2ETest {
   SearchApi searchApi;
   @Autowired
   AddStockApi addStockApi;
+
+  @BeforeEach
+  final void before() {
+
+  }
 
   @Test
   void returnsProductsMatchingName() {
