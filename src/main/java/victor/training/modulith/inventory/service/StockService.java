@@ -56,6 +56,9 @@ public class StockService {
   }
 
   public int getStockForProduct(long productId) {
-    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+//    int reserved = stockReservationRepo.findAllByProductId(productId)
+//        .stream().mapToInt(StockReservation::items).sum();
+    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0)/*
+        -reserved*/;
   }
 }

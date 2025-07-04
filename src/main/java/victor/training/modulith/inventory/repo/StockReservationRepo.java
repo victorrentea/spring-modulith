@@ -8,4 +8,5 @@ import java.util.List;
 public interface StockReservationRepo extends JpaRepository<StockReservation, Long> {
   void deleteAllByOrderId(long orderId);
   List<StockReservation> getStockReservationsByProductId(Long productId);
+  List<StockReservation> findAllByProductId(Long productId);
 }
