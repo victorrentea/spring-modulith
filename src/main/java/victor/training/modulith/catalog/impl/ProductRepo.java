@@ -3,10 +3,18 @@ package victor.training.modulith.catalog.impl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import victor.training.modulith.catalog.impl.SearchApi.ProductSearchCriteria;
 
 import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
+  @Query("""
+          SELECT product FROM Product product
+          WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
+          AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+      """)
+  List<Product> search(String name, String description, PageRequest pageRequest);
+
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 
   // #1 migrate data to Product:inStock:boolean - if we plan to extract a microservice out

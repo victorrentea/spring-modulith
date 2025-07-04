@@ -22,8 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @Transactional
-@Disabled("TODO")
 public class SearchE2ETest {
+  public static final SearchApi.ProductSearchCriteria CRITERIA = new SearchApi.ProductSearchCriteria("a", "");
   @Autowired
   CreateProductApi createProductApi;
   @Autowired
@@ -33,41 +33,42 @@ public class SearchE2ETest {
 
   @Test
   void returnsProductsMatchingName() {
-    long productId = createProductApi.createProduct(new CreateProductRequest("xa1","",0d));
-    addStockApi.call(productId, 3);
-    createProductApi.createProduct(new CreateProductRequest("b","",0d));
-    addStockApi.call(productId, 3);
+    long matchId = createProductApi.createProduct(new CreateProductRequest("xa1","",0d));
+    addStockApi.call(matchId, 3);
+    long noMatchId = createProductApi.createProduct(new CreateProductRequest("b","",0d));
+    addStockApi.call(noMatchId, 3);
 
-    var results = searchApi.search("a", null);
+    var results = searchApi.search(CRITERIA, null);
 
     assertThat(results)
         .hasSize(1)
         .first()
-        .returns(productId, ProductSearchResult::id);
-  }
-  @Test
-  void doesNotReturnProductsOutOfStock() {
-    createProductApi.createProduct(new CreateProductRequest("b","",0d));
-
-    var results = searchApi.search("b", null);
-
-    assertThat(results).isEmpty();
+        .returns(matchId, ProductSearchResult::id);
   }
 
   @Test
   void paginationWorks() {
-    long productId = createProductApi.createProduct(new CreateProductRequest("a1","",0d));
-    addStockApi.call(productId, 3);
-    var product2Id = createProductApi.createProduct(new CreateProductRequest("a2","",0d));
-    addStockApi.call(product2Id, 3);
+    long matchId = createProductApi.createProduct(new CreateProductRequest("a1","",0d));
+    addStockApi.call(matchId, 3);
+    var noMatchId = createProductApi.createProduct(new CreateProductRequest("a2","",0d));
+    addStockApi.call(noMatchId, 3);
 
     PageRequest pageRequest = PageRequest.of(0, 1, ASC, "name");
-    var results = searchApi.search("a", pageRequest);
+    var results = searchApi.search(CRITERIA, pageRequest);
 
     assertThat(results)
         .describedAs("If this failed, you probably .filter()ed after query-pagination")
         .map(ProductSearchResult::id)
-        .containsExactly(productId);
+        .containsExactly(matchId);
+  }
+  @Test
+  @Disabled("TODO")
+  void doesNotReturnProductsOutOfStock() {
+    createProductApi.createProduct(new CreateProductRequest("a","",0d));
+
+    var results = searchApi.search(CRITERIA, null);
+
+    assertThat(results).isEmpty();
   }
 
 }

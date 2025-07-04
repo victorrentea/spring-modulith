@@ -15,15 +15,16 @@ import java.util.List;
 public class SearchApi {
   private final ProductRepo productRepo;
 
-  public record ProductSearchResult(long id, String name) {
-  }
+  public record ProductSearchCriteria(String name, String description) { }
+
+  public record ProductSearchResult(long id, String name) {  }
 
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(
-      @RequestParam String name,
+      @RequestParam ProductSearchCriteria criteria,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items which are currently in stock
-    return productRepo.searchByNameLikeIgnoreCase("%" + name + "%", pageRequest)
+    return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
