@@ -62,7 +62,7 @@ public class SearchE2ETest {
         .containsExactly(matchId);
   }
   @Test
-  @Disabled("TODO")
+//  @Disabled("TODO")
   void doesNotReturnProductsOutOfStock() {
     createProductApi.createProduct(new CreateProductRequest("a","",0d));
 

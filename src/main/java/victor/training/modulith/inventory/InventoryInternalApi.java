@@ -34,6 +34,6 @@ public class InventoryInternalApi {
         .mapToInt(StockReservation::items)
         .sum();
 
-    return stock.items() - reservedItems; // i think
+    return stock.items() /*- reservedItems*/; // i think
   }
 }
