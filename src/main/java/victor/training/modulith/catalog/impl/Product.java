@@ -27,4 +27,9 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  private int availableStock;
+//  private Integer availableStock;
+//  private Boolean availableStock;
+  private boolean availableStock = true;
 }

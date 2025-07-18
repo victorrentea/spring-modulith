@@ -29,6 +29,10 @@ public class SearchApi {
 
     // Fix #1 to avoid N queryies, fetch all stocks at once
     // Map<Long:productId, Integer:stock> stocks = inventoryapi.getStocks(List<Long:productId>) --> SELECT ... WHERE ID IN(?,?..)
+
+    // Fix#1+#2:
+    // a) join their view (SQL+monolith forever)
+    // b) replicate their data you need (via an event)
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()// 20
 //        .filter(r->inventoryInternalApi.getStock(r.id())>0)
