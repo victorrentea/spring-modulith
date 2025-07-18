@@ -1,4 +1,4 @@
-package victor.training.modulith.inventory;
+package victor.training.modulith.shared.api.inventory;
 
 public interface InventoryInternalApi {
   void reserveStock(StockReservationRequestIDto reservationRequest);
