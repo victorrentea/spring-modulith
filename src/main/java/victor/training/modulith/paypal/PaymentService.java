@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentService {// TODO move to 'payment' module
+public class PaymentService implements victor.training.modulith.order.PaymentUrlGeneratorPort {// TODO move to 'payment' module
   private final PaymentGatewayClient paymentGatewayClient;
 
+  @Override
   public String generatePaymentUrl(long orderId, double total) {
     // payment gateway implementation details
     log.info("Request payment url for order id: {}", orderId);
