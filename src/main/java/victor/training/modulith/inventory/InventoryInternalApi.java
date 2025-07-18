@@ -3,6 +3,7 @@ package victor.training.modulith.inventory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
+import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -29,6 +30,10 @@ public class InventoryInternalApi {
   // consumer-driven contract
   public int getStock(long productId) {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
-    return stock.items(); // i think
+    int reservedItems = stockReservationRepo.getStockReservationsByProductId(productId).stream()
+        .mapToInt(StockReservation::items)
+        .sum();
+
+    return stock.items() - reservedItems; // i think
   }
 }
