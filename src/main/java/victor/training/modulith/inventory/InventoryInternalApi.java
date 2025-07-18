@@ -2,6 +2,7 @@ package victor.training.modulith.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -23,5 +24,11 @@ public class InventoryInternalApi {
 
   public void cancelReservation(Long orderId) {
     stockService.cancelReservation(orderId);
+  }
+
+  // consumer-driven contract
+  public int getStock(long productId) {
+    Stock stock = stockRepo.findByProductId(productId).orElseThrow();
+    return stock.items(); // i think
   }
 }
