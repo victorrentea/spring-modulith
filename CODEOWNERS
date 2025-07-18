@@ -3,3 +3,5 @@
 
 /src/test/java/victor/training/modulith/catalog/** @green-team
 /src/test/java/victor/training/modulith/inventory/** @blue-team
+/src/test/java/victor/training/modulith/ArchSpringModulithTest.java @platform
+
