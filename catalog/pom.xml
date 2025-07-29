@@ -12,6 +12,12 @@
     <groupId>victor.training</groupId>
     <artifactId>shared</artifactId>
     <version>1.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+        </exclusion>
+      </exclusions>
   </dependency>
 
   </dependencies>

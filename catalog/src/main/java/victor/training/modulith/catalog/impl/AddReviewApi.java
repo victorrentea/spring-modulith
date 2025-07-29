@@ -31,6 +31,7 @@ public class AddReviewApi {
   @Transactional
   public void call(@PathVariable long productId, @RequestBody AddReviewRequest request) {
     Product product = productRepo.findById(productId).orElseThrow();
+//    StockRepo
     ProductReview review = new ProductReview()
         .title(request.title())
         .contents(request.contents())
