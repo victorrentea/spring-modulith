@@ -27,4 +27,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+  private Boolean inStock; // replicate only WHAT YOU NEED
+  // "a read projection for my usecase" - Event-Driven-Architecture
 }
