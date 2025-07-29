@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.View;
 
+// ☢️☣️ DANGER. GO AWAY. DON'T USE ME.
 // ⚠️ Last resort: Join this to a query of another module to avoid N+1 queries
 @Entity
 @View(query = """
