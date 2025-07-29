@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.model.Stock;
+import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
+
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -29,7 +32,7 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse call(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = inventoryInternalApi.findStockByProductId(productId);
+    int stock = inventoryInternalApi.findStockByProductId(productId).orElseThrow();
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
@@ -38,6 +41,17 @@ public class GetProductApi {
         product.stars()
     );
   }
+//  @ReviewMe("blue-team")
+//  public Optional<Integer> findStockByProductId(long productId) {
+//    Optional<Stock> stock = stockRepo.findByProductId(productId);
+//    if (stock.isEmpty()) {
+//      return Optional.empty();
+//    }
+//    int reservedItems = stockReservationRepo.getStockReservationsByProductId(productId)
+//        .stream()
+//        .mapToInt(StockReservation::items).sum();
+//    return Optional.of(stock.get().items() /*- reservedItems*/);
+//  }
 }
 // Tip: stock is in inventory/impl/Stock#items
 // Tip: you are only allowed to use exposed classes of another modules

@@ -3,9 +3,12 @@ package victor.training.modulith.inventory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
+import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +29,20 @@ public class InventoryInternalApi {
     stockService.cancelReservation(orderId);
   }
 
-
-  public int findStockByProductId(long productId) {
-    return stockRepo.findByProductId(productId).orElseThrow().items();
+  public Optional<Integer> findStockByProductId(long productId) {
+    Optional<Stock> stock = stockRepo.findByProductId(productId);
+    if (stock.isEmpty()) {
+      return Optional.empty();
+    }
+    int reservedItems = stockReservationRepo.getStockReservationsByProductId(productId)
+        .stream()
+        .mapToInt(StockReservation::items).sum();
+    return Optional.of(stock.get().items() /*- reservedItems*/);
   }
 }
+
+//A) Raise a request to team-blue
+// - delays
+//B) Open-source-model: green-team: do your best, and 2 devs of blue-team review the chagen
+// - bug risks (the more complex the logic)
+// - review is 6 months late
