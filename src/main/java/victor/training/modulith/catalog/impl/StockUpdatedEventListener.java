@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.inventory.StockUpdatedEvent;
+import victor.training.modulith.shared.api.inventory.StockUpdatedEvent;
 
 @Slf4j
 @RequiredArgsConstructor

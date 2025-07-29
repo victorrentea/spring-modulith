@@ -2,7 +2,7 @@ package victor.training.modulith.catalog.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import victor.training.modulith.catalog.CatalogInternalApi;
+import victor.training.modulith.shared.api.catalog.CatalogInternalApi;
 
 import java.util.Collection;
 import java.util.Map;

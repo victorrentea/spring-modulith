@@ -6,8 +6,8 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import victor.training.modulith.payment.PaymentGatewayWebHookApi;
 import victor.training.modulith.order.impl.PlaceOrderApi;
+import victor.training.modulith.payment.impl.PaymentGatewayWebHookApiImpl;
 import victor.training.modulith.shared.LineItem;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Profile("local")
 public class InitialData {
   private final PlaceOrderApi placeOrderApi;
-  private final PaymentGatewayWebHookApi paymentGatewayWebHookApi;
+  private final PaymentGatewayWebHookApiImpl paymentGatewayWebHookApi;
 
   @EventListener(ApplicationStartedEvent.class)
   void initialData() {

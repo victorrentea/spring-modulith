@@ -5,12 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.inventory.model.Stock;
-import victor.training.modulith.inventory.model.StockReservation;
-import victor.training.modulith.inventory.repo.StockRepo;
-
-import java.util.Optional;
+import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 
 @Slf4j
 @RestController

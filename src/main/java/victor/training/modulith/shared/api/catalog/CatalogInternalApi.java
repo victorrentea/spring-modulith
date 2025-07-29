@@ -1,4 +1,4 @@
-package victor.training.modulith.catalog;
+package victor.training.modulith.shared.api.catalog;
 
 import java.util.Collection;
 import java.util.Map;
