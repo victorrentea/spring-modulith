@@ -12,7 +12,7 @@ import victor.training.modulith.shared.LineItem;
 import victor.training.modulith.shared.api.catalog.CatalogInternalApi;
 import victor.training.modulith.shared.api.inventory.InventoryInternalApi;
 import victor.training.modulith.shared.api.inventory.StockReservationRequestIDto;
-import victor.training.modulith.shared.api.order.PaymentUrlGeneratorSPI;
+import victor.training.modulith.shared.api.payment.PaymentInternalApi;
 import victor.training.modulith.shared.api.shipping.ShippingResultEvent;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class PlaceOrderApi {
   private final OrderRepo orderRepo;
   private final CatalogInternalApi catalogInternalApi;
   private final InventoryInternalApi inventoryInternalApi;
-  private final PaymentUrlGeneratorSPI paymentUrlGeneratorSPI;
+  private final PaymentInternalApi paymentUrlGeneratorSPI;
 
   public record PlaceOrderRequest(
       @NotEmpty String customerId,
