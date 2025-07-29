@@ -24,6 +24,7 @@ public class SearchApi {
       @RequestParam ProductSearchCriteria criteria,
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items which are currently in stock
+//    return productRepo.search(criteria.name, criteria.description, pageRequest)
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
         .map(e -> new ProductSearchResult(e.id(), e.name()))
