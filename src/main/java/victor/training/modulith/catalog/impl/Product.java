@@ -6,8 +6,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.SEQUENCE;
-
 @Entity
 @Data // sorry
 @Table(schema = "catalog")
@@ -24,6 +22,9 @@ public class Product {
   private Double price;
 
   private Double stars;
+
+  private boolean inStock;
+  // eventually kept in sync by @KafkaListener🤞
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();

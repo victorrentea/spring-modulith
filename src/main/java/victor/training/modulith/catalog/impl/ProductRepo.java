@@ -3,17 +3,27 @@ package victor.training.modulith.catalog.impl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import victor.training.modulith.catalog.impl.SearchApi.ProductSearchCriteria;
 
 import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
   @Query("""
-          SELECT product FROM Product product
+          SELECT product 
+          FROM Product product
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
-      """)
+      """)// ORDER BY ... OFFSET 0 LIMIT 50
   List<Product> search(String name, String description, PageRequest pageRequest);
+
+  @Query("""
+          SELECT product 
+          FROM Product product
+          LEFT JOIN StockView s ON s.productId = product.id
+          WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
+          AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+          AND coalesce(s.stock,1) > 0
+      """)// ORDER BY ... OFFSET 0 LIMIT 50
+  List<Product> searchView(String name, String description, PageRequest pageRequest);
 
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 
