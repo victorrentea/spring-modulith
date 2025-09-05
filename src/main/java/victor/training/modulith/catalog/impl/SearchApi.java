@@ -32,6 +32,7 @@ public class SearchApi {
     // hey inventory, are these products in stock?
 //    return productRepo.search(criteria.name, criteria.description, pageRequest)
     // B) VIEW
+
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
 //        .filter(p->inventoryInternalApi.getStockByProduct(p.id())>0) // TODO inefficient, N+1 queries

@@ -27,4 +27,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  private Integer stock; // PR rejected: you can keep less data
+  private boolean inStock = true;
 }

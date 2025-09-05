@@ -10,10 +10,9 @@ import java.util.List;
 public interface ProductRepo extends JpaRepository<Product, Long> {
   @Query("""
           SELECT product FROM Product product
-                LEFT JOIN StockView sv ON sv.productId = product.id
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
-                AND COALESCE(sv.stock,1) > 0
+          AND product.inStock = true
       """)
   List<Product> search(String name, String description, PageRequest pageRequest);
 
