@@ -25,6 +25,9 @@ public class Product {
 
   private Double stars;
 
+  // updated by inventory events
+  private boolean inStock;
+
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
 }
