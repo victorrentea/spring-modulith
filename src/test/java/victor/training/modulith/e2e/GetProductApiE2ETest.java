@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @Disabled("TODO")
-public class GetProductE2ETest {
+public class GetProductApiE2ETest {
   @Autowired
   ProductRepo productRepo;
   @Autowired
