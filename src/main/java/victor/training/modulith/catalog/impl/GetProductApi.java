@@ -13,6 +13,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
+  private final StockRepo stockRepo;
 
   public record GetProductResponse(
       long id,
@@ -27,7 +28,7 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse call(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = 0; // TODO display stock in the product details page in UI
+    int stock = stockRepo.findByProductId(product.id()).orElseThrow().items();
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
