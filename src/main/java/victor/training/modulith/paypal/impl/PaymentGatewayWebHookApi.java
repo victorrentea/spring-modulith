@@ -1,4 +1,4 @@
-package victor.training.modulith.payment.impl;
+package victor.training.modulith.paypal.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

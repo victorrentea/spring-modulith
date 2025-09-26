@@ -59,8 +59,7 @@ class ArchUnitTest {
     assertThat(cycles).hasSize(0);
   }
 
-  @ArchTest
-  @Disabled("bug in my test")
+//  @ArchTest
   public void module_internal_apis_are_independent(JavaClasses classes) {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)") // root package of all slices
