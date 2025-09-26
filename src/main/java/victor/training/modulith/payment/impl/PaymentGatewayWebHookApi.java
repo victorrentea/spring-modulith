@@ -1,4 +1,4 @@
-package victor.training.modulith.payment;
+package victor.training.modulith.payment.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,12 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.order.OrderInternalApi;
-import victor.training.modulith.order.OrderStatus;
-import victor.training.modulith.order.impl.Order;
-import victor.training.modulith.order.impl.OrderRepo;
-import victor.training.modulith.shipping.ShippingInternalApi;
 
 @Slf4j
 @RestController
@@ -23,6 +18,10 @@ public class PaymentGatewayWebHookApi {
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
     orderInternalApi.confirm(orderId, ok);
+    // to break this dep cycle:
+    // Fix #1) TODO eventPublisher.publishEvent(new PaymentCompleted()) + @EventListener in order
+    // Fix #2) Payment implements the order-module's SPI
+    // Fix #3) TODO orchestrate from a 'higher-level' aggregator
     return "Payment callback received";
   }
 
