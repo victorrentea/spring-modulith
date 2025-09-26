@@ -1,7 +1,7 @@
-# Each line is a rule consisting of a pattern followed by one or more GitHub usernames or team names.
-# This file is located in the .github/ directory of your repository.
+# A PR touching this path must be approved by a member of this group.
+# Works in GitHub, GitLab, BitBucket ...
 
 /src/test/java/victor/training/modulith/catalog/** @green-team
 /src/test/java/victor/training/modulith/inventory/** @blue-team
-/src/test/java/victor/training/modulith/ArchSpringModulithTest.java @platform
+/src/test/java/victor/training/modulith/ArchSpringModulithTest.java @platform @arch
 
