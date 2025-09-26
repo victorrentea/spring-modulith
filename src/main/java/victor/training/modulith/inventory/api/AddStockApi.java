@@ -19,7 +19,8 @@ public class AddStockApi {
   @PostMapping("stock/{productId}/add/{items}")
   @Transactional
   public void call(@PathVariable long productId, @PathVariable int items) {
-    Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
+    Stock stock = stockRepo.findByProductId(productId)
+        .orElse(new Stock().productId(productId));
     stock.add(items);
     stockRepo.save(stock);
     applicationEventPublisher.publishEvent(new StockUpdatedEvent(productId, stock.items()));

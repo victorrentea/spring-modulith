@@ -2,10 +2,13 @@ package victor.training.modulith.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class InventoryInternalApi {
     stockService.cancelReservation(orderId);
   }
 
-  public int getStockByProduct(Long productId) {
+  public Optional<Integer> getStockByProduct(Long productId) {
     // Option1: DIY and then request 2+ reviews from people caring for this module (incl 1 Elder=SME=Owner)
     //   -you can do mistakes in their domain
     // Option2: Raise them a PR! and wait 6 months for them to start on it, 9 mo to finish🤣;
@@ -34,6 +37,6 @@ public class InventoryInternalApi {
     int reservedItems = stockReservationRepo.getStockReservationsByProductId(productId).stream()
         .mapToInt(StockReservation::items)
         .sum();
-    return stockRepo.findByProductId(productId).orElseThrow().items() /*- reservedItems*/;
+    return stockRepo.findByProductId(productId).map(Stock::items) /*- reservedItems*/;
   }
 }

@@ -36,7 +36,7 @@ public class GetProductApi {
     // Option: "orchestrate from above": introduce a layer 'above you' that aggregates data from you and inventory.
     // Option: if your client is FE (Browser) => tell them to call 2 apis instead of 1 fetch(1).then(r=>fetch(2))
 
-    int stock = inventoryInternalApi.getStockByProduct(product.id());
+    int stock = inventoryInternalApi.getStockByProduct(product.id()).orElse(0);
 
     return new GetProductResponse(product.id(),
         product.name(),

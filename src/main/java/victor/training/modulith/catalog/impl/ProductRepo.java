@@ -3,7 +3,6 @@ package victor.training.modulith.catalog.impl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import victor.training.modulith.catalog.impl.SearchApi.ProductSearchCriteria;
 
 import java.util.List;
 
@@ -12,8 +11,9 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
           SELECT product FROM Product product
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+          AND product.inStock
       """)
-  List<Product> search(String name, String description, PageRequest pageRequest);
+  List<Product> searchByMyAttr(String name, String description, PageRequest pageRequest);
 
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 

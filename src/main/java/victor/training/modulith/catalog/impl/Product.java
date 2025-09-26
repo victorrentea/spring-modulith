@@ -27,4 +27,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  private Long itemsInStock;
+  private boolean inStock; // less data. strictly what I need
 }
