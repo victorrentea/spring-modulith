@@ -30,6 +30,7 @@ public class StockUpdatedEventListener {
 
   @ApplicationModuleListener // comits the event to consume in DB first. then async processes it
   public void on(StockUpdatedEvent event) { //fired by inventory team
+    log.info("Update inStock");
     Product product = productRepo.findById(event.productId())
         .orElseThrow();// 💥 TODO
     product.inStock(event.newStock() > 0);
