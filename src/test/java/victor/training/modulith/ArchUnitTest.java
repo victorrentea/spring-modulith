@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     importOptions = DoNotIncludeTests.class)
 class ArchUnitTest {
 
-  @ArchTest
+  @ArchTest //hand-written
   public void modules_only_depend_on_internal_apis_of_others(JavaClasses classes) { // TODO
     var rule = SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)..")

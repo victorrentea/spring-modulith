@@ -76,7 +76,7 @@ public class SearchApiE2ETest {
   }
 
   @Test
-//  @Disabled("TODO")
+  @Disabled("TODO")
   void doesNotReturnProductsOutOfStock() {
     createProductApi.createProduct(new CreateProductRequest("a", "", 0d));
 
