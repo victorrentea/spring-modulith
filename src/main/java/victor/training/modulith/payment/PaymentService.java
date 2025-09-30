@@ -8,9 +8,10 @@ import victor.training.modulith.payment.impl.PaymentGatewayClient;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentService {// TODO move to 'payment' module
+public class PaymentService implements victor.training.modulith.order.PaymentSPI {// TODO move to 'payment' module
   private final PaymentGatewayClient paymentGatewayClient;
 
+  @Override
   public String generatePaymentUrl(long orderId, double total) {
     log.info("Request payment url for order id: {}", orderId);
     String gatewayUrl = paymentGatewayClient.generatePaymentLink("order/" + orderId + "/payment-accepted", total, "modulith-app");
