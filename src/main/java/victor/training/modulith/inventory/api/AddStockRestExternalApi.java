@@ -12,7 +12,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 
 @RestController
 @RequiredArgsConstructor
-public class AddStockApi {
+public class AddStockRestExternalApi { //inventory
   private final StockRepo stockRepo;
   private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -22,6 +22,7 @@ public class AddStockApi {
     Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
     stock.add(items);
     stockRepo.save(stock);
+
     applicationEventPublisher.publishEvent(new StockUpdatedEvent(productId, stock.items()));
   }
 }

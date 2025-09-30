@@ -1,6 +1,5 @@
 package victor.training.modulith.e2e;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.catalog.impl.GetProductApi;
 import victor.training.modulith.catalog.impl.Product;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.inventory.api.AddStockApi;
+import victor.training.modulith.inventory.api.AddStockRestExternalApi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,7 +21,7 @@ public class GetProductApiE2ETest {
   @Autowired
   ProductRepo productRepo;
   @Autowired
-  AddStockApi addStockApi;
+  AddStockRestExternalApi addStockApi;
   @Autowired
   GetProductApi getProductApi;
 

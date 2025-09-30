@@ -12,7 +12,7 @@ import victor.training.modulith.catalog.impl.CreateProductApi.CreateProductReque
 import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.catalog.impl.SearchApi;
 import victor.training.modulith.catalog.impl.SearchApi.ProductSearchResult;
-import victor.training.modulith.inventory.api.AddStockApi;
+import victor.training.modulith.inventory.api.AddStockRestExternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.service.StockService;
 import victor.training.modulith.shared.LineItem;
@@ -30,7 +30,7 @@ public class SearchApiE2ETest {
   @Autowired
   SearchApi searchApi;
   @Autowired
-  AddStockApi addStockApi;
+  AddStockRestExternalApi addStockApi;
   @Autowired
   private StockRepo stockRepo;
   @Autowired
