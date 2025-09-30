@@ -1,0 +1,45 @@
+= ADR-0001: Join a VIEW from another module — Quick version
+Victor Training Modulith :: Architecture Decision Record
+:revdate: 2025-09-30
+:status: Accepted
+
+== TL;DR
+Join another module’s published, immutable VIEW only to kill N+1 on read paths. Never join its tables. Same database. Read‑only.
+
+== When to use
+- Hot read path triggers N+1 calls to another module.
+- Provider exposes the exact data via a stable VIEW (e.g., `victor.training.modulith.inventory.StockView`).
+- Modules share the same database (or join is otherwise local and cheap).
+
+== When NOT to use
+- You need to write or modify provider data.
+- Data isn’t exposed via a provider VIEW.
+- Different databases / cross‑network join.
+- Complex aggregation/reporting → build a dedicated read model or use events.
+
+== How
+- Provider
+  * Publish a small, purpose‑built, immutable VIEW; encode the domain logic inside it.
+  * Treat it as a versioned contract (backward compatible changes; `StockView_v2` for breaks).
+- Consumer
+  * Join only the published VIEW, never provider tables.
+  * Read‑only mapping (@View + @Immutable). Select only needed columns.
+  * Keep consumer domain models clean from provider internals.
+
+== Why
+- Encapsulation: depend on a contract, not on provider tables.
+- Correctness: business rules live where the data lives.
+- Performance: remove N+1 on read paths with a single targeted join.
+- Safety: read‑only prevents accidental cross‑module writes.
+
+== Example
+Inventory publishes `victor.training.modulith.inventory.StockView` (immutable, exposes `productId`, `stock`).
+Catalog may join it to enrich product search with stock without per‑row calls.
+
+== Quick checklist
+- Is it a published VIEW? Yes.
+- Immutable/read‑only? Yes.
+- Last resort to eliminate N+1? Yes.
+- Same database? Yes.
+- Selecting only what you need? Yes.
+- No writes across modules? Yes.
