@@ -13,10 +13,17 @@ import victor.training.modulith.inventory.StockUpdatedEvent;
 public class StockUpdatedEventListener {
   private final ProductRepo productRepo;
 
-  @EventListener
+  @EventListener // by default runs in publisher thread & transaction
+  // => delaying
+  // => exception bubble back
+  // => rollbackin the publisher
+  //- UNEXPECTED
+  //- acritical flow (add stock in warehouse might ROLLBACK for a bug in a publisher)
+  //+ perfect consistency
   @Transactional
   public void on(StockUpdatedEvent event) { //fired by inventory team
-    Product product = productRepo.findById(event.productId()).orElseThrow();// 🤞 TODO
+    Product product = productRepo.findById(event.productId())
+        .orElseThrow();// 💥 TODO
     product.inStock(event.newStock() > 0);
   } //UPDATE after you exit
 }
