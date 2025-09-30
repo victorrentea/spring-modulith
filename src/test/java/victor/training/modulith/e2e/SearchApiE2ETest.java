@@ -75,16 +75,6 @@ public class SearchApiE2ETest {
         .containsExactly(matchId);
   }
 
-  @Test
-//  @Disabled("TODO")
-  void doesNotReturnProductsOutOfStock() {
-    createProductApi.createProduct(new CreateProductRequest("a", "", 0d));
-
-    var results = searchApi.search(CRITERIA, null);
-
-    assertThat(results).isEmpty();
-  }
-
   @Disabled("TODO")
   @Nested
   class DoesNotReturnProductsOutOfStock {
