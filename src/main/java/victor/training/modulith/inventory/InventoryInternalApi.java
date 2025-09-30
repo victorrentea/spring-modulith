@@ -1,10 +1,8 @@
 package victor.training.modulith.inventory;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
-import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
