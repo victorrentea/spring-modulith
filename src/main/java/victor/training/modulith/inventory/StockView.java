@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.View;
 
-// ⚠️ Last resort: Join this to a query of another module to avoid N+1 queries
+// ⚠️ Last resort: Join this to a query of another module ONLY to avoid N+1 queries
 @Entity
 // WHY IS THIS BETTER THAN THEY JOIN MY TABLE backing my Domain Model?
 // a) logic/data interpretation: -SUM(reservations)

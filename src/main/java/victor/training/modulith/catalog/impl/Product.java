@@ -27,4 +27,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  private Integer stock;// CR: too much
+  private boolean inStock = true; // projection/copy of some data in inventory
 }
