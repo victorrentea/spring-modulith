@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import victor.training.modulith.catalog.impl.CreateProductApi;
 import victor.training.modulith.catalog.impl.CreateProductApi.CreateProductRequest;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.catalog.impl.SearchApi;
-import victor.training.modulith.catalog.impl.SearchApi.ProductSearchResult;
+import victor.training.modulith.catalog.impl.SearchRest;
+import victor.training.modulith.catalog.impl.SearchRest.ProductSearchResult;
 import victor.training.modulith.inventory.api.AddStockApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -24,11 +24,11 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @SpringBootTest
 public class SearchApiE2ETest {
-  public static final SearchApi.ProductSearchCriteria CRITERIA = new SearchApi.ProductSearchCriteria("a", "");
+  public static final SearchRest.ProductSearchCriteria CRITERIA = new SearchRest.ProductSearchCriteria("a", "");
   @Autowired
   CreateProductApi createProductApi;
   @Autowired
-  SearchApi searchApi;
+  SearchRest searchApi;
   @Autowired
   AddStockApi addStockApi;
   @Autowired

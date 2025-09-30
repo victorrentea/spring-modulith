@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class SearchApi {
+public class SearchRest {
   private final ProductRepo productRepo;
 
   public record ProductSearchCriteria(String name, String description) { }
