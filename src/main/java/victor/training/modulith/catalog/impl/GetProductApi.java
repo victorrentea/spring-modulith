@@ -30,7 +30,7 @@ public class GetProductApi { //VSA by Jimmy Bogard
   public GetProductResponse call(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
 //    int stock =stockRepo.findByProductId(id).orElseThrow(); // FIXME @blue-team
-    int stock = inventoryInternalApi.getStockByProduct(product.id());
+    int stock = inventoryInternalApi.getStockByProduct(product.id()).orElse(0);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),

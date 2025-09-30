@@ -1,5 +1,6 @@
 package victor.training.modulith.inventory;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
@@ -7,6 +8,8 @@ import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,13 +30,13 @@ public class InventoryInternalApi {
     stockService.cancelReservation(orderId);
   }
 
-  public int getStockByProduct(Long productId) {
-    Stock stock = stockRepo.findByProductId(productId).orElseThrow();
-    int reserved = stockReservationRepo.getStockReservationsByProductId(productId)
-        .stream()
-        .mapToInt(StockReservation::items)
-        .sum();
-    return stock.items() /*- reserved*/; // an elder from inventory might correct your code
+  public Optional<Integer> getStockByProduct(Long productId) {
+    return stockRepo.findByProductId(productId).map(Stock::items);
+//    int reserved = stockReservationRepo.getStockReservationsByProductId(productId)
+//        .stream()
+//        .mapToInt(StockReservation::items)
+//        .sum();
+//    return stock.items() /*- reserved*/; // an elder from inventory might correct your code
   }
   // Option1: raise inventory team a PR ->wait MORE
   // Option1b: you invite an inventory to pair program with you

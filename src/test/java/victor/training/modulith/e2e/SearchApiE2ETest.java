@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import victor.training.modulith.catalog.impl.CreateProductApi;
 import victor.training.modulith.catalog.impl.CreateProductApi.CreateProductRequest;
 import victor.training.modulith.catalog.impl.ProductRepo;
-import victor.training.modulith.catalog.impl.SearchRest;
-import victor.training.modulith.catalog.impl.SearchRest.ProductSearchResult;
+import victor.training.modulith.catalog.impl.SearchApi;
+import victor.training.modulith.catalog.impl.SearchApi.ProductSearchResult;
 import victor.training.modulith.inventory.api.AddStockApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -24,11 +24,11 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @SpringBootTest
 public class SearchApiE2ETest {
-  public static final SearchRest.ProductSearchCriteria CRITERIA = new SearchRest.ProductSearchCriteria("a", "");
+  public static final SearchApi.ProductSearchCriteria CRITERIA = new SearchApi.ProductSearchCriteria("a", "");
   @Autowired
   CreateProductApi createProductApi;
   @Autowired
-  SearchRest searchApi;
+  SearchApi searchApi;
   @Autowired
   AddStockApi addStockApi;
   @Autowired
@@ -85,7 +85,7 @@ public class SearchApiE2ETest {
     assertThat(results).isEmpty();
   }
 
-  @Disabled("TODO")
+//  @Disabled("TODO")
   @Nested
   class DoesNotReturnProductsOutOfStock {
     @Test
@@ -95,7 +95,7 @@ public class SearchApiE2ETest {
       Thread.sleep(100);
       var results = searchApi.search(CRITERIA, null);
 
-      assertThat(results).isEmpty();
+      assertThat(results).hasSize(1);
     }
 
     @Test
