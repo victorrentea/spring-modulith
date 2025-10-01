@@ -1,4 +1,4 @@
-package victor.training.modulith.inventory.api;
+package victor.training.modulith.inventory.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,19 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
-public class GetLowStocksApi {
+public class GetStockApi {
   private final StockRepo stockRepo;
 
-  @GetMapping("stock/low")
+  @GetMapping("stock/{productId}")
   @Transactional
-  public List<String> call() {
-    var lowStocks = stockRepo.findStockByItemsLessThan(10);
-    // TODO return IDs of products low on stock
-    //  + CR: get their names (speculate)
-    return List.of();
+  public Integer getStock(@PathVariable long productId) {
+    return stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
   }
 }

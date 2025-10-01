@@ -12,7 +12,7 @@ import victor.training.modulith.catalog.impl.CreateProductApi.CreateProductReque
 import victor.training.modulith.catalog.impl.ProductRepo;
 import victor.training.modulith.catalog.impl.SearchApi;
 import victor.training.modulith.catalog.impl.SearchApi.ProductSearchResult;
-import victor.training.modulith.inventory.api.AddStockApi;
+import victor.training.modulith.inventory.controller.AddStockApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.service.StockService;
 import victor.training.modulith.shared.LineItem;
@@ -47,9 +47,9 @@ public class SearchApiE2ETest {
   @Test
   void returnsProductsMatchingName() {
     long matchingProductId = createProductApi.createProduct(new CreateProductRequest("xa1", "", 0d));
-    addStockApi.call(matchingProductId, 3);
+    addStockApi.addStock(matchingProductId, 3);
     long notMatchingProductId = createProductApi.createProduct(new CreateProductRequest("b", "", 0d));
-    addStockApi.call(notMatchingProductId, 3);
+    addStockApi.addStock(notMatchingProductId, 3);
 
     var results = searchApi.search(CRITERIA, null);
 
@@ -62,9 +62,9 @@ public class SearchApiE2ETest {
   @Test
   void paginationWorks() {
     long matchId = createProductApi.createProduct(new CreateProductRequest("a1", "", 0d));
-    addStockApi.call(matchId, 3);
+    addStockApi.addStock(matchId, 3);
     var noMatchId = createProductApi.createProduct(new CreateProductRequest("a2", "", 0d));
-    addStockApi.call(noMatchId, 3);
+    addStockApi.addStock(noMatchId, 3);
 
     PageRequest pageRequest = PageRequest.of(0, 1, ASC, "name");
     var results = searchApi.search(CRITERIA, pageRequest);
@@ -91,7 +91,7 @@ public class SearchApiE2ETest {
     @Test
     void stock1() throws InterruptedException {
       Long productId = createProductApi.createProduct(new CreateProductRequest("a", "", 0d));
-      addStockApi.call(productId, 1);
+      addStockApi.addStock(productId, 1);
 
       Thread.sleep(100);
       var results = searchApi.search(CRITERIA, null);
@@ -102,7 +102,7 @@ public class SearchApiE2ETest {
     @Test
     void stock0() throws InterruptedException {
       Long productId = createProductApi.createProduct(new CreateProductRequest("a", "", 0d));
-      addStockApi.call(productId, 1);
+      addStockApi.addStock(productId, 1);
       stockService.reserveStock(1L, List.of(new LineItem(productId, 1)));
 
       Thread.sleep(100);

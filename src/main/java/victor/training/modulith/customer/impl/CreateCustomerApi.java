@@ -24,7 +24,7 @@ public class CreateCustomerApi {
   ) {}
 
   @PostMapping("customer")
-  public String call(@RequestBody @Validated CreateCustomerRequest request) {
+  public String createCustomer(@RequestBody @Validated CreateCustomerRequest request) {
     Customer entity = new Customer()
         .id(UUID.randomUUID().toString())
         .fullName(request.name())

@@ -30,7 +30,7 @@ public class InitialData {
             "margareta",
             List.of(new LineItem(1L, 1)),
             "Vf. Omu");
-        placeOrderApi.call(placeOrderRequest);
+        placeOrderApi.placeOrder(placeOrderRequest);
         log.info("Placed Initial Order");
         paymentGatewayWebHookApi.confirmPayment(1L, true);
         log.info("Paid Initial Order");

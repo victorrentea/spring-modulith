@@ -39,11 +39,11 @@ public class ReviewApiMTest {
   void test() {
     Long productId = productRepo.save(new Product()).id();
 
-    addReviewApi.call(productId, AddReviewRequest.builder().stars(4d).build());
-    addReviewApi.call(productId, AddReviewRequest.builder().stars(5d).build());
-    addReviewApi.call(productId, AddReviewRequest.builder().stars(null).build());
+    addReviewApi.addReview(productId, AddReviewRequest.builder().stars(4d).build());
+    addReviewApi.addReview(productId, AddReviewRequest.builder().stars(5d).build());
+    addReviewApi.addReview(productId, AddReviewRequest.builder().stars(null).build());
 
-    var response = getProductApi.call(productId);
+    var response = getProductApi.getProduct(productId);
     assertThat(response.stars()).isEqualTo(4.5);
   }
 
@@ -63,10 +63,10 @@ public class ReviewApiMTest {
       ScriptUtils.executeSqlScript(conn, dataMigrationScript);
     }
 
-    addReviewApi.call(product.id(), AddReviewRequest.builder().stars(5d).build());
-    addReviewApi.call(product.id(), AddReviewRequest.builder().stars(null).build());
+    addReviewApi.addReview(product.id(), AddReviewRequest.builder().stars(5d).build());
+    addReviewApi.addReview(product.id(), AddReviewRequest.builder().stars(null).build());
 
-    var response = getProductApi.call(product.id());
+    var response = getProductApi.getProduct(product.id());
     assertThat(response.stars()).isEqualTo(4.5);
   }
 

@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.model.Stock;
-import victor.training.modulith.inventory.repo.StockRepo;
 
 @Slf4j
 @RestController
@@ -25,7 +23,7 @@ public class GetProductApi {
   }
 
   @GetMapping("catalog/{productId}")
-  public GetProductResponse call(@PathVariable long productId) {
+  public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
     int stock = 0; // TODO display stock in the product details page in UI
     return new GetProductResponse(product.id(),
