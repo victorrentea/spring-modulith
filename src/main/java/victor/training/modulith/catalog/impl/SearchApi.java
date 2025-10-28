@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -30,12 +28,12 @@ public class SearchApi {
 //    var allProductsInStock = select=>OOME
 //    var allProductsMatchingNAmeAndDescr= LIMIT OFFSET
 
-    // Option 1: JOIN smth from INVENTORY
-    //
+    // Option 1: JOIN smth from INVENTORY = the monolith solution
+    // Option 2: = microservice-friendly
 
 //    Map<Long,Integer> stockForProducts = inventoryInternalApi.getStockForProduct(productIdsMatchingCriteria);
 
-    return productRepo.search(criteria.name, criteria.description, pageRequest)
+    return productRepo.searchJoiningTheirView(criteria.name, criteria.description, pageRequest)
         .stream()
 //        .filter(product ->stockRepo.findByProductId())
         // ❌1) Invading inventory module (breaking their encapsulation)

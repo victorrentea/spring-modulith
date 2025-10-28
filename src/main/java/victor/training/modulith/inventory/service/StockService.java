@@ -42,7 +42,9 @@ public class StockService {
     Stock stock = stockRepo.findByProductId(productId).orElseThrow();
     stock.remove(count);
     stockRepo.save(stock);
-    applicationEventPublisher.publishEvent(new StockUpdatedEvent(productId, stock.items()));
+    StockUpdatedEvent event = new StockUpdatedEvent(productId, stock.items());
+    applicationEventPublisher.publishEvent(event);
+//    rabbitTemplate.send(event);
   }
 
   @Transactional

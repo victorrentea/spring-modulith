@@ -3,11 +3,19 @@ package victor.training.modulith.catalog.impl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import victor.training.modulith.catalog.impl.SearchApi.ProductSearchCriteria;
 
 import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
+  @Query("""
+          SELECT product
+          FROM Product product
+          WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
+          AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+          AND coalesce(stock.stock,9999)>0
+      """)
+  List<Product> searchOnReplicatedData(String name, String description, PageRequest pageRequest);
+
   @Query("""
           SELECT product
           FROM Product product
@@ -16,7 +24,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
           AND coalesce(stock.stock,9999)>0
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
       """)
-  List<Product> search(String name, String description, PageRequest pageRequest);
+  List<Product> searchJoiningTheirView(String name, String description, PageRequest pageRequest);
 
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 

@@ -15,22 +15,12 @@ import victor.training.modulith.shipping.ShippingInternalApi;
 @RequiredArgsConstructor
 // Webhook = HTTP call back to me from a third party
 public class PaymentGatewayWebHookApi { // TODO move to 'payment' module
-  private final OrderRepo orderRepo;
-  private final ShippingInternalApi shippingInternalApi;
-  private final InventoryInternalApi inventoryInternalApi;
+  private final OrderService orderService;
 
   @PutMapping("payment/{orderId}/status")
   public String confirmPayment(@PathVariable long orderId, @RequestBody boolean ok) {
-    Order order = orderRepo.findById(orderId).orElseThrow();
-    order.pay(ok);
-    if (order.status() == OrderStatus.PAYMENT_APPROVED) {
-      inventoryInternalApi.confirmReservation(order.id());
-      String trackingNumber = shippingInternalApi.requestShipment(order.id(), order.shippingAddress());
-      order.wasScheduleForShipping(trackingNumber);
-    } else {
-      inventoryInternalApi.cancelReservation(order.id());
-    }
-    orderRepo.save(order);
-    return "Payment callback received";
+    return orderService.confirmPay(orderId, ok);
   }
+
+
 }
