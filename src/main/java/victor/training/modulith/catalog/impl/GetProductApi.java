@@ -5,12 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
+import victor.training.modulith.inventory.repo.StockRepo;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record GetProductResponse(
       long id,
@@ -25,7 +28,12 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = 0; // TODO display stock in the product details page in UI
+    int stock = inventoryInternalApi.getStockForProduct(productId).orElse(Integer.MAX_VALUE);
+    // a) ask them ❤️ 'they know best about their stuff' ask them to do it > raise them a ticket and wait..........1M.......6Months.......
+    // b) DIY
+    // - b1) THE OWNER TEAM must review the PR ("the elders"=SME) "component team"
+    // - b2) I would take ownership if inventory is shared ownership component "feature-team"
+    // c) SQL THEIR DB and place a // FIXME @blueteam - this is the best I could do, I selected your tables. I'm sorry. But boss said to ship sh*t please contact my colleagues for moral support, as I go in a sabbatical year.
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
