@@ -15,7 +15,7 @@ public class OrderService {
   private final InventoryInternalApi inventoryInternalApi;
   private final ShippingInternalApi shippingInternalApi;
 
-  public String confirmPay(long orderId, boolean ok) {
+  public void confirmPay(long orderId, boolean ok) {
     Order order = orderRepo.findById(orderId).orElseThrow();
     order.pay(ok);
     if (order.status() == OrderStatus.PAYMENT_APPROVED) {
@@ -26,6 +26,6 @@ public class OrderService {
       inventoryInternalApi.cancelReservation(order.id());
     }
     orderRepo.save(order);
-    return "Payment callback received";
+
   }
 }
