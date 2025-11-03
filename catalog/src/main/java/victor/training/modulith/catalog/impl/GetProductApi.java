@@ -20,8 +20,14 @@ public class GetProductApi {
   // 2) call a method of the inventory public API
   // that api can be
   // a) in inventory that I imported via pom.xml => allows me to see/accidentally depend on stuff I'm not supporsed
+  //    - BAD can generate module build cycles
+  //    - BAD you can SEE in THEIR impl classes = polluting ctrl-space (DevEx🤮)
   // b) 'interfaces' module (of all the modules)
+  //    - accidental coupling between APIs
+  //    - harder to oversee module deps
+  //    - risk: impl module not in classpath => failure at startup of a partial release
   // c) an 'inventory-api' module
+  //    - BAD: doubles the number of modules  (DevEx🤮)
 
 
   private final InventoryModuleInterface inventoryModule;
