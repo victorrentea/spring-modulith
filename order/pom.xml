@@ -19,7 +19,12 @@
           <groupId>victor.training</groupId>
           <artifactId>shipping</artifactId>
           <version>1.0</version>
-          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>victor.training</groupId>
+          <artifactId>inventory-api</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
       </dependency>
   </dependencies>
 </project>

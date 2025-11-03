@@ -1,4 +1,5 @@
-package victor.training.modulith.shared.api.inventory;
+package victor.training.modulith.inventory;
+
 
 import victor.training.modulith.shared.LineItem;
 

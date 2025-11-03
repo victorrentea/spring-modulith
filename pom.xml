@@ -20,6 +20,7 @@
 <module>shared</module>
 <module>shipping</module>
 <module>inventory</module>
+<module>inventory-api</module>
 <module>reference</module>
 <module>customer</module>
 <module>app</module>

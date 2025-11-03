@@ -6,18 +6,12 @@
     <artifactId>spring-modulith</artifactId>
     <version>1.0</version>
   </parent>
-  <artifactId>inventory</artifactId>
+  <artifactId>inventory-api</artifactId>
   <dependencies>
 
       <dependency>
           <groupId>victor.training</groupId>
-          <artifactId>order</artifactId>
-          <version>1.0</version>
-          <scope>compile</scope>
-      </dependency>
-      <dependency>
-          <groupId>victor.training</groupId>
-          <artifactId>inventory-api</artifactId>
+          <artifactId>shared</artifactId>
           <version>1.0</version>
           <scope>compile</scope>
       </dependency>

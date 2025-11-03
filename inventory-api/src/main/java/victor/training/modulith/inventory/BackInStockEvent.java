@@ -1,4 +1,4 @@
-package victor.training.modulith.shared.api.inventory;
+package victor.training.modulith.inventory;
 // @Value (lombok)
 public record BackInStockEvent(long productId) {
 }

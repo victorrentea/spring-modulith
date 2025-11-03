@@ -14,5 +14,10 @@
           <artifactId>shared</artifactId>
           <version>1.0</version>
       </dependency>
+      <dependency>
+          <groupId>victor.training</groupId>
+          <artifactId>inventory-api</artifactId>
+          <version>1.0</version>
+      </dependency>
   </dependencies>
 </project>
