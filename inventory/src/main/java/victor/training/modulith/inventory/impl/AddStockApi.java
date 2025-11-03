@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.BackInStockEvent;
+import victor.training.modulith.shared.api.inventory.BackInStockEvent;
 
 @RestController
 @RequiredArgsConstructor

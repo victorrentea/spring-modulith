@@ -11,9 +11,8 @@
 
       <dependency>
           <groupId>victor.training</groupId>
-          <artifactId>inventory</artifactId>
+          <artifactId>shared</artifactId>
           <version>1.0</version>
-          <scope>compile</scope>
       </dependency>
   </dependencies>
 </project>

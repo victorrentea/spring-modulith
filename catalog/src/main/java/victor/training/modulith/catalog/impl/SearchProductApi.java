@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.InventoryModule;
+import victor.training.modulith.shared.api.inventory.InventoryModuleInterface;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchProductApi {
   private final ProductRepo productRepo;
-  private final InventoryModule inventoryModule;
+  private final InventoryModuleInterface inventoryModule;
 
   public record ProductSearchResult(long id, String name) {
   }
