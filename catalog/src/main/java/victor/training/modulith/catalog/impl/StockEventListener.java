@@ -15,6 +15,10 @@ public class StockEventListener {
 
   @EventListener
   public void onOutOfStockEvent(OutOfStockEvent event) {
+    // List<Document> oneMil=docRepo.findByInstrumentId(event.instrumentId())
+    // for (doc:oneMil) doc.setInstrumentDescription(event.newDescription()); // 1M UPDATES
+    // if this is frequent, document module might create a separate table INSTRUMENT_REPLICA(instr_id, descr)
+
     var product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(false);
     productRepo.save(product);
