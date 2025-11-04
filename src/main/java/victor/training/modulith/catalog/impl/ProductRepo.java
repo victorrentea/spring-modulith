@@ -22,9 +22,19 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
   // #2 join a VIEW exposed by inventory - if we keep on modulith for longer
   @Query("""
-      SELECT p FROM Product p
-      JOIN StockView stock ON p.id = stock.productId
-      WHERE UPPER(p.name) LIKE UPPER(?1)
+      SELECT product FROM Product product
+      JOIN StockView stock ON product.id = stock.productId
+      WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
+      AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
       AND stock.stock > 0""")
-  List<Product> searchJoinView(String namePart, PageRequest pageRequest);
+  List<Product> searchJoinView(String name,  String description,  PageRequest pageRequest);
+
+
+  @Query("""
+      SELECT product FROM Product product
+      JOIN Stock stock ON product.id = stock.productId
+      WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
+      AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+      AND stock.items > 0""")
+  List<Product> searchJoinTable(String name,  String description,  PageRequest pageRequest);
 }
