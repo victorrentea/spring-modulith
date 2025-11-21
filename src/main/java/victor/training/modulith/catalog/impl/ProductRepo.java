@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
   @Query("""
-          SELECT product FROM Product product
+          SELECT product FROM Product product 
+          JOIN Stock s on product.id=s.productId
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
       """)

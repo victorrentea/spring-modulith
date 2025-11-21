@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchCriteria(String name, String description) { }
 
@@ -23,9 +25,13 @@ public class SearchApi {
   public List<ProductSearchResult> search(
       @RequestParam ProductSearchCriteria criteria,
       @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items which are currently in stock
+    // #1 join inventory schema
+
+    // #2 events, if planning to microservice soon
+
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
+//        .filter(p->inventoryInternalApi.getStock(p.id())>0) // inefficient, kills pagination
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
