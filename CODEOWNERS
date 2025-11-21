@@ -1,0 +1,8 @@
+# A PR touching this path must be approved by a member of this group.
+# Works in GitHub, GitLab, BitBucket ...
+
+/src/test/java/victor/training/modulith/catalog/** @green-team
+/src/test/java/victor/training/modulith/inventory/** @blue-team
+/src/test/java/victor/training/modulith/ArchSpringModulithTest.java @platform @elders
+
+# capturing the existing informal habits of the team.
