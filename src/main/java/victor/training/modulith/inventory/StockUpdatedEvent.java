@@ -1,4 +1,10 @@
 package victor.training.modulith.inventory;
 
-public record StockUpdatedEvent(long productId, int newStock) {
+import victor.training.modulith.inventory.model.Stock;
+
+public record StockUpdatedEvent(
+    long productId,
+    int newStock
+//    ,Stock stock // leaking my domain model out = NEVER
+) {
 }

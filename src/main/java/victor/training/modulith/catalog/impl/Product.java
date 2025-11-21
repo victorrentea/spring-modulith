@@ -27,4 +27,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+//  private Integer stock; // if you replicate, replicate the least data you can
+  private boolean inStock = true;
 }

@@ -26,8 +26,12 @@ public class SearchApi {
       @RequestParam ProductSearchCriteria criteria,
       @RequestParam(required = false) PageRequest pageRequest) {
     // #1 join inventory schema
+//    return productRepo.search(criteria.name, criteria.description, pageRequest)
 
-    // #2 events, if planning to microservice soon
+    // #2 replicate(?!desync) them via events, if planning to microservice soon
+    // save their data (stock level) in my schema => +1 table/column in Product
+    // listen to their events and update this column
+
 
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
