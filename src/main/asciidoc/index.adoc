@@ -26,9 +26,9 @@ include::{moduliths}/module-order.adoc[]
 plantuml::{moduliths}/module-notification.puml[format=svg,title="Notification component overview"]
 include::{moduliths}/module-notification.adoc[]
 
-== Payment
-plantuml::{moduliths}/module-payment.puml[format=svg,title="Payment component overview"]
-include::{moduliths}/module-payment.adoc[]
+// == Payment
+// plantuml::{moduliths}/module-payment.puml[format=svg,title="Payment component overview"]
+// include::{moduliths}/module-payment.adoc[]
 
 == Shipping
 plantuml::{moduliths}/module-shipping.puml[format=svg,title="Shipping component overview"]
