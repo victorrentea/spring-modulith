@@ -26,6 +26,10 @@ public class InventoryInternalApi {
   }
 
   public int getStock(long productId) {
-    return stockRepo.findByProductId(productId).orElseThrow().items();
+    int reservedItems = stockReservationRepo.getStockReservationsByProductId(productId)
+        .stream()
+        .mapToInt(r -> r.items())
+        .sum();
+    return stockRepo.findByProductId(productId).orElseThrow().items()/* - reservedItems*/;
   }
 }
