@@ -11,6 +11,8 @@ import victor.training.modulith.order.OrderStatus;
 import victor.training.modulith.order.impl.*;
 import victor.training.modulith.order.impl.PlaceOrderApi.PlaceOrderRequest;
 import victor.training.modulith.shipping.ShippingInternalApi;
+import victor.training.modulith.stripe.PaymentGatewayClient;
+import victor.training.modulith.stripe.PaymentGatewayWebHookApi;
 
 import java.util.List;
 import java.util.Map;
