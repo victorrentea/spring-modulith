@@ -16,7 +16,11 @@ public class StockUpdatedEventListener {
   @EventListener
   @Transactional
   public void on(StockUpdatedEvent event) {
+    log.info("Start");
     productRepo.findById(event.productId())
         .orElseThrow().inStock(event.newStock() > 0);
+    log.info("End⭐️");
   }
+  // at the end of this @Transactional JPA will see the entity loaded at :19 was changed :20
+  // and auto-UPDATE that Product
 }

@@ -30,6 +30,13 @@ public class SearchApi {
     // ✅ 1 JOIN cross-module ⭐️modulith for long ±
 //     return productRepo.search(criteria.name, criteria.description, pageRequest)
     // ✅ 2 REPLICATE DATA: copy stock info in my Product.stock = data replication 😱 ⭐️microservice soon
+    // > 1:00 AM Sat hot data fix in prod you did on-call
+    // > idea: try to autodetect out of sync
+    // ⭐️ fire Kafka events directly from DB via
+    //    CDC (debezium.io) ≈ modern equivalent of a DB trigger
+    //    = DB becomes a Kafka Producer
+    //   ❌ trigger sucks [logic back in DB]
+
     // ❌ 3 in-memory join: you bring the smallest dataset first in your mem ->>> pass to 2nd source
      return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
