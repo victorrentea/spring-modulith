@@ -59,7 +59,7 @@ public class AssertQueriesDontJoinSchemas extends JdbcEventListener {
             t -> t.split("\\.")[0],
             mapping(t -> t.split("\\.")[1], toList())));
     if (tablesPerSchema.size() > 1) {
-      String message = "Query uses tables of different schemas: " + tablesPerSchema + "\n" + sql;
+      String message = "Query uses tables of different schemas: " + tablesPerSchema + "\n Illegal as per ADR-012" + sql;
 //      log.error(message);
       throw new AssertionError(message);
     }

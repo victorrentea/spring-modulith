@@ -20,6 +20,7 @@ public class GetProductApi { // VSA
       String name,
       String description,
       int stock, //⭐️
+      // ❌NO business. I won't do it! FE should call directly inventory api
       Double price,
       Double stars
   ) {
@@ -37,6 +38,7 @@ public class GetProductApi { // VSA
         product.price(),
         product.stars()
     );
+    //
   }
 }
 // Tip: stock is in inventory/impl/Stock#items
