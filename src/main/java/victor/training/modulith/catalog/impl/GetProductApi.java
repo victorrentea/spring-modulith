@@ -13,7 +13,6 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RequiredArgsConstructor
 public class GetProductApi { // VSA
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
   private final InventoryInternalApi inventoryInternalApi;
 
   public record GetProductResponse(

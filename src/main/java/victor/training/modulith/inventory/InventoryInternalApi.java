@@ -2,6 +2,7 @@ package victor.training.modulith.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import victor.training.modulith.inventory.model.StockReservation;
 import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
@@ -29,7 +30,11 @@ public class InventoryInternalApi {
   // code is owned by a different team
   // 1) Ask THEM to do it for you
   // 2) DIY and ask THEM for code review by 2+ devs
-  public int getStock(Long id) {
-    return stockRepo.findByProductId(id).orElseThrow().items(); // 💩
+  public int getStock(Long productId) {
+    int reserved = stockReservationRepo.getStockReservationsByProductId(productId).stream()
+        .mapToInt(StockReservation::items)
+        .sum();
+    return stockRepo.findByProductId(productId).orElseThrow().items()
+        /*- reserved*/; // 💩
   }
 }
