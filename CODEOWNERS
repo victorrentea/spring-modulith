@@ -1,8 +1,11 @@
 # A PR touching this path must be approved by a member of this group.
-# Works in GitHub, GitLab, BitBucket ...
+# (Works in GitHub, GitLab, BitBucket)
 
+# complex modules managed by a component-team or reviewed by a SME:
 /src/test/java/victor/training/modulith/catalog/** @green-team
 /src/test/java/victor/training/modulith/inventory/** @blue-team
-/src/test/java/victor/training/modulith/ArchSpringModulithTest.java @platform @elders
 
-# capturing the existing informal habits of the team.
+# shared transverse code:
+/src/test/java/victor/training/modulith/**/Arch* @platform @elders
+
+# the rest of the modules - free to edit by any feature-team
