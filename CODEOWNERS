@@ -1,8 +1,11 @@
 # A PR touching this path must be approved by a member of this group.
 # Works in GitHub, GitLab, BitBucket ...
 
+# component team associations (modules are owned because they are complex)
 /src/test/java/victor/training/modulith/catalog/** @green-team
 /src/test/java/victor/training/modulith/inventory/** @blue-team
 /src/test/java/victor/training/modulith/ArchSpringModulithTest.java @platform @elders
+
+# the rest of the modules are simple enough to be owned by a specific team
 
 # capturing the existing informal habits of the team.
