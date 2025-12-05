@@ -27,11 +27,11 @@ public class SearchApi {
       @RequestParam(required = false) PageRequest pageRequest) {
     // TODO only return items which are currently in stock
 
-
     // ✅ 1 JOIN cross-module ⭐️modulith for long ±
-    // ✅ 2 REPLICATE DATA: copy stock info in my Product = data replication 😱 ⭐️microservice soon
-    //  3
-    return productRepo.search(criteria.name, criteria.description, pageRequest)
+//     return productRepo.search(criteria.name, criteria.description, pageRequest)
+    // ✅ 2 REPLICATE DATA: copy stock info in my Product.stock = data replication 😱 ⭐️microservice soon
+    // ❌ 3 in-memory join: you bring the smallest dataset first in your mem ->>> pass to 2nd source
+     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
 //        .filter(product -> inventoryInternalApi.getStock(product.id()) > 0) // is stupid
         // 1) ❌Performance Massacre (N+1 method calls => query)
