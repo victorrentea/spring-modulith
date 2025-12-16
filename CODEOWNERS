@@ -7,5 +7,6 @@
 
 # shared transverse code:
 /src/test/java/victor/training/modulith/**/Arch* @platform @elders
+/src/test/java/victor/training/modulith/shared/** @platform @elders
 
 # the rest of the modules - free to edit by any feature-team

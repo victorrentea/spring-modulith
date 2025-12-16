@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.repo.StockRepo;
 
 @Slf4j
@@ -12,7 +13,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record GetProductResponse(
       long id,
@@ -27,7 +28,13 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = stockRepo.findByProductId(product.id()).get().items();
+    // A) DIY in *their* module and ask *them* to approve my PR within 1 week🤞
+    // B) Ask them to do it for me
+    // C) There are no owners, I am responsible for everything
+    //   Feature Team (I can change ANYTHING 💩tting anywhere) - Biz❤️: easy to budget
+    //   <vs>
+    //   Component Team (around a codebase) - Dev❤️ grow deep knowledge, brain effort
+    int stock = inventoryInternalApi.getStockByProduct(product.id());
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
