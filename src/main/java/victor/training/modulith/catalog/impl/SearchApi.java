@@ -31,6 +31,9 @@ public class SearchApi {
 
 //    List<id> all2MIdsInStock=inventoryInternalApi.findAllIdsInStock();😱
 
+    // 1) 👍JOINing a VIEW of another module if you plan to remain monolithic
+    // 🙁 it will complicate module-scoped tests; catalog tests will have to populate inventory table😱
+
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
 //        .filter(product -> inventoryInternalApi.getStockByProduct(product.id()) > 0)
