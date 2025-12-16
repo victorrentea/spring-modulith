@@ -11,7 +11,7 @@ import org.hibernate.annotations.View;
 // ☺️ PRO: inventory-team might have a TestData populating the necessary tables so view works
 @Entity
 @View(query = """
-    select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK
+    select STOCK.PRODUCT_ID, STOCK.ITEMS as STOCK 
     from INVENTORY.STOCK
     """)
 @Getter

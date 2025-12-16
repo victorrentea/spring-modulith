@@ -8,6 +8,9 @@ import victor.training.modulith.inventory.repo.StockRepo;
 import victor.training.modulith.inventory.repo.StockReservationRepo;
 import victor.training.modulith.inventory.service.StockService;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class InventoryInternalApi {
@@ -26,6 +29,9 @@ public class InventoryInternalApi {
   public void cancelReservation(Long orderId) {
     stockService.cancelReservation(orderId);
   }
+
+  // BATCH FETCH
+//  public Map<Long, Integer> getStockByProduct(List<Long> productIdList) {
 
   public int getStockByProduct(Long productId) {
     int reservedItems = stockReservationRepo.getStockReservationsByProductId(productId)
