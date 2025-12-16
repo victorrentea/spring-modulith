@@ -23,5 +23,6 @@ public class AddStockApi {
     stock.add(items);
     stockRepo.save(stock);
     applicationEventPublisher.publishEvent(new StockUpdatedEvent(productId, stock.items()));
+    System.out.println("----");
   }
 }

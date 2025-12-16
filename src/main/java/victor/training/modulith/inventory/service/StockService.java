@@ -43,6 +43,7 @@ public class StockService {
     stock.remove(count);
     stockRepo.save(stock);
     applicationEventPublisher.publishEvent(new StockUpdatedEvent(productId, stock.items()));
+    System.out.println("----");
   }
 
   @Transactional
