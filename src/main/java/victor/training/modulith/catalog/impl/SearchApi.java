@@ -34,6 +34,18 @@ public class SearchApi {
     // 1) 👍JOINing a VIEW of another module if you plan to remain monolithic
     // 🙁 it will complicate module-scoped tests; catalog tests will have to populate inventory table😱
 
+    // 2) 👍 REPLICATE the data I need from THEM = microservice-ready solution
+    // - events in-memory (tomorrow: Kafka)
+    // - job every 5?😱 sec downloading all😱 ❌
+
+
+    // ❌ search without pagination = last resort;
+    // List<Long> allIds = productRepo.search(criteria); 2M x 8b = 16MB
+    // inventoryApi.getStockFor(allIds) 16MB JSON payload coming up
+    // send 300 ids, expect back stock. what are the chances that 281 are out of stock?!!!?!?
+    // if that happens, send 300 more.
+
+
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
 //        .filter(product -> inventoryInternalApi.getStockByProduct(product.id()) > 0)
