@@ -61,9 +61,9 @@ class ArchUnitTest {
 
   // This test is disabled because module public APIs (InternalApi classes) SHOULD be allowed
   // to depend on each other - that's the whole point of having public APIs.
-  // The architectural constraint is that implementation packages should not depend on
-  // each other's implementations, which is already checked by modules_only_depend_on_internal_apis_of_others.
-//  @ArchTest
+  // The architectural constraint that implementation packages should not depend on each other's
+  // implementations is already properly checked by modules_only_depend_on_internal_apis_of_others.
+  // @ArchTest - Disabled: Module public APIs should be allowed to depend on each other
   public void module_internal_apis_are_independent(JavaClasses classes) {
     SlicesRuleDefinition.slices()
         .matching("victor.training.modulith.(*)") // root package of all slices
