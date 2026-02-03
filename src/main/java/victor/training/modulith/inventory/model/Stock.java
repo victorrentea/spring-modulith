@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.domain.AbstractAggregateRoot;
-import victor.training.modulith.catalog.impl.Product;
 
 @Getter
 @ToString
