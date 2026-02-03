@@ -41,6 +41,12 @@ public class GetProductApi {
     // ⊖ Devs tend to write 💩 in complex areas
     // Option#2: submit a PR to the maintainer
 
+    // Wild other solutions:
+    // - SQL directly to THEIR table 😱😈❌❌❌
+    // - REPLICATING☢️ the stock OWNED by THEM in MY Product entity
+    // - FE pleae call GET /inventory/{productId} with a fetch().then(=>fillTheDarnDiv())
+    // - GraphQL/NodeJS BFF "Aggregator" in front of your modultih grabs data from both of you (in parallel)
+
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
