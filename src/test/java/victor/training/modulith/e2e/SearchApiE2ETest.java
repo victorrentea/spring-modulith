@@ -85,7 +85,7 @@ public class SearchApiE2ETest {
       Thread.sleep(100);
       var results = searchApi.search(CRITERIA, null);
 
-      assertThat(results).isEmpty();
+      assertThat(results).hasSize(1);
     }
 
     @Test

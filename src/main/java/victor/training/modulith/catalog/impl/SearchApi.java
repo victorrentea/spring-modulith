@@ -32,6 +32,7 @@ public class SearchApi {
     // A) ⭐️catalog.PRODUCT JOIN inventory.STOCK in SQL
     //  [in a VIEW ❤️]
     //  👍 best for Long-Modulith
+    //  🙁 when testing catalog module I will have to create+populate tables of inventory=🤢
 
     // B) ⭐️Replicate stock level from inventory/ -> catalog/Product.stock
     //    i) ⭐️via @EventListener(in-mem)✅/@KafkaListener🦄
