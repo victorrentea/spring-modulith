@@ -31,7 +31,8 @@ public class GetProductApi {
     // TODO display stock in the product details page in UI
     // tests fail, tomorrow Maven modules won't compile
 //    int stock = stockRepo.findByProductId(product.id()).orElseThrow().items();
-    int stock = inventoryInternalApi.getStockByProduct(product.id());
+    int stock = inventoryInternalApi.getStockByProduct(product.id())
+        .orElse(Integer.MAX_VALUE);
     // Component Team: a team / software piece
     // ⊖ Team Friction/interruption/delays, bench
     // Option#1: raise them a ticket🤞
