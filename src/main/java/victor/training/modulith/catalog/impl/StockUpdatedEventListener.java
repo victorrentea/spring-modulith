@@ -34,6 +34,8 @@ public class StockUpdatedEventListener {
 
 
   @ApplicationModuleListener // async + after commit + persisted in table until processed
+
+//  @KafkaListener// tomorrow
   public void onEvent(StockUpdatedEvent event) {
     log.info("IN listener");
     Product product = productRepo.findById(event.productId()).orElseThrow();
