@@ -13,7 +13,9 @@ import victor.training.modulith.inventory.StockUpdatedEvent;
 public class StockUpdatedEventListener {
   private final ProductRepo productRepo;
 
-  @EventListener
+  @EventListener //  by default runs in publisher thread ± @Transaction 😱
+  // 𐀏 consistency
+  // ⊖ error in listener rollbacks publishers' transaction😱 != message bbroker
   public void onEvent(StockUpdatedEvent event) {
     log.info("IN listener");
     Product product = productRepo.findById(event.productId()).orElseThrow();
