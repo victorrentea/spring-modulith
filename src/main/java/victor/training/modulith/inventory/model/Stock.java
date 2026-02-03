@@ -26,7 +26,7 @@ public class Stock {
   @NotNull
   @Setter // + fk_stock_product to PRODUCT (import.sql)
   private Long productId;
-
+//
   @NotNull
   private Integer items = 0;
 

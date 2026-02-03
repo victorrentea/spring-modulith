@@ -24,4 +24,8 @@ public class InventoryInternalApi {
   public void cancelReservation(Long orderId) {
     stockService.cancelReservation(orderId);
   }
+
+  public int getStockByProduct(Long productId) {
+    return stockRepo.findByProductId(productId).orElseThrow().items();
+  }
 }
