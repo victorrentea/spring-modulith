@@ -29,8 +29,7 @@ public class SearchApi {
 
     // TODO only return items which are currently in stock
     // ❌) THE WORST
-    // A) ⭐️catalog.PRODUCT JOIN inventory.STOCK in SQL
-    //  [in a VIEW ❤️]
+    // A) ⭐️catalog.PRODUCT JOIN inventory.STOCK in SQL [in a VIEW ❤️]
     //  👍 best for Long-Modulith
     //  🙁 when testing catalog module I will have to create+populate tables of inventory=🤢
 
@@ -51,10 +50,11 @@ public class SearchApi {
     // return results.filter{stocksMap.get(it.id)>0}
     // => pagination is ruined: not 20 per page but perhaps 15,12...0?; WHERE > LIMIT >OFFSET > filter=WHERE
 
-    // ❌ in-mem pagination
+    // ❌ HACK: in-mem pagination
     //  if the user asked for 20, let's bring 40 from my database.
     //  Fetch all the 40 from stock, and if I am left with less than 20, repeat
-    return productRepo.search(criteria.name, criteria.description, pageRequest)
+//    return productRepo.search(criteria.name, criteria.description, pageRequest)
+    return productRepo.search2(criteria.name, criteria.description, pageRequest)
         .stream()
 //        ❌❌.filter(product -> restTemplate.GET localhost stock public REST) // = Performance Massacre
 //        ❌.filter(product -> inventoryInternalApi.getStockByProduct(product.id()).orElse(1) >=0) // N+1

@@ -18,6 +18,19 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
       """)
   List<Product> search(String name, String description, PageRequest pageRequest);
 
+  @Query("""
+          SELECT product
+          FROM Product product
+          WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
+          AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+          AND product.inStock = true
+      """)
+  List<Product> search2(String name, String description, PageRequest pageRequest);
+
+
+
+
+
   List<Product> searchByNameLikeIgnoreCase(String namePart, PageRequest pageRequest);
 
   // #1 migrate data to Product:inStock:boolean - if we plan to extract a microservice out
