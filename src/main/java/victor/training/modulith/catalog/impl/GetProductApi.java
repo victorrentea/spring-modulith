@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 import victor.training.modulith.inventory.model.Stock;
 import victor.training.modulith.inventory.repo.StockRepo;
 
@@ -13,7 +14,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RequiredArgsConstructor
 public class GetProductApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record GetProductResponse(
       long id,
@@ -28,7 +29,18 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+//    int stock = stockRepo.findByProductId(productId).map(Stock::items).orElse(0);
+// breaks the arch tests, doesn't compile if impl is a module i don't depend on
+
+    // Option #1: tell the other team to impl it for you; until then, you're blocked! ETA: max 3 months
+    // Option #2: DIY and ask them for a review
+    int stock = inventoryInternalApi.getStockByProduct(product.id()).orElse(-1);
+    // Option #3: open source model (everyone knows everything is the dream of business.
+    // It's paradise for them: They can parachute you wherever there is budget to do stuff.
+    //Can become a nightmare for developers that are landing in a minefield of complex business rules they don't have a clue about
+    // Feature team (dev writing code💩 wherever necessary) vs Component Team/SME (maintaining at least review- of complex code)
+
+
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
