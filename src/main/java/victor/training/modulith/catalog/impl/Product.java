@@ -24,7 +24,7 @@ public class Product {
   private Double price;
 
 //  private Optional<Integer> stock; // PR rejected - you copied too much info
-  private boolean inStock = true;
+  private boolean inStock = false;
 
   // cut here if you plan to take reviews out in a separate module
   private Double stars;

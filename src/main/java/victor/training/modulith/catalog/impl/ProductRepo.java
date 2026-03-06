@@ -13,7 +13,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
           FROM Product product
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
-          AND (stock.stock > 0 )           
+          AND product.inStock          
       """)
   List<Product> search(String name, String description, PageRequest pageRequest);
 
