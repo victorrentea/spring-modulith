@@ -30,6 +30,7 @@ public class GetProductApi {
       // b) Microfrontends: embed in your catalog FE page a <stock> FE compo made with❤️ by inventory team
 
       // 2) Implement a new module, just to talk to you two so that you two don't talk directly to each other.
+      // 🤔 who owns it? FE🙏 / everyone?
       Double price,
       Double stars
   ) {
