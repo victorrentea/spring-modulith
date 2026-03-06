@@ -28,9 +28,18 @@ public class SearchApi {
   ) {
     // TODO CR: only return items which are currently in stock
 
-    // Option A (JOIN to a VIEW of another module)
+    // Option A - JOIN to a VIEW of another module ✅
 
-    // Option C (deperados):
+    // Option B -
+
+    // Option C (Desperados): in-memory join❌
+    // var products = productRepo.search...
+    // List<Long> productIdsMatchingCriteria = products.extact Id
+    // Map|Dictionary<Long productId, Integer stock> stocks = inventoryInternalApi.getStockForProducts(productIdsMatchingCriteria);
+    //     => SELECT ... WHERE PRODUCT_ID IN (?, ?..?)
+    // return products.filter(only those with stock > 0 in stocks) => may return 7 items, not 10 (page size)
+    // if after filtering, less than a page remains => go fetch another page and repeat the process until you complete the page.
+
 
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
