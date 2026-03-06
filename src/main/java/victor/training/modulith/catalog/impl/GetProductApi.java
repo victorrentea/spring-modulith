@@ -23,10 +23,13 @@ public class GetProductApi {
       String name,
       String description,
       int stock, // TODO CR
-      // Push back on the user need, and DON'T change you BE contrac. instead:
+
+      // 1) Push back on the user need, and DON'T change you BE contrac. instead:
       // a) your FE after fetching the details, call inventory BE with fetch("/inventory/product/{id}/stock").
       //   + 1 network call might hurt?
       // b) Microfrontends: embed in your catalog FE page a <stock> FE compo made with❤️ by inventory team
+
+      // 2) Implement a new module, just to talk to you two so that you two don't talk directly to each other.
       Double price,
       Double stars
   ) {
