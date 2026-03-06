@@ -11,10 +11,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
   @Query("""
           SELECT product
           FROM Product product
-          LEFT JOIN Stock stock on stock.productId = product.id
+          LEFT JOIN StockView stock on stock.productId = product.id
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
-          AND (stock.items > 0 OR stock.items IS NULL)           
+          AND (stock.stock > 0 )           
       """)
   List<Product> search(String name, String description, PageRequest pageRequest);
 
