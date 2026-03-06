@@ -1,5 +1,6 @@
 package victor.training.modulith.inventory;
 
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.model.Stock;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Observed
 public class InventoryInternalApi {
   private final StockService stockService;
   private final StockRepo stockRepo;
