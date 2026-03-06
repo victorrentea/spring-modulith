@@ -29,7 +29,7 @@ public class InitialData {
         var placeOrderRequest = new PlaceOrderApi.PlaceOrderRequest(
             "margareta",
             List.of(new LineItem(1L, 1)),
-            "Vf. Omu");
+            "K2");
         placeOrderApi.placeOrder(placeOrderRequest);
         log.info("Placed Initial Order");
         paymentGatewayWebHookApi.confirmPayment(1L, true);
