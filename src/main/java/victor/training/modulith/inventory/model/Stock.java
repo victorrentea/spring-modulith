@@ -26,7 +26,8 @@ public class Stock {
   // ⇒ to get the required fields you'll have to call catalog internal API getProducyById
   // 🙁 Perf hit: +1 SELECT
   // 🙁 More Design: ProductDto, Mapper, more code to write/gen,test, read+maintain❤️❤️❤️
-  private Long productId;
+  @Setter
+  private long productId;
 
   // + Foreign-Key-ed to CATALOG.PRODUCT.ID
   // 😊 strongly consistent ❤️: I will never see a STOCK row associated with a product that doesn't exist

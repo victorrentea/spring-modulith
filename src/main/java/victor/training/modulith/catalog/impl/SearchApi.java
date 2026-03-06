@@ -28,6 +28,10 @@ public class SearchApi {
   ) {
     // TODO CR: only return items which are currently in stock
 
+    // Option A (JOIN to a VIEW of another module)
+
+    // Option C (deperados):
+
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
         // Where( ~ LINQ C#
