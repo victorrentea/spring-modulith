@@ -1,6 +1,8 @@
 package victor.training.modulith.inventory.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import victor.training.modulith.inventory.repo.StockRepo;
 @RestController
 @RequiredArgsConstructor
 public class AddStockApi {
+  private static final Logger log = LoggerFactory.getLogger(AddStockApi.class);
   private final StockRepo stockRepo;
   private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -23,5 +26,7 @@ public class AddStockApi {
     stock.add(items);
     stockRepo.save(stock);
     applicationEventPublisher.publishEvent(new StockUpdatedEvent(productId, stock.items()));
+//    kafkaTemplate.send...
+    log.info("might run in parallel with listner");
   }
 }
