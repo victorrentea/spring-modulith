@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import victor.training.modulith.inventory.InventoryInternalApi;
 
 import java.util.List;
 
@@ -14,18 +15,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
+  private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchCriteria(String name, String description) { }
 
   public record ProductSearchResult(long id, String name) {  }
-
+ // VSA Jimmy Bogard
   @GetMapping("catalog/search")
   public List<ProductSearchResult> search(
-      @RequestParam ProductSearchCriteria criteria,
-      @RequestParam(required = false) PageRequest pageRequest) {
-    // TODO only return items which are currently in stock
+      @RequestParam ProductSearchCriteria criteria, // by ?name= and &desc=
+      @RequestParam(required = false) PageRequest pageRequest // sql-side pagination: # page you want, # items/page, sorting
+  ) {
+    // TODO CR: only return items which are currently in stock
+
     return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
+        // Where( ~ LINQ C#
+        .filter(product -> inventoryInternalApi.getStockByProduct(product.id()).orElse(1) > 0)
+        // ❌ 3 items in stock (not 10 as page size) => UX 🤮 !! WHERE/filtering AFTER db pagination
+        // ❌ N+1 query problem = SELECT in a loop
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }

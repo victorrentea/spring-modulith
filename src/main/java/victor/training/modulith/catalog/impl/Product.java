@@ -23,6 +23,7 @@ public class Product {
 
   private Double price;
 
+  // cut here if you plan to take reviews out in a separate module
   private Double stars;
 
   @OneToMany(mappedBy = "product")
