@@ -27,4 +27,7 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<ProductReview> reviews = new ArrayList<>();
+
+  // ⚠️⚠️⚠️ replciated data from inventory
+  private boolean inStock; // replicate as LITTLE as you can
 }
