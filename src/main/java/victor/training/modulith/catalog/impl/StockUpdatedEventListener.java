@@ -3,6 +3,7 @@ package victor.training.modulith.catalog.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import victor.training.modulith.inventory.StockUpdatedEvent;
@@ -13,10 +14,12 @@ import victor.training.modulith.inventory.StockUpdatedEvent;
 public class StockUpdatedEventListener {
   private final ProductRepo productRepo;
 
-  @EventListener
-  @Transactional
-  void on(StockUpdatedEvent event) {
+//  @EventListener
+//  @Transactional
+  @ApplicationModuleListener // uses a outbox table / external broker under the hood
+  void on(/*@Observes[Async] @Transactional*/StockUpdatedEvent event) {
     Product product = productRepo.findById(event.productId()).orElseThrow();
     product.inStock(event.newStock() > 0);
   }
+
 }
