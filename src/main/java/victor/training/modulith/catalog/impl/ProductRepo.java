@@ -8,10 +8,13 @@ import victor.training.modulith.catalog.impl.SearchApi.ProductSearchCriteria;
 import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product, Long> {
+//          JOIN Stock  s ON s.productId = product.id // test failed by victor.training.modulith.AssertQueriesDontJoinSchemas
   @Query("""
           SELECT product FROM Product product
+          JOIN StockView sv ON sv.productId = product.id
           WHERE UPPER(product.name) LIKE UPPER('%' || :name || '%')
           AND UPPER(product.description) LIKE UPPER('%' || :description || '%')
+          AND COALESCE(sv.stock, 0) > 0
       """)
   List<Product> search(String name, String description, PageRequest pageRequest);
 
