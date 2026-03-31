@@ -1,5 +1,6 @@
 package victor.training.modulith.catalog;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class ReviewApiMTest {
   AddReviewApi addReviewApi;
   @Autowired
   GetProductApi getProductApi;
+
+  // insert country ref data in shared schema
+//  @BeforeAll
+
 
   @Transactional
   @Test

@@ -8,4 +8,7 @@
 # shared transverse code:
 /src/test/java/victor/training/modulith/**/Arch* @platform @elders
 
+# catalog-api jar has this package:
+/src/test/java/victor/training/modulith/catalog/api/** @platform @elders
+
 # the rest of the modules - free to edit by any feature-team
