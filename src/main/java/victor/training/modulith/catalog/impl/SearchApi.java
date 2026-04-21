@@ -6,8 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import victor.training.modulith.inventory.InventoryInternalApi;
-import victor.training.modulith.inventory.repo.StockRepo;
 
 import java.util.List;
 
@@ -16,8 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchApi {
   private final ProductRepo productRepo;
-  private final StockRepo stockRepo;
-  private final InventoryInternalApi inventoryInternalApi;
 
   public record ProductSearchCriteria(String name, String description) { }
 
@@ -41,20 +37,15 @@ public class SearchApi {
 
     // b) data replication: adding to Product.inStock kept in sync how?
     //    - intra-db replication/PLSQL/TRIGGERS (hard, vendor lockin) ❌❌ if tomorrow microservices🦄
+    //    - cross DB live data migration
     //    - ❌PUSH-CHANGE inventory would [REST] call catalog whenever they update their stock?
     //      ARCH RULE: You do not couple the data owner(invetory)
     //        > to the MANY/OFFLINE/BUG/TIMEOUT listeners(catalog).
     //    ⇒ Events (today:in-mem, tomorrow:Kafka,Rabbit,ServiceBus..)⭐️⭐️⭐️
     //      make today listeners run async (⇒ separate tx) but durable
 
-    return productRepo.search(criteria.name, criteria.description, pageRequest/*, inMax1000*/)
+    return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
-//        .filter(product -> stockRepo.findByProductId(product.id()).orElseThrow().items() > 0) ❌
-
-//        .filter(product -> inventoryInternalApi.getStockByProductId(product.id()) > 0) ❌
-        // ☠️A) N+1 QUERY PROBLEM : hitting DB in a LOOP: 20 + 1 => prefetch all stocks in memory
-        //    -> idsInStock.contains(product.id())
-        // ☠️B) filter after LIMIT => you show 15 elements not 20 on page #1
         .map(e -> new ProductSearchResult(e.id(), e.name()))
         .toList();
   }
