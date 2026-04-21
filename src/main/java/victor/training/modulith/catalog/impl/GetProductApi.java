@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClient;
 import victor.training.modulith.inventory.InventoryInternalApi;
 
 @Slf4j
@@ -28,18 +27,7 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    // call them via the API they expose to me
     int stock = inventoryInternalApi.getStockByProductId(product.id());
-
-    // rest-calling stock/{productId} =
-    // 🙁 slow/wasteful
-    // 😊 less meeting / less DIY
-    // 😊 just before ejecting one of us a microservice (separate deployment)
-//    int stock = RestClient.builder().build()
-//        .get()
-//        .uri("http://localhost:8080/stock/{productId}", product.id())
-//        .retrieve()
-//        .body(Integer.class);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
