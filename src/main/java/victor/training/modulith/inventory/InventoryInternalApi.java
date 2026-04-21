@@ -1,5 +1,6 @@
 package victor.training.modulith.inventory;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import victor.training.modulith.inventory.repo.StockRepo;
@@ -23,5 +24,11 @@ public class InventoryInternalApi {
 
   public void cancelReservation(Long orderId) {
     stockService.cancelReservation(orderId);
+  }
+
+  public int getStockByProductId(long id) {
+    // 1) DIY in the other module + submit PR if it's CODE-OWNED
+    // 2) raise a ticket to them 🙏🙏🙏🙏🙏🙏
+    return stockRepo.findByProductId(id).orElseThrow().items();
   }
 }
