@@ -75,7 +75,7 @@ public class SearchApiE2ETest {
         .containsExactly(matchId);
   }
 
-  @Disabled("TODO")
+//  @Disabled("TODO")
   @Nested
   class DoesNotReturnProductsOutOfStock {
     @Test
