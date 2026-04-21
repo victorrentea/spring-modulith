@@ -31,23 +31,7 @@ public class SearchApi {
 
 //    var oom = productRepo.findAll();// 💥
 
-    // Cross-module query
-    // a) join their view 🤨: (decent if on a longlived modular monolith)
-    //  🙁 The database incremental scripts of the 2 modules now have a
-    //  temporal coupling about what gets created before what
-    //  🙁🙁🙁🙁 If catalog wants to write a module test for itself because it joins the view,
-    //  it will have to fill up the tables of inventory underlying the view.
-    //  From another perspective, you could say that you cannot mock a view
-
-    // b) data replication: adding to Product.inStock kept in sync how?
-    //    - intra-db replication/PLSQL/TRIGGERS (hard, vendor lockin) ❌❌ if tomorrow microservices🦄
-    //    - ❌PUSH-CHANGE inventory would [REST] call catalog whenever they update their stock?
-    //      ARCH RULE: You do not couple the data owner(invetory)
-    //        > to the MANY/OFFLINE/BUG/TIMEOUT listeners(catalog).
-    //    ⇒ Events (today:in-mem, tomorrow:Kafka,Rabbit,ServiceBus..)⭐️⭐️⭐️
-    //      make today listeners run async (⇒ separate tx) but durable
-
-    return productRepo.search(criteria.name, criteria.description, pageRequest/*, inMax1000*/)
+    return productRepo.search(criteria.name, criteria.description, pageRequest)
         .stream()
 //        .filter(product -> stockRepo.findByProductId(product.id()).orElseThrow().items() > 0) ❌
 
