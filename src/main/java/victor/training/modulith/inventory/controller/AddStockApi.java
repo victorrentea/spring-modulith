@@ -17,7 +17,7 @@ public class AddStockApi {
   private final ApplicationEventPublisher applicationEventPublisher;
 
   @PostMapping("stock/{productId}/add/{items}")
-  @Transactional
+  @Transactional // starts a new transaction on the current thread for the duration of this method.
   public void addStock(@PathVariable long productId, @PathVariable int items) {
     Stock stock = stockRepo.findByProductId(productId).orElse(new Stock().productId(productId));
     stock.add(items);
