@@ -28,7 +28,7 @@ public class GetProductApi {
   @GetMapping("catalog/{productId}")
   public GetProductResponse getProduct(@PathVariable long productId) {
     Product product = productRepo.findById(productId).orElseThrow();
-    int stock = inventoryInternalApi.getStock(productId); // TODO display stock in the product details page in UI
+    int stock = inventoryInternalApi.getStock(productId);
     return new GetProductResponse(product.id(),
         product.name(),
         product.description(),
