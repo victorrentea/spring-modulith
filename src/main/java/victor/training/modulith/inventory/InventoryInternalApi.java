@@ -27,6 +27,9 @@ public class InventoryInternalApi {
   }
 
     public int getStock(long productId) {
-        return stockRepo.findById(productId).map(Stock::items).orElse(0);
+    // elders wisdom: tu straine nu stii regula casei
+        int reserved = stockReservationRepo.getStockReservationsByProductId(productId).stream().mapToInt(r -> r.items()).sum();
+        return stockRepo.findById(productId).map(Stock::items).orElse(0)
+                /*- reserved pretend*/;
     }
 }
