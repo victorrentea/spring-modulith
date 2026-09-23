@@ -40,7 +40,7 @@ class ArchUnitTest {
     rule.check(classes);
 
     // measure distance from ideal
-//    assertThat(rule.evaluate(classes).getFailureReport().getDetails()).hasSize(0);
+//    assertThat(rule.evaluate(classes).getFailureReport().getDetails()).hasSize(200);
 
     // record initial violations in /src/test/resources/archunit
     // ❌ FAILS for new violations 🔼
